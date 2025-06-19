@@ -38,22 +38,26 @@
         animation: riseIn 0.5s forwards;
         }
 
-        .word.id {
+        .word-id {
         animation-delay: 0.2s;
         color: #2563eb; 
         }
 
-        .word.maker {
+        .word-maker {
         animation-delay: 0.6s;
         color:#2563eb; 
         }
-
         @keyframes riseIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
         to {
             opacity: 1;
             transform: translateY(0);
         }
-    }
+        }
+            
 
     .sidebar-dropdown-menu {
     transition: all 0.3s ease;
@@ -67,10 +71,10 @@
             <div class="flex flex-col h-full">
              <div class="p-6 border-b border-gray-100 flex items-center">
                 <img src="assets/img/log.png" alt="Logo" style="width: 50px; margin-right: 10px;">
-                <div class="id-maker-animated">
-                    <span class="word id">ID</span>
-                    <span class="word maker">Maker</span>
-                </div>
+              <div class="id-maker-animated">
+                <span class="word word-id">ID</span>
+                <span class="word word-maker">Maker</span>
+              </div>
             </div>
                 <nav class="flex-1 py-4 overflow-y-auto custom-scrollbar">
                     <ul class="space-y-1 px-3">

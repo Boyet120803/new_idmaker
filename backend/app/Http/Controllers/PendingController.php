@@ -64,4 +64,28 @@ class PendingController extends Controller
                 ], 500);
             }
         }
-}
+
+
+          public function showid($student_id)
+            {
+                $pending = Pending::where('student_id', $student_id)->first();
+
+                if (!$pending) {
+                    return response()->json(['message' => 'Record not found'], 404);
+                }
+
+                return response()->json([
+                    'id' => $pending->id,
+                    'first_name' => $pending->first_name,
+                    'middle_name' => $pending->middle_name,
+                    'last_name' => $pending->last_name,
+                    'address' => $pending->address,
+                    'course' => $pending->course,
+                    'student_id' => $pending->student_id,
+                    'contact' => $pending->contact,
+                    'emergency_contact' => $pending->emergency_contact,
+                    'birth_date' => $pending->birth_date,
+                ]);
+            }
+        }
+

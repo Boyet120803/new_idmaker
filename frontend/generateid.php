@@ -198,7 +198,7 @@ main{
                             showConfirmButton: false
                         }).then(() => {
                             localStorage.removeItem("auth_token");
-                            window.location.href = "index.php"; // redirect to login
+                            window.location.href = "index.php"; 
                         });
                     })
                     .catch(error => {
@@ -332,7 +332,7 @@ document.getElementById("save_button").addEventListener("click", async () => {
     );
 
     if (!selectedStudent) {
-        return; // No redirect, no alert
+        return; 
     }
 
     const payload = {
@@ -365,7 +365,6 @@ document.getElementById("save_button").addEventListener("click", async () => {
         });
 
         if (response.ok || response.status === 409) {
-            // success or already exists — either way, redirect
             window.location.href = `editgenerateid.php?student_id=${studentId}`;
         } else {
             console.error("Save failed:", await response.json());

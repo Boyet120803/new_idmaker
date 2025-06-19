@@ -28,10 +28,10 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/complete',[CompletedController::class, 'index']);
     Route::get('/employeecomplete',[EmployeeCompleteController::class, 'index']);
     Route::post('/employee-store', [EmployeePendingController::class, 'store']);
+    Route::get('/pending/{student_id}', [PendingController::class, 'showid']);
 });
 
 Route::get('/student-list', [AuthController::class, 'list']);
-
 
 
 
