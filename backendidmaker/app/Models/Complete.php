@@ -20,8 +20,10 @@ class Complete extends Model
         'signature',
         'image',
         'qr_code' ,
+        'photo_position',
+        'signature_position'
     ];
-    
+
     protected $casts = [
         'emergency_contact' => 'array',
         'birth_date' => 'date',

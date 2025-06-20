@@ -1,13 +1,5 @@
-<?php  require_once ('admin-partials/header.php') ?>
-<?php  require_once ('admin-partials/sidebar.php') ?>
-<?php require_once ('admin-partials/js.php') ?>
-
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Notyf CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
-<!-- Notyf JS -->
-<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-       <!-- Main Content -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Main Content -->
         <main class="flex-1 ml-64">
             <!-- Header -->
             <header class="bg-white shadow-sm">
@@ -18,12 +10,13 @@
                                 <i class="ri-menu-line"></i>
                             </div>
                         </button>
+                       
                     </div>
                     <div class="flex items-center space-x-4">
                         <button class="relative text-gray-500 hover:text-gray-700">
                             <div class="w-6 h-6 flex items-center justify-center">
                                 <i class="ri-notification-3-line"></i>
-                            </div>
+                            </div>           
                         </button>
                         <div class="h-6 border-r border-gray-200"></div>
                    <div class="relative flex items-center space-x-2" id="user-dropdown-wrapper">
@@ -51,14 +44,58 @@
                 </div>
                 <div class="px-6 py-2 border-t border-gray-100">
                     <div class="flex items-center text-sm">
-                        <a href="#" class="text-gray-500 hover:text-primary">Student List</a>
+                        <a href="#" class="text-gray-500 hover:text-primary">Dashboard</a>
                         <div class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
                             <i class="ri-arrow-right-s-line"></i>
                         </div>
-                        <span class="text-gray-700">Page</span>
+                        <span class="text-gray-700">Overview</span>
                     </div>
                 </div>
-    </header>
+            </header>
+
+            <!-- Page Content -->
+            <div class="p-6">
+                <!-- Date and Actions -->
+                <div class="flex flex-wrap items-center justify-between mb-6">
+                    <div class="text-sm text-gray-500">
+                        <div class="flex items-center">
+                            <h1 class="text-2xl font-semibold text-gray-800">Dashboard</h1>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!--Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6 transition-all hover:shadow-md">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-gray-500 text-sm">ID</p>            
+                            </div>                        
+                        </div>                     
+                    </div>
+
+
+                    <div class="bg-white rounded-lg shadow-sm p-6 transition-all hover:shadow-md">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-gray-500 text-sm">ID</p>                            
+                            </div>                          
+                        </div>                     
+                    </div>
+
+                    <!-- New Customers -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 transition-all hover:shadow-md">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-gray-500 text-sm">ID</p>
+                            </div>                        
+                        </div>                  
+                    </div>             
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -66,9 +103,11 @@
         const dropdownMenu = document.getElementById("user-dropdown-menu");
 
         dropdownBtn.addEventListener("click", function (e) {
-            e.stopPropagation(); 
+            e.stopPropagation(); // prevent click from bubbling
             dropdownMenu.classList.toggle("hidden");
         });
+
+        // Close dropdown if clicked outside
         document.addEventListener("click", function (e) {
             const dropdownWrapper = document.getElementById("user-dropdown-wrapper");
             if (!dropdownWrapper.contains(e.target)) {
@@ -101,7 +140,7 @@
                         return;
                     }
 
-                    fetch("http://127.0.0.1:8000/api/logout", {
+                    fetch("http:/backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -139,7 +178,7 @@
 
         if (!token) return;
 
-        fetch("http://127.0.0.1:8000/api/profile", {
+        fetch("http://backendidmaker.test/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -156,8 +195,6 @@
         .catch(error => {
             console.error("Error fetching profile:", error);
         });
-    });
+        });
 
     </script>
-
-    

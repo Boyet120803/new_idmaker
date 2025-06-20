@@ -30,7 +30,7 @@ class PendingController extends Controller
                         return response()->json([
                             'message' => 'Student already exists.',
                             'student' => $existing
-                        ], 409); 
+                        ], 409);
                     }
 
                 $student = Pending::create([
@@ -85,7 +85,37 @@ class PendingController extends Controller
                     'contact' => $pending->contact,
                     'emergency_contact' => $pending->emergency_contact,
                     'birth_date' => $pending->birth_date,
+                    'qr_code' => $pending->qr_code,
                 ]);
             }
+
+            public function saveIdLayout(Request $request)
+{
+    $request->validate([
+        'student_id' => 'required|string',
+        'image' => 'required|array',
+        'signature' => 'required|array',
+    ]);
+
+    $pending = Pending::where('student_id', $request->student_id)->first();
+
+    if (!$pending) {
+        return response()->json(['message' => 'Record not found'], 404);
+    }
+
+    // Save layout as JSON (add columns in migration if needed)
+    $pending->photo_layout = json_encode($request->image);
+    $pending->signature_layout = json_encode($request->signature);
+
+    // Optionally, save the actual image data if you want to update the image/signature
+    // For now, just save the layout info
+
+    $pending->save();
+
+    return response()->json(['message' => 'ID layout saved successfully']);
+}
         }
+
+
+
 

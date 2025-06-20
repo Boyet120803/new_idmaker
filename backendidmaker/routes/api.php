@@ -29,6 +29,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/employeecomplete',[EmployeeCompleteController::class, 'index']);
     Route::post('/employee-store', [EmployeePendingController::class, 'store']);
     Route::get('/pending/{student_id}', [PendingController::class, 'showid']);
+    Route::post('/save-id-layout', [PendingController::class, 'saveIdLayout']);
+    Route::get('/completed/{student_id}', [CompletedController::class, 'show']);
+    Route::post('/completed', [CompletedController::class, 'store']);
 });
 
 Route::get('/student-list', [AuthController::class, 'list']);

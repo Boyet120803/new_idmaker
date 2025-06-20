@@ -31,9 +31,6 @@
   opacity: 0;
   transition: opacity .3s;
 }
-main{
-     
-}
 
 </style>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -178,7 +175,7 @@ main{
                         return;
                     }
 
-                    fetch("http://127.0.0.1:8000/api/logout", {
+                    fetch("http://backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -216,7 +213,7 @@ main{
 
         if (!token) return;
 
-        fetch("http://127.0.0.1:8000/api/profile", {
+        fetch("http://backendidmaker.test/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -303,9 +300,10 @@ input.addEventListener("input", function () {
                     document.getElementById("template_id").textContent = `ID: ${match.student_id}`;
                     document.getElementById("template_course").textContent = `Course: ${selectedStudent.course?.description || "N/A"}`;
                     document.getElementById("qr_image").src = selectedStudent.qr_code || "";
-                    document.getElementById("template_address").textContent = `Address: ${selectedStudent.full_address || "—"}`;
+                    document.getElementById("template_address").textContent = `Address: ${selectedStudent.address?.barangay || "—"}, ${selectedStudent.address?.municipality || ""}`;
                     document.getElementById("template_birthdate").textContent = `Birthdate: ${selectedStudent.birthdate || "—"}`;
-                    document.getElementById("template_contact").textContent = `Contact #: ${selectedStudent.contact_number || "—"}`;
+                    document.getElementById("template_contact").textContent = `Contact #: ${selectedStudent.contact_number || "—"}`;    
+                    
                 }
             });
 
@@ -339,7 +337,7 @@ document.getElementById("save_button").addEventListener("click", async () => {
         first_name: selectedStudent.first_name,
         last_name: selectedStudent.last_name,
         middle_name: selectedStudent.middle_name,
-        address: selectedStudent.full_address || "—",
+        address: `${selectedStudent.address?.barangay || "—"}, ${selectedStudent.address?.municipality || ""}`,
         course: selectedStudent.course?.description || "N/A",
         student_id: studentId,
         contact: selectedStudent.contact_number || "—",
@@ -354,7 +352,7 @@ document.getElementById("save_button").addEventListener("click", async () => {
     };
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/api/store", {
+        const response = await fetch("http://backendidmaker.test/api/store", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
