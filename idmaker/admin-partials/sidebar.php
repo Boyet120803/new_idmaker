@@ -147,23 +147,6 @@
                             </ul>
                         </div>
                         </li>
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-md">
-                                <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                    <i class="ri-user-line"></i>
-                                </div>
-                                <span>Users</span>
-                            </a>
-                        </li>
-                     
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center px-4 py-3 text-gray-700 rounded-md">
-                                <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                    <i class="ri-settings-line"></i>
-                                </div>
-                                <span>Settings</span>
-                            </a>
-                        </li>
                     </ul>
                 </nav>              
             </div>

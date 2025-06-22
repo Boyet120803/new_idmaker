@@ -431,81 +431,93 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-let employeeData = [];
+      let employeeData = [];
 
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("https://api-portal.mlgcl.edu.ph/api/external/employee-list", {
-        method: "GET",
-        headers: {
-            "x-api-key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOiJodHRwOi8vaWRtYWtlci50ZXN0IiwiaWF0IjoxNzMzMjMxMTU5LCJuYmYiOm51bGx9.T-m6B0towMc0NerWVHHk7zgueno-Cb-N5YHZ3sT2-dY",
+    document.addEventListener("DOMContentLoaded", async function () 
+    {
+        const apiKey = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOiJodHRwOi8vaWRtYWtlci50ZXN0IiwiaWF0IjoxNzMzMjMxMTU5LCJuYmYiOm51bGx9.T-m6B0towMc0NerWVHHk7zgueno-Cb-N5YHZ3sT2-dY";
+        const headers = {
+            "x-api-key": apiKey,
             "Origin": "http://idmaker.test",
             "Content-Type": "application/json"
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        employeeData = Array.isArray(data) ? data : data.data || [];
-    })
-    .catch(error => console.error("Fetch error:", error));
-});
+        };
 
-const input = document.getElementById("employee_name");
-const dropdown = document.getElementById("employee_dropdown");
+        let currentPage = 1;
+        let lastPage = 1;
 
-input.addEventListener("input", function () {
-    const value = input.value.trim().toLowerCase();
-    dropdown.innerHTML = "";
-    dropdown.classList.add("hidden");
-
-    if (value.length < 2) return;
-
-    const matches = employeeData.filter(emp => {
-        const fullName = `${emp.first_name} ${emp.middle_name || ''} ${emp.last_name}`.toLowerCase();
-        return fullName.includes(value);
-    });
-
-    if (matches.length > 0) {
-        matches.slice(0, 10).forEach(emp => {
-            const li = document.createElement("li");
-            const fullName = `${emp.first_name} ${emp.middle_name || ''} ${emp.last_name}`;
-            li.textContent = fullName;
-            li.className = "px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm";
-
-            li.addEventListener("click", () => {
-                input.value = fullName;
-                dropdown.innerHTML = "";
-                dropdown.classList.add("hidden");
-
-                document.getElementById("id_template").classList.remove("hidden");
-
-                document.getElementById("template_name").textContent = fullName;
-                document.getElementById("template_address").textContent = `Address: ${emp.full_address || '—'}`;
-                document.getElementById("template_birthdate").textContent = `Birthdate: ${emp.birthdate || '—'}`;
-                document.getElementById("template_contact").textContent = `Contact #: ${emp.contact_number || '—'}`;
-                document.getElementById("qr_image").src = emp.qr_code || '';
-
-                // Store selected for save button
-                input.dataset.selectedEmployee = JSON.stringify(emp);
-            });
-
-            dropdown.appendChild(li);
+        while (currentPage <= lastPage) {
+            const url = `https://api-portal.mlgcl.edu.ph/api/external/employee-list?page=${currentPage}`;
+            try {
+                    const response = await fetch(url, { method: "GET", headers });
+                    const result = await response.json();
+                    const data = result.data || [];
+                    employeeData.push(...data);
+                console.log("Total employees fetched:", employeeData.length);
+                    lastPage = result.meta?.last_page || 1;
+                    currentPage++;
+                } catch (error) {
+                    console.error("Fetch error:", error);
+                    break;
+                }
+            }
         });
 
-        dropdown.classList.remove("hidden");
-    }
-});
+        const input = document.getElementById("employee_name");
+        const dropdown = document.getElementById("employee_dropdown");
 
-document.addEventListener("click", function (e) {
-    if (!input.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.add("hidden");
-    }
-});
+        input.addEventListener("input", function () {
+            const value = input.value.trim().toLowerCase();
+            dropdown.innerHTML = "";
+            dropdown.classList.add("hidden");
 
-const notyf = new Notyf({
-  duration: 3000,
-  position: { x: 'right', y: 'top' }
-});
-document.getElementById("save_button").addEventListener("click", async () => {
+        if (value.length < 2) return;
+
+        const matches = employeeData.filter(emp => {
+            const fullName = `${emp.first_name} ${emp.middle_name || ''} ${emp.last_name}`.toLowerCase();
+            return fullName.includes(value);
+        });
+
+        if (matches.length > 0) {
+            matches.slice(0, 10).forEach(emp => {
+                const li = document.createElement("li");
+                const fullName = `${emp.first_name} ${emp.middle_name || ''} ${emp.last_name}`;
+                li.textContent = fullName;
+                li.className = "px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm";
+
+                li.addEventListener("click", () => {
+                    input.value = fullName;
+                    dropdown.innerHTML = "";
+                    dropdown.classList.add("hidden");
+
+                    document.getElementById("id_template").classList.remove("hidden");
+
+                    document.getElementById("template_name").textContent = fullName;
+                    document.getElementById("template_address").textContent = `Address: ${emp.full_address || '—'}`;
+                    document.getElementById("template_birthdate").textContent = `Birthdate: ${emp.birthdate || '—'}`;
+                    document.getElementById("template_contact").textContent = `Contact #: ${emp.contact_number || '—'}`;
+                    document.getElementById("qr_image").src = emp.qr_code || '';
+
+                    input.dataset.selectedEmployee = JSON.stringify(emp);
+                });
+
+                dropdown.appendChild(li);
+            });
+
+            dropdown.classList.remove("hidden");
+        }
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.classList.add("hidden");
+        }
+    });
+
+    const notyf = new Notyf({
+    duration: 3000,
+    position: { x: 'right', y: 'top' }
+    });
+    document.getElementById("save_button").addEventListener("click", async () => {
     const input = document.getElementById("employee_name"); 
     const dataStr = input.dataset.selectedEmployee;
     const employeeIdInput = document.getElementById("employee_id").value.trim();
@@ -552,7 +564,7 @@ document.getElementById("save_button").addEventListener("click", async () => {
         if (response.ok) {
             window.location.href = `employeegenerateedit.php?name=${emp.first_name}`;
         } else {
-            console.error("🚨 Save failed:");
+            console.error("Save failed:");
             console.error("Status:", response.status);
             console.error("Status Text:", response.statusText);
             console.error("Response:", result);
@@ -562,7 +574,8 @@ document.getElementById("save_button").addEventListener("click", async () => {
         console.error("🔥 Fetch crashed (probably no connection to server):");
         console.error(error);
     }
-});
+   });
+
 </script>
 
 

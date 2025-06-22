@@ -26,6 +26,10 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/store', [PendingController::class, 'store']);
     Route::get('/complete',[CompletedController::class, 'index']);
+    Route::post('/profile-edit/{id}', [UserController::class, 'update']);
+    Route::get('/profile-show', function (Request $request) {
+        return $request->user();
+    });
     Route::get('/employeecomplete',[EmployeeCompleteController::class, 'index']);
     Route::post('/employee-store', [EmployeePendingController::class, 'store']);
     Route::get('/pending/{student_id}', [PendingController::class, 'showid']);

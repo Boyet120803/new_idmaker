@@ -215,7 +215,11 @@
           {
             type: 'success',
             background: '#4BB543',
-            icon: false
+            icon: {
+              className: 'ri-checkbox-circle-line', 
+              tagName: 'i',
+              color: 'white'
+            }
           }
         ]
       });

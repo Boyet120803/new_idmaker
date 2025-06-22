@@ -1,69 +1,67 @@
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Notyf CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
-<!-- Notyf JS -->
-<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script> 
 <style>
     .input-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+    position: relative;
+    display: flex;
+    align-items: center;
+    }
 
-.input {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  padding: 18px 16px;
-  background-color: transparent;
-  cursor: pointer;
-  transition: all .5s ease-in-out;
-}
+    .input {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 18px 16px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    }
 
-.input::placeholder {
-  color: transparent;
-}
+    .input::placeholder {
+    color: transparent;
+    }
 
-.input:focus::placeholder,
-.input:not(:placeholder-shown)::placeholder {
-  color: rgb(131, 128, 128);
-}
+    .input:focus::placeholder,
+    .input:not(:placeholder-shown)::placeholder {
+    color: rgb(131, 128, 128);
+    }
 
-.input:focus,
-.input:not(:placeholder-shown) {
-  background-color: #fff;
-  border:none;
-  width: 290px;
-  cursor: text;
-  padding: 18px 16px 18px 45px;
-}
+    .input:focus,
+    .input:not(:placeholder-shown) {
+    background-color: #fff;
+    border:none;
+    width: 290px;
+    cursor: text;
+    padding: 18px 16px 18px 45px;
+    }
 
-.icon {
-  position: absolute;
-  left: 0;
-  height: 45px;
-  width: 45px;
-  background-color: #fff;
-  border-radius: 99px;
-  z-index: -1;
-  fill: rgb(91, 107, 255);
-  border: 1px solid rgb(91, 107, 255);
-  pointer-events: none;
-}
+    .icon {
+    position: absolute;
+    left: 0;
+    height: 45px;
+    width: 45px;
+    background-color: #fff;
+    border-radius: 99px;
+    z-index: -1;
+    fill: rgb(91, 107, 255);
+    border: 1px solid rgb(91, 107, 255);
+    pointer-events: none;
+    }
 
-.input:focus + .icon,
-.input:not(:placeholder-shown) + .icon {
-  z-index: 0;
-  background-color: transparent;
-  border: none;
-}
+    .input:focus + .icon,
+    .input:not(:placeholder-shown) + .icon {
+    z-index: 0;
+    background-color: transparent;
+    border: none;
+    }
 
 </style>
-       <!-- Main Content -->
         <main class="flex-1 ml-64">
-            <!-- Header -->
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-6 py-4">
                     <div class="flex items-center">
@@ -72,12 +70,13 @@
                                 <i class="ri-menu-line"></i>
                             </div>
                         </button>
+                       
                     </div>
                     <div class="flex items-center space-x-4">
                         <button class="relative text-gray-500 hover:text-gray-700">
                             <div class="w-6 h-6 flex items-center justify-center">
                                 <i class="ri-notification-3-line"></i>
-                            </div>
+                            </div>           
                         </button>
                         <div class="h-6 border-r border-gray-200"></div>
                    <div class="relative flex items-center space-x-2" id="user-dropdown-wrapper">
@@ -88,11 +87,11 @@
                     </button>
                     <div id="user-dropdown-menu"
                         class="absolute right-0 mt-12 w-40 bg-white rounded-md shadow-lg border border-gray-200 hidden z-10 overflow-hidden transition-all duration-300 ease-in-out">
-                       <a href="#"
+                     <a href="" id="openProfileModal"
                         class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200">
-                            <i class="ri-user-line mr-2 text-base"></i>
-                            Profile
-                        </a>
+                        <i class="ri-user-line mr-2 text-base"></i>
+                        Profile
+                     </a>
                        <a href="#"
                         id="logout-btn"
                         class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200">
@@ -105,7 +104,7 @@
                 </div>
                 <div class="px-6 py-2 border-t border-gray-100">
                     <div class="flex items-center text-sm">
-                        <a href="#" class="text-gray-500 hover:text-primary">Employee List</a>
+                        <a href="#" class="text-gray-500 hover:text-primary">Student List</a>
                         <div class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
                             <i class="ri-arrow-right-s-line"></i>
                         </div>
@@ -119,8 +118,6 @@
                       
                     </div>
              <div class="relative">
-                   <!-- Search Bar -->
-               <!-- Modern Animated Input for Employee Search -->
                 <div class="input-container">
                 <input
                     type="text"
@@ -168,9 +165,55 @@
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
 
+  <!-- modal -->
+        <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden opacity-0 transition-opacity duration-300">
+            <div id="profileModalContent" class="relative bg-white w-[500px] max-h-[90vh] overflow-y-auto p-8 rounded shadow-lg transform scale-95 transition-transform duration-300">
+             <div id="modalLoadingBar"
+                class="absolute top-0 left-0 h-1 bg-blue-600 transition-all duration-700 ease-out rounded-r"
+                style="width: 0;">
+            </div>
+                <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
+                <form id="updateProfileForm">
+            <div class="space-y-4">
+            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md border:1px solid;">
+                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                <path d="M5 13l4 4L19 7" />
+                </svg>
+                <input type="text" id="first_name" name="first_name" class="flex-1 focus:outline-none" placeholder="First Name" />
+            </div>
+            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                <path d="M5 13l4 4L19 7" />
+                </svg>
+                <input type="text" id="middle_name" name="middle_name" class="flex-1 focus:outline-none" placeholder="Middle Name" />
+            </div>
+            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                <path d="M5 13l4 4L19 7" />
+                </svg>
+                <input type="text" id="last_name" name="last_name" class="flex-1 focus:outline-none" placeholder="Last Name" />
+            </div>
+            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <path d="M22 6l-10 7L2 6" />
+                </svg>
+                <input type="email" id="email" name="email" class="flex-1 focus:outline-none" placeholder="Email" />
+            </div>
+        </div>
+            <div class="text-right mt-3">
+                <button type="button" id="changePasswordBtn" class="text-sm text-blue-600 hover:underline">Change Password</button>
+            </div>
+
+            <div class="text-right mt-5 space-x-2">
+                <button type="button" id="closeProfileModal" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Update</button>
+            </div>
+            </form>
+        </div>
+        </div>
+        </main>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
         const dropdownBtn = document.getElementById("user-dropdown-btn");
@@ -282,10 +325,8 @@ const notyf = new Notyf({
         const searchInput = document.getElementById("search-employee-id");
         const token = localStorage.getItem("auth_token");
 
-        let employees = []; // Global array to store all data
-
-        // Fetch employee data
-        fetch("backendidmaker.test/api/employeecomplete", {
+        let employees = [];
+        fetch("http://backendidmaker.test/api/employeecomplete", {
             headers: {
                 "Accept": "application/json",
                 "Authorization": "Bearer " + token
@@ -298,17 +339,15 @@ const notyf = new Notyf({
             return response.json();
         })
         .then(data => {
-            employees = data; // Save to global
-            renderTable(employees); // Display data
+            employees = data; 
+            renderTable(employees);
         })
         .catch(error => {
             console.error("Error loading employee data:", error);
             tableBody.innerHTML = `<tr><td colspan="4" class="py-4 px-4 text-red-500">Failed to load data.</td></tr>`;
         });
-
-        // Render table function
         function renderTable(data) {
-            tableBody.innerHTML = ""; // Clear old rows
+            tableBody.innerHTML = "";
 
             data.forEach(employee => {
                 const row = document.createElement("tr");
@@ -328,7 +367,6 @@ const notyf = new Notyf({
             }
         }
 
-        // Live search
         searchInput.addEventListener("input", (e) => {
             const searchTerm = e.target.value.toLowerCase();
             const filtered = employees.filter(emp =>
@@ -337,7 +375,108 @@ const notyf = new Notyf({
             renderTable(filtered);
         });
     });
-   
+   //modal
+        const modal = document.getElementById("profileModal");
+        const modalContent = document.getElementById("profileModalContent");
+
+        document.getElementById("openProfileModal").addEventListener("click", function (e) 
+     {
+            e.preventDefault();
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+            modal.classList.add("opacity-100");
+            modalContent.classList.add("scale-100");
+            modalContent.classList.remove("scale-95");
+            }, 10);
+        });
+
+        document.getElementById("closeProfileModal").addEventListener("click", function () {
+            modal.classList.remove("opacity-100");
+            modalContent.classList.remove("scale-100");
+            modalContent.classList.add("scale-95");
+
+            setTimeout(() => {
+            modal.classList.add("hidden");
+            }, 300); 
+     });
+
+     const token = localStorage.getItem("auth_token");
+        fetch(`http://backendidmaker.test/api/profile-show`, 
+    {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(user => {
+            localStorage.setItem("id", user.id);
+            document.getElementById("first_name").value = user.first_name;
+            document.getElementById("middle_name").value = user.middle_name;
+            document.getElementById("last_name").value = user.last_name;
+            document.getElementById("email").value = user.email;
+        })
+        .catch(error => {
+            console.error("Failed to fetch user:", error);
+            alert("Failed to load profile.");
+    });
+
+    function showLoadingBar() 
+    {
+        const bar = document.getElementById("modalLoadingBar");
+        bar.style.width = "0";
+        void bar.offsetWidth;
+        bar.style.width = "100%";
+        bar.addEventListener("transitionend", function handleTransition() {
+            bar.removeEventListener("transitionend", handleTransition);
+            document.getElementById("closeProfileModal").click();
+            notyf.success("Profile updated successfully!");
+            setTimeout(() => {
+                location.reload();
+            }, 1200);
+        });
+    }
+    function hideLoadingBar() 
+    {
+      const bar = document.getElementById("modalLoadingBar");
+      bar.style.width = "0";
+    }
+    
+   document.getElementById("updateProfileForm").addEventListener("submit", function (e) 
+    {
+        e.preventDefault();
+        const token = localStorage.getItem("auth_token");
+        const userId = localStorage.getItem("id");
+
+        const data = {
+            first_name: document.getElementById("first_name").value,
+            middle_name: document.getElementById("middle_name").value,
+            last_name: document.getElementById("last_name").value,
+            email: document.getElementById("email").value,
+        };
+
+        fetch(`http://backendidmaker.test/api/profile-edit/${userId}`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {
+            if (!res.ok) return res.json().then(err => { throw err; });
+            return res.json();
+        })
+        .then(response => {
+            showLoadingBar(); 
+        })
+        .catch(error => {
+            console.error("Update failed:", error);
+            hideLoadingBar(); 
+        });
+    });
 
 </script>
 

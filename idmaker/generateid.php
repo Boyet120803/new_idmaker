@@ -1,7 +1,9 @@
 <?php  require_once ('admin-partials/header.php') ?>
 <?php  require_once ('admin-partials/sidebar.php') ?>
 <?php require_once ('admin-partials/js.php') ?>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script> 
 <style>
 .input {
   line-height: 28px;
@@ -36,9 +38,7 @@
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-       <!-- Main Content -->
-        <main class="flex-1 ml-64">
-            <!-- Header -->
+  <main class="flex-1 ml-64">
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-6 py-4">
                     <div class="flex items-center">
@@ -47,13 +47,13 @@
                                 <i class="ri-menu-line"></i>
                             </div>
                         </button>
+                       
                     </div>
                     <div class="flex items-center space-x-4">
                         <button class="relative text-gray-500 hover:text-gray-700">
                             <div class="w-6 h-6 flex items-center justify-center">
                                 <i class="ri-notification-3-line"></i>
-          
-                            </div>
+                            </div>           
                         </button>
                         <div class="h-6 border-r border-gray-200"></div>
                    <div class="relative flex items-center space-x-2" id="user-dropdown-wrapper">
@@ -64,11 +64,11 @@
                     </button>
                     <div id="user-dropdown-menu"
                         class="absolute right-0 mt-12 w-40 bg-white rounded-md shadow-lg border border-gray-200 hidden z-10 overflow-hidden transition-all duration-300 ease-in-out">
-                       <a href="#"
+                     <a href="" id="openProfileModal"
                         class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200">
-                            <i class="ri-user-line mr-2 text-base"></i>
-                            Profile
-                        </a>
+                        <i class="ri-user-line mr-2 text-base"></i>
+                        Profile
+                     </a>
                        <a href="#"
                         id="logout-btn"
                         class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200">
@@ -81,13 +81,60 @@
                 </div>
                 <div class="px-6 py-2 border-t border-gray-100">
                     <div class="flex items-center text-sm">
-                        <a href="#" class="text-gray-500 hover:text-primary">Generate ID</a>
+                        <a href="#" class="text-gray-500 hover:text-primary">Student List</a>
                         <div class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
                             <i class="ri-arrow-right-s-line"></i>
                         </div>
                         <span class="text-gray-700">Page</span>
                     </div>
                 </div>
+                      <!-- modal -->
+          <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden opacity-0 transition-opacity duration-300">
+                <div id="profileModalContent" class="relative bg-white w-[500px] max-h-[90vh] overflow-y-auto p-8 rounded shadow-lg transform scale-95 transition-transform duration-300">
+                <div id="modalLoadingBar"
+                    class="absolute top-0 left-0 h-1 bg-blue-600 transition-all duration-700 ease-out rounded-r"
+                    style="width: 0;">
+                </div>
+                    <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
+                    <form id="updateProfileForm">
+                <div class="space-y-4">
+                <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md border:1px solid;">
+                    <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                    <path d="M5 13l4 4L19 7" />
+                    </svg>
+                    <input type="text" id="first_name" name="first_name" class="flex-1 focus:outline-none" placeholder="First Name" />
+                </div>
+                <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                    <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                    <path d="M5 13l4 4L19 7" />
+                    </svg>
+                    <input type="text" id="middle_name" name="middle_name" class="flex-1 focus:outline-none" placeholder="Middle Name" />
+                </div>
+                <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                    <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                    <path d="M5 13l4 4L19 7" />
+                    </svg>
+                    <input type="text" id="last_name" name="last_name" class="flex-1 focus:outline-none" placeholder="Last Name" />
+                </div>
+                <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                    <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <path d="M22 6l-10 7L2 6" />
+                    </svg>
+                    <input type="email" id="email" name="email" class="flex-1 focus:outline-none" placeholder="Email" />
+                </div>
+            </div>
+                <div class="text-right mt-3">
+                    <button type="button" id="changePasswordBtn" class="text-sm text-blue-600 hover:underline">Change Password</button>
+                </div>
+
+                <div class="text-right mt-5 space-x-2">
+                    <button type="button" id="closeProfileModal" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Update</button>
+                </div>
+                </form>
+            </div>
+            </div>
             </header>
             <div class="p-4 relative mt-1 flex justify-end">
                 <div class="mb-4">
@@ -235,27 +282,38 @@
 
 let studentData = [];
 
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("https://api-portal.mlgcl.edu.ph/api/external/student-list", {
-        method: "GET",
-        headers: {
-            "x-api-key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOiJodHRwOi8vaWRtYWtlci50ZXN0IiwiaWF0IjoxNzMzMjMxMTU5LCJuYmYiOm51bGx9.T-m6B0towMc0NerWVHHk7zgueno-Cb-N5YHZ3sT2-dY",
-            "Origin": "http://idmaker.test",
-            "Content-Type": "application/json"
+document.addEventListener("DOMContentLoaded", async function () 
+{
+    const headers = {
+        "x-api-key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOiJodHRwOi8vaWRtYWtlci50ZXN0IiwiaWF0IjoxNzMzMjMxMTU5LCJuYmYiOm51bGx9.T-m6B0towMc0NerWVHHk7zgueno-Cb-N5YHZ3sT2-dY",
+        "Origin": "http://idmaker.test",
+        "Content-Type": "application/json"
+    };
+
+    const totalPages = 34; 
+    let allStudents = [];
+
+    for (let page = 1; page <= totalPages; page++) {
+        try {
+            const response = await fetch(`https://api-portal.mlgcl.edu.ph/api/external/student-list?page=${page}`, {
+                method: "GET",
+                headers
+            });
+            const result = await response.json();
+            const pageData = result.data || [];
+            allStudents.push(...pageData);
+        } catch (error) {
+            console.error(`Error fetching page ${page}:`, error);
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        studentData = Array.isArray(data) ? data : data.data || [];
-    })
-    .catch(error => console.error("Fetch error:", error));
-});
+    }
+    studentData = allStudents;
+    });
 
-const input = document.getElementById("student_id");
-const dropdown = document.getElementById("student_dropdown");
-const nameDisplay = document.getElementById("student_name");
+    const input = document.getElementById("student_id");
+    const dropdown = document.getElementById("student_dropdown");
+    const nameDisplay = document.getElementById("student_name");
 
-input.addEventListener("input", function () {
+    input.addEventListener("input", function () {
     const value = input.value.trim().toLowerCase();
     dropdown.innerHTML = "";
     dropdown.classList.add("hidden");
@@ -281,10 +339,9 @@ input.addEventListener("input", function () {
             const li = document.createElement("li");
             li.textContent = match.displayName;
             li.className = "px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm";
-      
+
             li.addEventListener("click", () => {
                 input.value = match.student_id;
-        
                 dropdown.innerHTML = "";
                 dropdown.classList.add("hidden");
 
@@ -309,6 +366,7 @@ input.addEventListener("input", function () {
 
             dropdown.appendChild(li);
         });
+
         dropdown.classList.remove("hidden");
     }
 });
@@ -372,6 +430,118 @@ document.getElementById("save_button").addEventListener("click", async () => {
         console.error("Server error:", error);
     }
 });
+
+
+//modal
+        const modal = document.getElementById("profileModal");
+        const modalContent = document.getElementById("profileModalContent");
+
+        document.getElementById("openProfileModal").addEventListener("click", function (e) 
+     {
+            e.preventDefault();
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+            modal.classList.add("opacity-100");
+            modalContent.classList.add("scale-100");
+            modalContent.classList.remove("scale-95");
+            }, 10);
+        });
+
+        document.getElementById("closeProfileModal").addEventListener("click", function () {
+            modal.classList.remove("opacity-100");
+            modalContent.classList.remove("scale-100");
+            modalContent.classList.add("scale-95");
+
+            setTimeout(() => {
+            modal.classList.add("hidden");
+            }, 300); 
+     });
+    const notyf = new Notyf(
+    {
+        duration: 2000,
+        position: {
+            x: 'right',
+            y: 'top',
+        }
+    });
+
+     const token = localStorage.getItem("auth_token");
+        fetch(`http://backendidmaker.test/api/profile-show`, 
+    {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(user => {
+            localStorage.setItem("id", user.id);
+            document.getElementById("first_name").value = user.first_name;
+            document.getElementById("middle_name").value = user.middle_name;
+            document.getElementById("last_name").value = user.last_name;
+            document.getElementById("email").value = user.email;
+        })
+        .catch(error => {
+            console.error("Failed to fetch user:", error);
+            alert("Failed to load profile.");
+    });
+
+    function showLoadingBar() 
+    {
+        const bar = document.getElementById("modalLoadingBar");
+        bar.style.width = "0";
+        void bar.offsetWidth;
+        bar.style.width = "100%";
+        bar.addEventListener("transitionend", function handleTransition() {
+            bar.removeEventListener("transitionend", handleTransition);
+            document.getElementById("closeProfileModal").click();
+            notyf.success("Profile updated successfully!");
+            setTimeout(() => {
+                location.reload();
+            }, 1200);
+        });
+    }
+    function hideLoadingBar() 
+    {
+      const bar = document.getElementById("modalLoadingBar");
+      bar.style.width = "0";
+    }
+    
+   document.getElementById("updateProfileForm").addEventListener("submit", function (e) 
+    {
+        e.preventDefault();
+        const token = localStorage.getItem("auth_token");
+        const userId = localStorage.getItem("id");
+
+        const data = {
+            first_name: document.getElementById("first_name").value,
+            middle_name: document.getElementById("middle_name").value,
+            last_name: document.getElementById("last_name").value,
+            email: document.getElementById("email").value,
+        };
+
+        fetch(`http://backendidmaker.test/api/profile-edit/${userId}`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {
+            if (!res.ok) return res.json().then(err => { throw err; });
+            return res.json();
+        })
+        .then(response => {
+            showLoadingBar(); 
+        })
+        .catch(error => {
+            console.error("Update failed:", error);
+            hideLoadingBar(); 
+        });
+    });
 </script>
 
 
