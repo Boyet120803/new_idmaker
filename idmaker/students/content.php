@@ -3,63 +3,63 @@
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script> 
 <style>
     .input-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+    position: relative;
+    display: flex;
+    align-items: center;
+    }
 
-.input {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  padding: 18px 16px;
-  background-color: transparent;
-  cursor: pointer;
-  transition: all 0.5s ease-in-out;
-}
+    .input {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 18px 16px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    }
 
-.input::placeholder {
-  color: transparent;
-}
+    .input::placeholder {
+    color: transparent;
+    }
 
-.input:focus::placeholder,
-.input:not(:placeholder-shown)::placeholder {
-  color: rgb(131, 128, 128);
-}
+    .input:focus::placeholder,
+    .input:not(:placeholder-shown)::placeholder {
+    color: rgb(131, 128, 128);
+    }
 
-.input:focus,
-.input:not(:placeholder-shown) {
-  background-color: #fff;
-  border: black;
-  width: 290px;
-  padding: 18px 16px 18px 45px;
-  cursor: text;
-}
+    .input:focus,
+    .input:not(:placeholder-shown) {
+    background-color: #fff;
+    border: black;
+    width: 290px;
+    padding: 18px 16px 18px 45px;
+    cursor: text;
+    }
 
-.icon {
-  position: absolute;
-  left: 0;
-  height: 45px;
-  width: 45px;
-  background-color: #fff;
-  border-radius: 99px;
-  z-index: -1;
-  fill: rgb(80, 80, 255);
-  border: 1px solid rgb(32, 32, 255);
-  pointer-events: none;
-}
+    .icon {
+    position: absolute;
+    left: 0;
+    height: 45px;
+    width: 45px;
+    background-color: #fff;
+    border-radius: 99px;
+    z-index: -1;
+    fill: rgb(80, 80, 255);
+    border: 1px solid rgb(32, 32, 255);
+    pointer-events: none;
+    }
 
-.input:focus + .icon,
-.input:not(:placeholder-shown) + .icon {
-  z-index: 0;
-  background-color: transparent;
-  border: none;
-}
+    .input:focus + .icon,
+    .input:not(:placeholder-shown) + .icon {
+    z-index: 0;
+    background-color: transparent;
+    border: none;
+    }
 
 </style>
-        <main class="flex-1 ml-64">
+            <main class="flex-1 ml-64">
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-6 py-4">
                     <div class="flex items-center">
@@ -68,13 +68,14 @@
                                 <i class="ri-menu-line"></i>
                             </div>
                         </button>
+                       
                     </div>
                     <div class="flex items-center space-x-4">
                         <button class="relative text-gray-500 hover:text-gray-700">
                             <div class="w-6 h-6 flex items-center justify-center">
                                 <i class="ri-notification-3-line"></i>
-                            </div>              
-                        </button>                     
+                            </div>           
+                        </button>
                         <div class="h-6 border-r border-gray-200"></div>
                    <div class="relative flex items-center space-x-2" id="user-dropdown-wrapper">
                   <span class="text-sm font-medium" id="fullName">Loading...</span>
@@ -84,11 +85,11 @@
                     </button>
                     <div id="user-dropdown-menu"
                         class="absolute right-0 mt-12 w-40 bg-white rounded-md shadow-lg border border-gray-200 hidden z-10 overflow-hidden transition-all duration-300 ease-in-out">
-                       <a href="#"
+                     <a href="" id="openProfileModal"
                         class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200">
-                            <i class="ri-user-line mr-2 text-base"></i>
-                            Profile
-                        </a>
+                        <i class="ri-user-line mr-2 text-base"></i>
+                        Profile
+                     </a>
                        <a href="#"
                         id="logout-btn"
                         class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200">
@@ -165,6 +166,53 @@
               
             </div>
             </div>
+              <!-- modal -->
+        <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden opacity-0 transition-opacity duration-300">
+            <div id="profileModalContent" class="relative bg-white w-[500px] max-h-[90vh] overflow-y-auto p-8 rounded shadow-lg transform scale-95 transition-transform duration-300">
+             <div id="modalLoadingBar"
+                class="absolute top-0 left-0 h-1 bg-blue-600 transition-all duration-700 ease-out rounded-r"
+                style="width: 0;">
+            </div>
+                <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
+                <form id="updateProfileForm">
+            <div class="space-y-4">
+            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md border:1px solid;">
+                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                <path d="M5 13l4 4L19 7" />
+                </svg>
+                <input type="text" id="first_name" name="first_name" class="flex-1 focus:outline-none" placeholder="First Name" />
+            </div>
+            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                <path d="M5 13l4 4L19 7" />
+                </svg>
+                <input type="text" id="middle_name" name="middle_name" class="flex-1 focus:outline-none" placeholder="Middle Name" />
+            </div>
+            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                <path d="M5 13l4 4L19 7" />
+                </svg>
+                <input type="text" id="last_name" name="last_name" class="flex-1 focus:outline-none" placeholder="Last Name" />
+            </div>
+            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <path d="M22 6l-10 7L2 6" />
+                </svg>
+                <input type="email" id="email" name="email" class="flex-1 focus:outline-none" placeholder="Email" />
+            </div>
+        </div>
+            <div class="text-right mt-3">
+                <button type="button" id="changePasswordBtn" class="text-sm text-blue-600 hover:underline">Change Password</button>
+            </div>
+
+            <div class="text-right mt-5 space-x-2">
+                <button type="button" id="closeProfileModal" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Update</button>
+            </div>
+            </form>
+        </div>
+        </div>
         </main>
     </div>
 
@@ -209,7 +257,7 @@
                         return;
                     }
 
-                    fetch("backendidmaker.test/api/logout", {
+                    fetch("http://backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -267,17 +315,18 @@
     });
 
 
-const notyf = new Notyf({
-  duration: 3000,
-  position: { x: 'right', y: 'top' }
-});
-   
-
- document.addEventListener("DOMContentLoaded", async () => {
+ document.addEventListener("DOMContentLoaded", async () =>
+{
     const tableBody = document.getElementById("student-table-body");
     const searchInput = document.getElementById("search-student-id");
 
+    const prevBtn = document.getElementById("prev-page");
+    const nextBtn = document.getElementById("next-page");
+    const pageInfo = document.getElementById("page-info");
+
     let allStudents = [];
+    let currentPage = 1;
+    const rowsPerPage = 14;
 
     try {
         const response = await fetch("http://backendidmaker.test/api/complete", {
@@ -293,17 +342,23 @@ const notyf = new Notyf({
         }
 
         allStudents = await response.json();
-        renderTable(allStudents);
+        renderPaginatedTable(allStudents);
     } catch (error) {
         console.error("Error loading student data:", error);
     }
-    searchInput.addEventListener("input", () => {
-        const keyword = searchInput.value.trim().toLowerCase();
-        const filtered = allStudents.filter(student =>
-            student.student_id && student.student_id.toLowerCase().includes(keyword)
-        );
-        renderTable(filtered);
-    });
+
+    function renderPaginatedTable(data) {
+        const totalPages = Math.ceil(data.length / rowsPerPage);
+        currentPage = Math.min(currentPage, totalPages);
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = data.slice(start, end);
+
+        renderTable(paginatedData);
+        updatePaginationInfo(currentPage, totalPages);
+    }
+
     function renderTable(data) {
         tableBody.innerHTML = "";
         data.forEach(student => {
@@ -311,17 +366,164 @@ const notyf = new Notyf({
             row.className = "border-b border-gray-200 hover:bg-gray-100";
 
             row.innerHTML = `
-                <td class="py-2 px-4">
-                    <i class="ri-eye-line text-blue-500 hover:text-blue-700 cursor-pointer text-lg view-icon"></i>
-                </td>
+                  <td class="py-2 px-4">
+                     <a href="#" title="View student">
+                        <i class="ri-eye-line text-blue-500 hover:text-blue-700 cursor-pointer text-lg view-icon"></i>
+                     </a>
+                  </td>
                 <td class="py-2 px-4">${student.student_id || ''}</td>
                 <td class="py-2 px-4">${student.full_name || ''}</td>
                 <td class="py-2 px-4">${student.course || ''}</td>
             `;
 
-            tableBody.appendChild(row);
+                    tableBody.appendChild(row);
+                });
+            }
+
+            function updatePaginationInfo(current, total) {
+                pageInfo.textContent = `Page ${current} of ${total}`;
+                prevBtn.disabled = current === 1;
+                nextBtn.disabled = current === total || total === 0;
+            }
+
+            prevBtn.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPaginatedTable(filteredStudents());
+                }
+            });
+
+            nextBtn.addEventListener("click", () => {
+                const totalPages = Math.ceil(filteredStudents().length / rowsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPaginatedTable(filteredStudents());
+                }
+            });
+
+            searchInput.addEventListener("input", () => {
+                currentPage = 1;
+                renderPaginatedTable(filteredStudents());
+            });
+
+            function filteredStudents() {
+                const keyword = searchInput.value.trim().toLowerCase();
+                return allStudents.filter(student =>
+                    student.student_id && student.student_id.toLowerCase().includes(keyword)
+                );
+            }
+        });
+
+
+//modal
+        const modal = document.getElementById("profileModal");
+        const modalContent = document.getElementById("profileModalContent");
+
+        document.getElementById("openProfileModal").addEventListener("click", function (e) 
+     {
+            e.preventDefault();
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+            modal.classList.add("opacity-100");
+            modalContent.classList.add("scale-100");
+            modalContent.classList.remove("scale-95");
+            }, 10);
+        });
+
+        document.getElementById("closeProfileModal").addEventListener("click", function () {
+            modal.classList.remove("opacity-100");
+            modalContent.classList.remove("scale-100");
+            modalContent.classList.add("scale-95");
+
+            setTimeout(() => {
+            modal.classList.add("hidden");
+            }, 300); 
+     });
+    const notyf = new Notyf(
+    {
+        duration: 2000,
+        position: {
+            x: 'right',
+            y: 'top',
+        }
+    });
+
+     const token = localStorage.getItem("auth_token");
+        fetch(`http://backendidmaker.test/api/profile-show`, 
+    {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(user => {
+            localStorage.setItem("id", user.id);
+            document.getElementById("first_name").value = user.first_name;
+            document.getElementById("middle_name").value = user.middle_name;
+            document.getElementById("last_name").value = user.last_name;
+            document.getElementById("email").value = user.email;
+        })
+        .catch(error => {
+            console.error("Failed to fetch user:", error);
+            alert("Failed to load profile.");
+    });
+
+    function showLoadingBar() 
+    {
+        const bar = document.getElementById("modalLoadingBar");
+        bar.style.width = "0";
+        void bar.offsetWidth;
+        bar.style.width = "100%";
+        bar.addEventListener("transitionend", function handleTransition() {
+            bar.removeEventListener("transitionend", handleTransition);
+            document.getElementById("closeProfileModal").click();
+            notyf.success("Profile updated successfully!");
+            setTimeout(() => {
+                location.reload();
+            }, 1200);
         });
     }
-});
+    function hideLoadingBar() 
+    {
+      const bar = document.getElementById("modalLoadingBar");
+      bar.style.width = "0";
+    }
+    
+   document.getElementById("updateProfileForm").addEventListener("submit", function (e) 
+    {
+        e.preventDefault();
+        const token = localStorage.getItem("auth_token");
+        const userId = localStorage.getItem("id");
+
+        const data = {
+            first_name: document.getElementById("first_name").value,
+            middle_name: document.getElementById("middle_name").value,
+            last_name: document.getElementById("last_name").value,
+            email: document.getElementById("email").value,
+        };
+
+        fetch(`http://backendidmaker.test/api/profile-edit/${userId}`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {
+            if (!res.ok) return res.json().then(err => { throw err; });
+            return res.json();
+        })
+        .then(response => {
+            showLoadingBar(); 
+        })
+        .catch(error => {
+            console.error("Update failed:", error);
+            hideLoadingBar(); 
+        });
+    });
 </script>
 

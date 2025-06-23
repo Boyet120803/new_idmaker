@@ -500,6 +500,152 @@
   background: rgba(84,32,181,0.05);
 }
 
+@media print {
+  body *:not(.id):not(.id *) {
+    /* font-style: ; */
+    visibility: hidden !important;
+    
+  }
+    .name,
+  .name span,
+  .info-row-child .label,
+  .info-row-child .value,
+  .info-row-child .address,
+   .info-row-child .dateofbirth,
+  .footer span {
+    color: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    text-shadow: none !important;
+  }
+  .id.front, .id.back {
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0; top: 0;
+    width: 2.7in !important;
+    height: 4.2in !important;
+    box-shadow: none !important;
+    z-index: 9999 !important;
+    display: none !important;
+
+  }
+ 
+  .id.front[style*="display: block"], .id.back[style*="display: block"] {
+    display: block !important;
+  }
+  .id-wrapper, .mt-6 {
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    display: block !important;
+  }
+  body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    background: white !important;
+    font-family: 'Montserrat', sans-serif !important;
+  }
+  .switch-btn, #editBtn, #saveBtn, #printBtn {
+    display: none !important;
+  }
+ 
+.img-drop-area img{
+  width: 2.9in !important;
+  height: 3.0in !important;
+}
+.id-left .signature{
+  width: 3.8in !important;
+  height: 2.0in !important;
+
+}
+.name-block .name{
+  font-size: 0.3in !important;
+  line-height: 1.2 !important;
+}
+
+.id-left .signature{
+    top: 40px !important;
+    left: 15px !important;
+    width: 60px !important;
+    height: 85px !important;
+    object-fit: contain;
+}
+.id-left .qr{
+  width: 0.9in !important;
+  height: 0.9in !important;
+  position: absolute !important;  
+  left: 20px !important;
+  margin-top: 3px !important;
+}
+.id-left .school-name{
+   font-size: 9px !important;
+    margin-right: -17px !important;
+   
+}
+.id-left .school-address{
+  font-size: 7px !important;
+  margin-top: 2px !important;
+  margin-right: -17px !important;
+  font-weight: bold !important;
+}
+.id-left .logo{
+    position: absolute;
+    top: 18px !important;
+    left: 40px !important;
+    width: 43px !important;
+    height: 43px !important;
+    z-index: 2;
+}
+
+.name-block .name{
+  font-size: 0.3in !important;
+  line-height: 1.2 !important;
+}
+.name-block .name span{
+  font-size: 0.2in !important;
+  line-height: 1.1 !important;  
+}
+.name-block{
+  margin-bottom: 0px !important;
+  padding: 0 10px 2px 5px !important;
+}
+.info-row{
+  padding: 5 10px 2px 10px !important;
+  font-size: 11px !important;
+  font-weight: bold !important;
+}
+
+.info-row .label{
+
+  font-size: 9px !important;
+  font-weight: bold !important;
+}
+.info-row .value{
+
+  font-size: 11px !important;
+  font-weight: bold !important;
+}
+
+
+.id-row{
+  padding: 5 10px 2px 10px !important;
+  height: 23px !important;
+  font-size: 15px !important;
+
+}
+
+.footer{
+  padding: 5 10px 2px 10px !important;
+  font-weight: bold !important;
+}
+
+  
+}
+
 </style>
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -562,12 +708,13 @@
     <button id="showBack" class="switch-btn">Back</button>
     <button id="editBtn" class="switch-btn">Edit</button>
     <button id="saveBtn" class="switch-btn" style="display:none;">Save</button>
+    <button id="printBtn" class="switch-btn">Print</button>
   </div>
  <div class="mt-6">
     <div class="id-wrapper">
     <!-- FRONT SIDE -->
  
-<div class="id front" id="idFront">
+<div class="id front" id="idFront" style="display: block;">
   <div class="front-bg"></div>
   <div class="id-left">
     <img src="assets/img/log.png" class="logo" alt="Logo">
@@ -577,15 +724,15 @@
     </div>
     <img src="assets/photos/qr.png" class="qr" alt="QR Code" id="qr_code">
     <div class="img-drop-area" id="signDropArea">
-  <img src="assets/img/yan.png" class="signature" id="signatureImg" alt="Signature">
-</div>
+      <img src="assets/img/yan.png" class="signature" id="signatureImg" alt="Signature">
+    </div>
   </div>
   <div class="img-drop-area" id="photoDropArea">
   <img src="assets/img/id_final.png" class="student-img" id="studentImg" alt="Student Photo" style="width:150%;height:240px;">
 </div>
   <div class="bottom-content">
     <div class="name-block">
-      <div class="name">KISTADIO<br><span>JHON BRIX P.</span></div>
+      <div class="name">KISTADIO<br><span class="firstname">JHON BRIX P.</span></div>
       <div class="info-row">
         <div class="info-row-child">
           <span class="label">Date of Birth:</span>
@@ -704,7 +851,40 @@
     
 </div>
 
+<script>
+printBtn.onclick = function() {
+  lastView = idFront.style.display !== 'none' ? 'front' : 'back';
+  if (lastView === 'front') {
+    idBack.style.display = 'none';
+    idFront.style.display = 'block';
+  } else {
+    idFront.style.display = 'none';
+    idBack.style.display = 'block';
+  }
 
+  // --- DYNAMIC PRINT COLOR PATCH ---
+  const polygonColor = getComputedStyle(document.querySelector('.front-bg')).backgroundColor;
+  let printStyle = document.getElementById('dynamicPrintStyle');
+  if (!printStyle) {
+    printStyle = document.createElement('style');
+    printStyle.id = 'dynamicPrintStyle';
+    document.head.appendChild(printStyle);
+  }
+  printStyle.textContent = `
+    @media print {
+      .front-bg {
+        background: ${polygonColor} !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        display: block !important;
+      }
+    }
+  `;
+  // --- END PATCH ---
+
+  window.print();
+};
+</script>
 
 
 
@@ -1218,7 +1398,11 @@ if (pobMatch) {
 
         // BAGUHIN ANG POLYGON COLOR
         document.querySelector('.front-bg').style.background = polygonColor;
-
+        // GAWING WHITE ANG TEXT NG NAME, BIRTHDATE, ADDRESS, WEBSITE, AT EMAIL
+document.querySelector('.name').style.color = '#fff';
+document.querySelector('.info-row-child .value').style.color = '#fff';
+document.querySelector('.info-row-child .address').style.color = '#fff';
+document.querySelectorAll('.footer span').forEach(e => e.style.color = '#fff');
         // QR code
         document.querySelector("#qr_code").src = data.qr_code;
 
