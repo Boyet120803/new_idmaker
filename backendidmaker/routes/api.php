@@ -21,6 +21,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function(){
+    Route::delete('/delete-student/{id}', [StudentController::class, 'destroy']);
     Route::get('/users',[AuthController::class, 'index']);
     Route::post('logout',[AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
@@ -36,7 +37,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/save-id-layout', [PendingController::class, 'saveIdLayout']);
     Route::get('/completed/{student_id}', [CompletedController::class, 'show']);
     Route::post('/completed', [CompletedController::class, 'store']);
+    Route::get('/showcompleteid/{id}', [CompletedController::class, 'showcompleteid']);
+    Route::post('/completed/{id}', [CompletedController::class, 'update']);
+    Route::get('/completeid/{id}', [CompletedController::class, 'completeid']);
 });
+
+
 
 Route::get('/student-list', [AuthController::class, 'list']);
 

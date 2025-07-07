@@ -20,9 +20,11 @@ return new class extends Migration
             $table->string('course');
             $table->string('student_id')->unique();
             $table->string('contact');
-            $table->json('emergency_contact')->nullable();
+            $table->string('emergency_contact_name')->nullable();
+            $table->string('emergency_contact_number')->nullable();
             $table->string('birth_date');
             $table->string('signature')->nullable();
+            $table->string('esc')->nullable();
             $table->string('image')->nullable();
             $table->string('qr_code')->nullable();
             $table->timestamps();

@@ -17,11 +17,11 @@ class PendingController extends Controller
                     'course' => 'required|string|max:255',
                     'student_id' => 'required|string|max:255',
                     'contact' => 'required|string|max:20',
-                    'emergency_contact' => 'required|array',
-                    'emergency_contact.name' => 'required|string|max:255',
-                    'emergency_contact.number' => 'required|string|max:15',
+                    'emergency_contact_name' => 'required|string|max:255',
+                    'emergency_contact_number' => 'required|string|max:15',
                     'birth_date' => 'required|date',
                     'signature' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'esc' => 'nullable|string|max:255',
                     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     'qr_code' => 'nullable|string|max:255',
                 ]);
@@ -41,9 +41,11 @@ class PendingController extends Controller
                     'course' => $request->course,
                     'student_id' => $request->student_id,
                     'contact' => $request->contact,
-                    'emergency_contact' => $request->emergency_contact,
+                    'emergency_contact_name' => $request->emergency_contact_name,
+                    'emergency_contact_number' => $request->emergency_contact_number,
                     'birth_date' => $request->birth_date,
                     'signature' => $request->file('signature') ? $request->file('signature')->store('signatures') : null,
+                    'esc' => $request->esc,
                     'image' => $request->file('image') ? $request->file('image')->store('images') : null,
                     'qr_code' => $request->qr_code,
                 ]);
@@ -51,21 +53,19 @@ class PendingController extends Controller
                 return response()->json([
                     'message' => 'Student created successfully',
                     'student' => $student
-                ], 201);
-            } catch (\Illuminate\Validation\ValidationException $e) {
-                return response()->json([
-                    'message' => 'Validation failed',
-                    'errors' => $e->errors()
-                ], 422);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'message' => 'Server error',
-                    'error' => $e->getMessage()
-                ], 500);
+                  ], 201);
+                } catch (\Illuminate\Validation\ValidationException $e) {
+                    return response()->json([
+                        'message' => 'Validation failed',
+                        'errors' => $e->errors()
+                        ], 422);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'Server error',
+                        'error' => $e->getMessage()
+                    ], 500);
+                }
             }
-        }
-
-
           public function showid($student_id)
             {
                 $pending = Pending::where('student_id', $student_id)->first();
@@ -83,37 +83,30 @@ class PendingController extends Controller
                     'course' => $pending->course,
                     'student_id' => $pending->student_id,
                     'contact' => $pending->contact,
-                    'emergency_contact' => $pending->emergency_contact,
+                    'emergency_contact_name' => $pending->emergency_contact_name,
+                    'emergency_contact_number' => $pending->emergency_contact_number,
                     'birth_date' => $pending->birth_date,
+                    'esc' => $pending->esc,
                     'qr_code' => $pending->qr_code,
                 ]);
             }
-
             public function saveIdLayout(Request $request)
-{
-    $request->validate([
-        'student_id' => 'required|string',
-        'image' => 'required|array',
-        'signature' => 'required|array',
-    ]);
+            {
+                $request->validate([
+                    'student_id' => 'required|string',
+                    'image' => 'required|array',
+                    'signature' => 'required|array',
+                ]);
 
-    $pending = Pending::where('student_id', $request->student_id)->first();
-
-    if (!$pending) {
-        return response()->json(['message' => 'Record not found'], 404);
-    }
-
-    // Save layout as JSON (add columns in migration if needed)
-    $pending->photo_layout = json_encode($request->image);
-    $pending->signature_layout = json_encode($request->signature);
-
-    // Optionally, save the actual image data if you want to update the image/signature
-    // For now, just save the layout info
-
-    $pending->save();
-
-    return response()->json(['message' => 'ID layout saved successfully']);
-}
+                $pending = Pending::where('student_id', $request->student_id)->first();
+                if (!$pending) {
+                    return response()->json(['message' => 'Record not found'], 404);
+                }
+                $pending->photo_layout = json_encode($request->image);
+                $pending->signature_layout = json_encode($request->signature);
+                $pending->save();
+                return response()->json(['message' => 'ID layout saved successfully']);
+            }
         }
 
 

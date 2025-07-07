@@ -1,0 +1,224 @@
+<?php  require_once ('admin-partials/header.php') ?>
+<?php  require_once ('admin-partials/sidebar.php') ?>
+<?php require_once ('admin-partials/js.php') ?>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+        <main class="flex-1 ml-64">
+            <header class="bg-white shadow-sm">
+                 <div class="flex items-center justify-between px-6 py-4">
+                      <div class="flex items-center">
+                          <button id="toggle-sidebar" class="mr-4 text-gray-500 hover:text-gray-700">
+                              <div class="w-6 h-6 flex items-center justify-center">
+                                 <i class="ri-menu-line"></i>
+                              </div>
+                          </button>
+                      </div>
+                      <div class="flex items-center space-x-4">
+                          <button class="relative text-gray-500 hover:text-gray-700">
+                             <div class="w-6 h-6 flex items-center justify-center">
+                                <i class="ri-notification-3-line"></i>
+                             </div>
+                          </button>
+                          <div class="h-6 border-r border-gray-200"></div>
+                              <div class="relative flex items-center space-x-2" id="user-dropdown-wrapper">
+                                  <span class="text-sm font-medium" id="fullName">Loading...</span>
+                                        <button id="user-dropdown-btn"
+                                            class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center focus:outline-none transition duration-200 hover:bg-gray-300">
+                                            <i class="ri-user-line text-gray-500 text-lg transition duration-200 group-hover:text-gray-700"></i>
+                                        </button>
+                                            <div id="user-dropdown-menu"
+                                                class="absolute right-0 mt-12 w-40 bg-white rounded-md shadow-lg border border-gray-200 hidden z-10 overflow-hidden transition-all duration-300 ease-in-out">
+                                                    <a href="#"
+                                                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200">
+                                                        <i class="ri-user-line mr-2 text-base"></i>
+                                                        Profile
+                                                    </a>
+                                                    <a href="#"
+                                                        id="logout-btn"
+                                                        class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200">
+                                                        <i class="ri-logout-box-r-line mr-2 text-base"></i>
+                                                        Logout
+                                                   </a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="px-6 py-2 border-t border-gray-100">
+                                        <div class="flex items-center text-sm">
+                                                <a href="#" class="text-gray-500 hover:text-primary">Student List</a>
+                                         <div class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
+                                    <i class="ri-arrow-right-s-line"></i>
+                              </div>
+                          <span class="text-gray-700">Page</span>
+                     </div>
+                </div>
+          </header>
+          <div class="p-6">
+              <div class="flex flex-wrap items-center justify-between mb-6">
+                  <div class="text-sm text-gray-500">
+                      <div class="flex items-center">
+                          <div class="id-card">
+                            <div class="box">
+                                <div>
+                                    <div class="certification">
+                                    This is to certify that the person whose<br>
+                                    picture and signature appear herein is a<br>
+                                    bonafide employee of<br><b>MLG College of Learning, Inc.</b>
+                                    </div>
+
+                                    <div class="signature-block">
+                                       <div class="signature"></div>
+                                       <div class="director-name">MARY LILIBETH OYAN, DEV. ED. D.</div>
+                                       <div class="director-title">School Director</div>
+                                    </div>
+
+                                    <table class="info-table">
+                                    <tr>
+                                        <td><b>TIN #</b></td>
+                                        <td>292-429-675</td>
+                                        <td><b>PhilHealth#</b></td>
+                                        <td>01-051293562-7</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>SSS #</b></td>
+                                        <td>34-1976221-1</td>
+                                        <td><b>HDMF #</b></td>
+                                        <td>1210-2944-8122</td>
+                                    </tr>
+                                    </table>
+
+                                    <div class="reminders">
+                                        IMPORTANT REMINDERS<br>
+                                        Always wear this ID while inside the school campus.<br>
+                                        DO NOT FORGET YOUR ID NUMBER.
+                                    </div>
+
+                                    <div class="contact-info">
+                                        If lost and found, please surrender this ID to the<br>
+                                        SCHOOL DIRECTOR’S OFFICE, MLG College of Learning.<br>
+                                        Inc., Brgy. Atabay, Hilongos, Leyte
+
+                                        <div class="emergency">
+                                            In case of emergency, please contact:<br>
+                                            JACQUILINE GELSANO<br>
+                                            0930-646-9599
+                                        </div>
+                                    </div>
+
+                                    <div class="qr-box">
+                                        <div class="red-box">
+                                            PLEASE SCAN THE QR CODE AT THE FRONT<br>
+                                            FOR MORE VALIDATION & CONTACT INFORMATION
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <div class="social-link">
+                                    <a class="facebook-link" href="https://www.facebook.com/mlgcl/" target="_blank">
+                                        <span class="fb-icon"></span> https://www.facebook.com/mlgcl/
+                                    </a>
+                                </div>
+                             </div>
+                           </div>
+                       </div>
+                    </div>                  
+                </div>
+            </div>
+    <script>
+        //drop down
+        document.addEventListener("DOMContentLoaded", function () 
+    {
+        const dropdownBtn = document.getElementById("user-dropdown-btn");
+        const dropdownMenu = document.getElementById("user-dropdown-menu");
+        dropdownBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); 
+            dropdownMenu.classList.toggle("hidden");
+        });
+        document.addEventListener("click", function (e) {
+            const dropdownWrapper = document.getElementById("user-dropdown-wrapper");
+            if (!dropdownWrapper.contains(e.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+    });
+        //logout    
+      document.addEventListener("DOMContentLoaded", function () 
+    {
+        const logoutBtn = document.getElementById("logout-btn");
+        logoutBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Logout?',
+                text: "Are you sure you want to logout?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#aaa',
+                confirmButtonText: 'Yes, logout'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const token = localStorage.getItem("auth_token");
+                    if (!token) {
+                        Swal.fire('Error', 'No token found', 'error');
+                        return;
+                    }
+                    fetch("http://127.0.0.1:8000/api/logout", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + token
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Logout failed");
+                        return response.json();
+                    })
+                    .then(data => {
+                        Swal.fire({
+                            title: 'Logged out!',
+                            text: data.message,
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            localStorage.removeItem("auth_token");
+                            window.location.href = "index.php"; // redirect to login
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Logout failed:", error);
+                        Swal.fire('Logout Failed', 'Something went wrong.', 'error');
+                    });
+                }
+            });
+        });
+    });
+        //profile
+        document.addEventListener("DOMContentLoaded", () => 
+    {
+        const token = localStorage.getItem("auth_token");
+        if (!token) return;
+        fetch("http://127.0.0.1:8000/api/profile", {
+            method: "GET",
+            headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const nameElement = document.getElementById("fullName");
+            if (nameElement && data.full_name) {
+            nameElement.textContent = data.full_name;
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching profile:", error);
+        });
+    });
+    </script>
+
+    

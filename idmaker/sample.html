@@ -1,349 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLG College Student ID - Back (Left Facing)</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MLG ID Back</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    body {
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: "Montserrat", sans-serif;
+    }
 
-        .id-card {
-            width: 380px;
-            height: 540px;
-            background-color: #e8e8e8;
-            border:none;
-            border-radius: 8px;
-            display: flex;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
+    .id-card {
+      width: 204px;
+      height: 324px;
+      background: #fff;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 7.1px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    
+    }
 
-        .year-strip {
-            width: 90px;
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-          
-        }
+    .box {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      box-sizing: border-box;
+    }
 
-        .year-strip table {
-            width: 30%;
-            height: 30%;
-            border-collapse: collapse;
-            
-        }
+    .certification {
+      text-align: center;
+      line-height: 1.2;
+    }
 
-        .year-cell {
-            background-color: #000;
-            color: white;
-            font-weight: bold;
-            font-size: 8px;
-            text-align: center;
-            vertical-align: middle;
-            border: 1px solid #333;
-            writing-mode: vertical-rl;  
-            text-orientation: mixed;
-            padding: 8px 3px;
-          
-        }
-        .word-school-year{
-           background-color: #000;
-           font-size: 7px;
-           vertical-align: middle;
-           writing-mode: vertical-rl; 
-            padding: 15px 5px;
-           
-            color:white
-        }
+    .certification b {
+      font-size: 7px;
+      display: block;
+      margin-top: 2px;
+    }
 
-        .school-year-cell {
-            background-color: #000;
-            color: white;
-            font-weight: bold;
-            font-size: 9px;
-            text-align: center;
-            vertical-align: middle;
-            border: 1px solid #333;
-            writing-mode: vertical-rl; 
-            text-orientation: mixed;
-            padding: 15px 3px;
-            height: 100px;
-        }
+    .signature-block {
+      text-align: center;
+      margin: 6px 0 4px;
+    }
 
-        .semester-cell {
-            background-color: #000;
-            color: white;
-            font-weight: bold;
-            font-size: 8px;
-            text-align: center;
-            vertical-align: middle;
-            border: none;
-            writing-mode: vertical-rl; 
-            text-orientation: mixed;
-            padding: 8px 3px;
-            height: 60px;
-        }
+    .signature {
+      height: 15px;
+      background: url('signature-placeholder.png') center no-repeat;
+      background-size: contain;
+      margin-top: 5px;
+    }
 
-        .empty-cell {
-            background-color: white;
-            border: 1px solid #333;
-            width: 25px;
-        }
+    .director-name {
+      font-weight: bold;
+      font-size: 6.4px;
+      margin-top: -4px;
+    }
 
-        .first-cell {
-            background-color: white;
-            border: 1px solid #333;
-            font-size: 7px;
-            text-align: center;
-            vertical-align: middle;
-            height: 60px;
-          
-            padding: 5px 2px;
-        }
+    .director-title {
+      font-size: 6px;
+    }
 
-        .second-cell {
-            background-color: white;
-            border: 1px solid #333;
-            font-size: 7px;
-            text-align: center;
-            vertical-align: middle;
-          
-           height: 60px;
-            padding: 5px 2px;
-        }
-        .upside-down {
-            transform: rotate(180deg);
-        }
+    .info-table {
+      width: 100%;
+      font-size: 6px;
+      border-collapse: collapse;
+      margin-top: 5px;
+    }
 
-        .main-content {
-            flex: 1;
-            padding: 15px;
-            background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    .info-table td {
+      border: 1px solid #969393;
+      padding: 2px 3px;
+      vertical-align: top;
+    }
 
-        .certification-text {
-            text-align: center;
-            font-size: 13px;
-            line-height: 1.4;
-            margin-bottom: 20px;
-        }
+    .reminders {
+      text-align: center;
+      font-size: 6.5px;
+      font-weight: bold;
+      margin: 10px 0;
+      padding: 4px 0;
+      line-height: 1.3;
+    }
 
-        .signature-section {
-            text-align: center;
-            margin: 20px 0;
-        }
+    .contact-info {
+      font-size: 7px;
+      text-align: center;
+      line-height: 1.3;
+    }
 
-        .signature-line {
-            border-bottom: 1px solid #333;
-            width: 150px;
-            margin: 10px auto;
-            height: 30px;
-        }
+    .emergency {
+      font-weight: bold;
+      margin-top: 4px;
+      font-size: 7.1px;
+    }
 
-        .director-name {
-            font-weight: bold;
-            font-size: 12px;
-            margin-bottom: 5px;
-        }
+    .red-box {
+      background: #d62828;
+      color: white;
+      font-size: 7px;
+      padding: 6px 5px;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+      text-transform: uppercase;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
 
-        .director-title {
-            font-size: 11px;
-        }
+    .bottom {
+      margin-top: 6px;
+    }
 
-        .reminders-section {
-            margin: 15px 0;
-        }
+    .social-link {
+      background: #d62828;
+      padding: 5px 4px;
+      text-align: center;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      box-sizing: border-box;
+    }
 
-        .reminders-title {
-            font-weight: bold;
-            font-size: 13px;
-            text-align: center;
-            margin-bottom: 10px;
-        }
+    .facebook-link {
+      font-size: 7px;
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+    }
 
-        .reminder-text {
-            font-size: 11px;
-            line-height: 1.3;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .student-id-reminder {
-            font-weight: bold;
-            font-size: 12px;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .lost-found-section {
-            font-size: 10px;
-            line-height: 1.3;
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .office-name {
-            font-weight: bold;
-        }
-
-        .emergency-section {
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .emergency-title {
-            font-size: 11px;
-            margin-bottom: 5px;
-        }
-
-        .emergency-name {
-            font-weight: bold;
-            font-size: 13px;
-            margin-bottom: 3px;
-        }
-
-        .emergency-phone {
-            font-weight: bold;
-            font-size: 13px;
-        }
-
-        .qr-section {
-            background-color: #2a2a2a;
-            color: white;
-            padding: 12px;
-            text-align: center;
-            font-size: 10px;
-            line-height: 1.2;
-            margin-top: auto;
-        }
-
-        .facebook-url {
-            background-color: #2a2a2a;
-            color: white;
-            text-align: center;
-            font-size: 9px;
-            padding: 5px;
-        }
-
-        .rotated-text {
-            transform: rotate(180deg);
-            display: inline-block;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-         }
-    </style>
+    .fb-icon {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin-right: 4px;
+    }
+  </style>
 </head>
 <body>
-    <div class="id-card">
-    
-        <div class="year-strip">
-            <table>
-                <tr>
-                    <td class="word-school-year"></td>
-                    <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
-                    <td class="empty-cell"></td>
-                    <td class="empty-cell"></td>
-                </tr>
-                <tr>
-                    <td class="word-school-year"></td>
-                    <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
-                    <td class="empty-cell"></td>
-                    <td class="empty-cell"></td>
-                </tr>
-             
-                <tr>
-                    <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
-                    <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
-                    <td class="empty-cell"></td>
-                    <td class="empty-cell"></td>
-                </tr>
-                <tr>
-                    <td class="word-school-year"></td>
-                    <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
-                    <td class="empty-cell"></td>
-                    <td class="empty-cell"></td>
-                </tr>
-                <tr>
-                    <td class="word-school-year"></td>
-                    <td class="semester-cell"><div class="rotated-text">Semester</div></td>
-                    <td class="first-cell"><div class="rotated-text">First</div></td>
-                    <td class="second-cell"><div class="rotated-text">Second</div></td>
-                </tr>
-            </table>
+  <div class="id-card">
+    <div class="box">
+      <div>
+        <div class="certification">
+          This is to certify that the person whose<br>
+          picture and signature appear herein is a<br>
+          bonafide employee of<br><b>MLG College of Learning, Inc.</b>
         </div>
-        
-        <div class="main-content">
-            <div>
-                <div class="certification-text">
-                    This is to certify that the person<br>
-                    whose picture and signature appear<br>
-                    herein is a bonafide student of<br>
-                    <strong>MLG College of Learning, Inc.</strong>
-                </div>
 
-                <div class="signature-section">
-                    <div class="signature-line"></div>
-                    <div class="director-name">MARY LILIBETH QUYAN, DEV. ED. D.</div>
-                    <div class="director-title">School Director</div>
-                </div>
-
-                <div class="reminders-section">
-                    <div class="reminders-title">IMPORTANT REMINDERS</div>
-                    <div class="reminder-text">
-                        Always wear this ID while inside<br>
-                        the school campus.
-                    </div>
-                    <div class="student-id-reminder">
-                        Do not forget your<br>
-                        <strong>STUDENT ID NUMBER.</strong>
-                    </div>
-                </div>
-
-                <div class="lost-found-section">
-                    If lost and found, please surrender<br>
-                    this ID to the<br>
-                    <span class="office-name">STUDENT AFFAIRS OFFICE.</span><br>
-                    MLG College of Learning, Inc.,<br>
-                    Brgy. Atabay, Hilongos, Leyte
-                </div>
-
-                <div class="emergency-section">
-                    <div class="emergency-title">In case of emergency,<br>please contact</div>
-                    <div class="emergency-name">ALBERTO LUMIGUID</div>
-                    <div class="emergency-phone">0961-886-8382</div>
-                </div>
-            </div>
-
-            <div class="qr-section">
-                PLEASE SCAN THE QR<br>
-                CODE AT THE FRONT FOR<br>
-                MORE VALIDATION &<br>
-                CONTACT INFORMATION.
-            </div>
-
-            <div class="facebook-url">
-                🌐 https://www.facebook.com/mlgcl/
-            </div>
+        <div class="signature-block">
+          <div class="signature"></div>
+          <div class="director-name">MARY LILIBETH OYAN, DEV. ED. D.</div>
+          <div class="director-title">School Director</div>
         </div>
-     
+
+        <table class="info-table">
+          <tr>
+            <td><b>TIN #</b></td>
+            <td>292-429-675</td>
+            <td><b>PhilHealth#</b></td>
+            <td>01-051293562-7</td>
+          </tr>
+          <tr>
+            <td><b>SSS #</b></td>
+            <td>34-1976221-1</td>
+            <td><b>HDMF #</b></td>
+            <td>1210-2944-8122</td>
+          </tr>
+        </table>
+
+        <div class="reminders">
+          IMPORTANT REMINDERS<br>
+          Always wear this ID while inside the school campus.<br>
+          DO NOT FORGET YOUR ID NUMBER.
+        </div>
+
+        <div class="contact-info">
+          If lost and found, please surrender this ID to the<br>
+          SCHOOL DIRECTOR’S OFFICE, MLG College of Learning.<br>
+          Inc., Brgy. Atabay, Hilongos, Leyte
+
+          <div class="emergency">
+            In case of emergency, please contact:<br>
+            JACQUILINE GELSANO<br>
+            0930-646-9599
+          </div>
+        </div>
+
+        <div class="qr-box">
+          <div class="red-box">
+            PLEASE SCAN THE QR CODE AT THE FRONT<br>
+            FOR MORE VALIDATION & CONTACT INFORMATION
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="bottom">
+        <div class="social-link">
+          <a class="facebook-link" href="https://www.facebook.com/mlgcl/" target="_blank">
+            <span class="fb-icon"></span> https://www.facebook.com/mlgcl/
+          </a>
+        </div>
+      </div>
+  </div>
+
 </body>
 </html>

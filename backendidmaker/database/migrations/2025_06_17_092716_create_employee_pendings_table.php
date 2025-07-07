@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('emergency_contact_number')->nullable();
             $table->string('position');
             $table->string('employee_id');
+            $table->string('tin_no');
+            $table->string('sss_no');
+            $table->string('philhealth_no');
+            $table->string('hdmf_no');
             $table->date('birth_date')->nullable();
             $table->text('signature')->nullable();
             $table->text('image')->nullable();

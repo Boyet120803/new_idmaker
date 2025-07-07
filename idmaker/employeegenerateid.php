@@ -2,193 +2,92 @@
 <?php  require_once ('admin-partials/sidebar.php') ?>
 <?php require_once ('admin-partials/js.php') ?>
 <style>
-    /* From Uiverse.io by AbanoubMagdy1 */
-.wave-group {
-  position: relative;
-  width: 100%;
-  max-width: 250px;
-}
 
-.wave-group .input {
-  font-size: 16px;
-  padding: 10px 10px 10px 5px;
-  display: block;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #515151;
-  background: transparent;
-}
+    .float-input-group {
+        position: relative;
+        margin: 20px 0;
+    }
 
-.wave-group .input:focus {
-  outline: none;
-}
+    .float-input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        outline: none;
+        background-color: transparent;
+    }
 
-.wave-group .label {
-  color: #999;
-  font-size: 18px;
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
-  top: 10px;
-  display: flex;
-}
+    .float-label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 17px;
+        color: rgb(44, 42, 42);
+        pointer-events: none;
+        transition: all 0.2s ease;
+    }
 
-.wave-group .label-char {
-  transition: 0.2s ease all;
-  transition-delay: calc(var(--index) * .05s);
-}
+    .float-highlight {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 0;
+        background-color: rgb(40, 93, 207);
+        transition: all 0.3s ease;
+    }
 
-.wave-group .input:focus ~ .label .label-char,
-.wave-group .input:valid ~ .label .label-char {
-  transform: translateY(-20px);
-  font-size: 14px;
-  color: #5264AE;
-}
+    .float-input:focus + .float-label,
+    .float-input:not(:placeholder-shown) + .float-label {
+        top: -20px;
+        font-size: 12px;
+        color: #000000;
+    }
 
-.wave-group .bar {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-.wave-group .bar:before,
-.wave-group .bar:after {
-  content: '';
-  height: 2px;
-  width: 0;
-  bottom: 1px;
-  position: absolute;
-  background: #5264AE;
-  transition: 0.2s ease all;
-}
-
-.wave-group .bar:before {
-  left: 50%;
-}
-
-.wave-group .bar:after {
-  right: 50%;
-}
-
-.wave-group .input:focus ~ .bar:before,
-.wave-group .input:focus ~ .bar:after {
-  width: 50%;
-}
+    .float-input:focus + .float-label + .float-highlight,
+    .float-input:not(:placeholder-shown) + .float-label + .float-highlight {
+        width: 100%;
+    }
 
 
-.wave-group {
-  position: relative;
-  width: 100%;
-  max-width: 250px;
-}
+    /* input style */
 
-.wave-group .input {
-  font-size: 16px;
-  padding: 10px 10px 10px 5px;
-  display: block;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #515151;
-  background: transparent;
-}
+    .input {
+    line-height: 28px;
+    border: 2px solid transparent;
+    border-bottom-color: #777;
+    padding: .2rem 0;
+    outline: none;
+    background-color: transparent;
+    color: #0d0c22;
+    transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    width: 250px; /* adjust as needed */
+    }
 
-.wave-group .input:focus {
-  outline: none;
-}
+    .input:focus,
+    .input:hover {
+    outline: none;
+    padding: .2rem 1rem;
+    border-radius: 1rem;
+    border-color: #7a9cc6;
+    }
 
-.wave-group .label {
-  color: #999;
-  font-size: 18px;
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
-  top: 10px;
-  display: flex;
-}
+    .input::placeholder {
+    color: #777;
+    }
 
-.wave-group .label-char {
-  transition: 0.2s ease all;
-  transition-delay: calc(var(--index) * .05s);
-}
-
-.wave-group .input:focus ~ .label .label-char,
-.wave-group .input:valid ~ .label .label-char {
-  transform: translateY(-20px);
-  font-size: 14px;
-  color: #5264AE;
-}
-
-.wave-group .bar {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-.wave-group .bar:before,
-.wave-group .bar:after {
-  content: '';
-  height: 2px;
-  width: 0;
-  bottom: 1px;
-  position: absolute;
-  background: #5264AE;
-  transition: 0.2s ease all;
-}
-
-.wave-group .bar:before {
-  left: 50%;
-}
-
-.wave-group .bar:after {
-  right: 50%;
-}
-
-.wave-group .input:focus ~ .bar:before,
-.wave-group .input:focus ~ .bar:after {
-  width: 50%;
-}
-/* input style */
-
-.input {
-  line-height: 28px;
-  border: 2px solid transparent;
-  border-bottom-color: #777;
-  padding: .2rem 0;
-  outline: none;
-  background-color: transparent;
-  color: #0d0c22;
-  transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  width: 250px; /* adjust as needed */
-}
-
-.input:focus,
-.input:hover {
-  outline: none;
-  padding: .2rem 1rem;
-  border-radius: 1rem;
-  border-color: #7a9cc6;
-}
-
-.input::placeholder {
-  color: #777;
-}
-
-.input:focus::placeholder {
-  opacity: 0;
-  transition: opacity .3s;
-}
+    .input:focus::placeholder {
+    opacity: 0;
+    transition: opacity .3s;
+    }
 
 </style>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Notyf CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
-<!-- Notyf JS -->
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-       <!-- Main Content -->
         <main class="flex-1 ml-64">
-            <!-- Header -->
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-6 py-4">
                     <div class="flex items-center">
@@ -238,88 +137,88 @@
                     </div>
                 </div>
             </header>
-       <div class="p-3 relative mt-1 flex justify-end">
-        <div class="mb-4">
-            <label for="employee_name" class="block text-sm font-medium text-gray-700 mb-1">
-              Enter Employee Name:
-            </label>
-            <input
-            type="text"
-            id="employee_name"
-            placeholder="e.g. Jaevoy Palautog"
-            class="input"
-            required
-            >
-            <ul
-            id="employee_dropdown"
-            class="absolute z-10 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto hidden"
-            style="width: 250px;"
-            ></ul>
-            <p id="employee_name_result" class="mt-1 text-sm text-green-600"></p>
-        </div>
-        </div>
-
-
-        <div class="flex justify-center py-4 px-2">
-    <div id="id_template" class="hidden w-full max-w-xl bg-white border rounded-xl shadow-md p-6">
-        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
-            <div class="flex-shrink-0">
-                <img id="qr_image" src="" alt="QR Code" class="w-28 h-28 rounded border shadow-sm" />
-            </div>
-            <div class="text-gray-700 text-sm space-y-1">
-                <h4 id="template_name" class="text-base font-semibold text-gray-800">Employee Name</h4>
-                <p><span id="template_address"></span></p>
-                <p><span id="template_birthdate"></span></p>
-                <p><span id="template_contact"></span></p>
+        <div class="p-3 relative mt-1 flex justify-end">
+            <div class="mb-4">
+                <label for="employee_name" class="block text-sm font-medium text-gray-700 mb-1">
+                Enter Employee Name:
+                </label>
+                <input
+                type="text"
+                id="employee_name"
+                placeholder="e.g. Jaevoy Palautog"
+                class="input"
+                required
+                >
+                <ul
+                id="employee_dropdown"
+                class="absolute z-10 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto hidden"
+                style="width: 250px;"
+                ></ul>
+                <p id="employee_name_result" class="mt-1 text-sm text-green-600"></p>
             </div>
         </div>
+            <div class="flex justify-center py-4 px-2">
+                <div id="id_template" class="hidden w-full max-w-xl bg-white border rounded-xl shadow-md p-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 mb-4">
+                        <div class="flex-shrink-0">
+                            <img id="qr_image" src="" alt="QR Code" class="w-28 h-28 rounded border shadow-sm" />
+                        </div>
+                        <div class="text-gray-700 text-sm space-y-1">
+                            <h4 id="template_name" class="text-base font-semibold text-gray-800">Employee Name</h4>
+                            <p><span id="template_address"></span></p>
+                            <p><span id="template_birthdate"></span></p>
+                            <p><span id="template_contact"></span></p>
+                        </div>
+                    </div>
+                 <div class="p-6 mb-6 rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="float-input-group">
+                            <input required type="text" id="employee_id" name="employee_id" class="float-input" placeholder=" " />
+                            <label class="float-label">Employee ID</label>
+                            <span class="float-highlight"></span>
+                        </div>
 
-        <!-- Inputs -->
-        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-left">
-           <div class="wave-group mt-4">
-                <input required type="text" id="employee_id" name="employee_id" class="input" />
-                <span class="bar"></span>
-                <label class="label">
-                    <span class="label-char" style="--index: 0">E</span>
-                    <span class="label-char" style="--index: 1">m</span>
-                    <span class="label-char" style="--index: 2">p</span>
-                    <span class="label-char" style="--index: 3">l</span>
-                    <span class="label-char" style="--index: 4">o</span>
-                    <span class="label-char" style="--index: 5">y</span>
-                    <span class="label-char" style="--index: 6">e</span>
-                    <span class="label-char" style="--index: 7">e</span>
-                    <span class="label-char" style="--index: 8"> </span>
-                    <span class="label-char" style="--index: 9">I</span>
-                    <span class="label-char" style="--index: 10">D</span>
-                </label>
+                        <div class="float-input-group">
+                            <input required list="positionList" id="position" name="position" class="float-input" placeholder=" " />
+                            <label class="float-label">Position</label>
+                            <span class="float-highlight"></span>
+                            <datalist id="positionList">
+                                <option value="Officer">
+                                <option value="Instructor">
+                                <option value="Cashier">
+                                <option value="Registrar">
+                                <option value="Admin Assistant">
+                                <option value="Security">
+                                <option value="Maintenance">
+                                <option value="Security-Guard">
+                            </datalist>
+                        </div>
+
+                        <div class="float-input-group">
+                            <input required type="text" id="tin" name="tin" class="float-input" placeholder=" " />
+                            <label class="float-label">TIN No.</label>
+                            <span class="float-highlight"></span>
+                        </div>
+
+                        <div class="float-input-group">
+                            <input required type="text" id="sss" name="sss" class="float-input" placeholder=" " />
+                            <label class="float-label">SSS No.</label>
+                            <span class="float-highlight"></span>
+                        </div>
+
+                        <div class="float-input-group">
+                            <input required type="text" id="philhealth" name="philhealth" class="float-input" placeholder=" " />
+                            <label class="float-label">PhilHealth No.</label>
+                            <span class="float-highlight"></span>
+                        </div>
+
+                        <div class="float-input-group">
+                            <input required type="text" id="hdmf" name="hdmf" class="float-input" placeholder=" " />
+                            <label class="float-label">HDMF No.</label>
+                            <span class="float-highlight"></span>
+                        </div>
+                    </div>
                 </div>
-            <div class="wave-group mt-4">
-                <input required list="positionList" id="position" name="position" class="input" placeholder=" " />
-                <span class="bar"></span>
-                <label class="label">
-                    <span class="label-char" style="--index: 0">P</span>
-                    <span class="label-char" style="--index: 1">o</span>
-                    <span class="label-char" style="--index: 2">s</span>
-                    <span class="label-char" style="--index: 3">i</span>
-                    <span class="label-char" style="--index: 4">t</span>
-                    <span class="label-char" style="--index: 5">i</span>
-                    <span class="label-char" style="--index: 6">o</span>
-                    <span class="label-char" style="--index: 7">n</span>
-                </label>
-                <datalist id="positionList">
-                    <option value="Officer">
-                    <option value="Instructor">
-                    <option value="Cashier">
-                    <option value="Registrar">
-                    <option value="Admin Assistant">
-                    <option value="Security">
-                    <option value="Maintenance">
-                    <option value="Security-Guard">
-                </datalist>
-                </div>
-
-        </div>
-
         <!-- Save button -->
         <div class="mt-6 flex justify-center">
             <button id="save_button"
@@ -329,12 +228,10 @@
         </div>
     </div>
 </div>
-
-
-
    <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () 
+{
         const dropdownBtn = document.getElementById("user-dropdown-btn");
         const dropdownMenu = document.getElementById("user-dropdown-menu");
 
@@ -348,11 +245,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 dropdownMenu.classList.add("hidden");
             }
         });
-    });
+});
 
-
-
-      document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () 
+{
         const logoutBtn = document.getElementById("logout-btn");
 
         logoutBtn.addEventListener("click", function (e) {
@@ -374,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         return;
                     }
 
-                    fetch("http://backendidmaker.test/api/logout", {
+                    fetch("http://127.0.0.1:8000/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -404,15 +300,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
-    });
+});
 
-
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", () => 
+{
         const token = localStorage.getItem("auth_token");
 
         if (!token) return;
 
-        fetch("http://backendidmaker.test/api/profile", {
+        fetch("http://127.0.0.1:8000/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -429,22 +325,18 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => {
             console.error("Error fetching profile:", error);
         });
-    });
-
-      let employeeData = [];
-
+});
+    let employeeData = [];
     document.addEventListener("DOMContentLoaded", async function () 
     {
-        const apiKey = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOiJodHRwOi8vaWRtYWtlci50ZXN0IiwiaWF0IjoxNzMzMjMxMTU5LCJuYmYiOm51bGx9.T-m6B0towMc0NerWVHHk7zgueno-Cb-N5YHZ3sT2-dY";
+        const apiKey = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOiJodHRwczovL2lkbWFrZXIudGVzdCIsImlhdCI6MTc1MDkzNjE1NiwibmJmIjpudWxsfQ.pNifK7tDXmdpndMCN8VHVe1-3TiTbU7mamOpNtVQ3Fc";
         const headers = {
             "x-api-key": apiKey,
-            "Origin": "http://idmaker.test",
+            "Origin": "https://idmaker.test",
             "Content-Type": "application/json"
         };
-
         let currentPage = 1;
         let lastPage = 1;
-
         while (currentPage <= lastPage) {
             const url = `https://api-portal.mlgcl.edu.ph/api/external/employee-list?page=${currentPage}`;
             try {
@@ -461,95 +353,84 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-
         const input = document.getElementById("employee_name");
         const dropdown = document.getElementById("employee_dropdown");
-
         input.addEventListener("input", function () {
             const value = input.value.trim().toLowerCase();
             dropdown.innerHTML = "";
             dropdown.classList.add("hidden");
-
         if (value.length < 2) return;
-
         const matches = employeeData.filter(emp => {
             const fullName = `${emp.first_name} ${emp.middle_name || ''} ${emp.last_name}`.toLowerCase();
             return fullName.includes(value);
         });
-
         if (matches.length > 0) {
             matches.slice(0, 10).forEach(emp => {
                 const li = document.createElement("li");
                 const fullName = `${emp.first_name} ${emp.middle_name || ''} ${emp.last_name}`;
                 li.textContent = fullName;
                 li.className = "px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm";
-
                 li.addEventListener("click", () => {
                     input.value = fullName;
                     dropdown.innerHTML = "";
                     dropdown.classList.add("hidden");
-
                     document.getElementById("id_template").classList.remove("hidden");
-
                     document.getElementById("template_name").textContent = fullName;
                     document.getElementById("template_address").textContent = `Address: ${emp.full_address || '—'}`;
                     document.getElementById("template_birthdate").textContent = `Birthdate: ${emp.birthdate || '—'}`;
                     document.getElementById("template_contact").textContent = `Contact #: ${emp.contact_number || '—'}`;
                     document.getElementById("qr_image").src = emp.qr_code || '';
-
                     input.dataset.selectedEmployee = JSON.stringify(emp);
                 });
-
                 dropdown.appendChild(li);
             });
-
             dropdown.classList.remove("hidden");
         }
     });
-
     document.addEventListener("click", function (e) {
         if (!input.contains(e.target) && !dropdown.contains(e.target)) {
             dropdown.classList.add("hidden");
         }
     });
-
     const notyf = new Notyf({
     duration: 3000,
     position: { x: 'right', y: 'top' }
     });
-    document.getElementById("save_button").addEventListener("click", async () => {
+   document.getElementById("save_button").addEventListener("click", async () => {
     const input = document.getElementById("employee_name"); 
     const dataStr = input.dataset.selectedEmployee;
     const employeeIdInput = document.getElementById("employee_id").value.trim();
     const positionInput = document.getElementById("position").value.trim();
 
-   if (!employeeIdInput || !positionInput) {
-        notyf.error("Employee ID and Position are required.");
+    if (!employeeIdInput || !positionInput) {
+        notyf.error("All fields are required.");
         return;
     }
     if (!dataStr) return;
-
     const emp = JSON.parse(dataStr);
-
     const payload = {
-            first_name: emp.first_name,
-            middle_name: emp.middle_name || '',
-            last_name: emp.last_name,
-            address: emp.full_address || '—',
-            contact: emp.contact_number || '—',
-            emergency_contact: {
-                name: emp.emergency_contact?.name || '—',
-                number: emp.emergency_contact?.number || '—',
-            },
-            position: positionInput,
-            employee_id: employeeIdInput,
-            birth_date: emp.birthdate || '2000-01-01',
-            signature: null,
-            image: null,
-            qr: emp.qr_code || ''
-            };
+        first_name: emp.first_name,
+        middle_name: emp.middle_name || '',
+        last_name: emp.last_name,
+        address: emp.full_address || '—',
+        contact: emp.contact_number || '—',
+        emergency_contact: {
+            name: emp.emergency_contact?.name || '—',
+            number: emp.emergency_contact?.number || '—',
+        },
+        position: positionInput,
+        employee_id: employeeIdInput,
+        birth_date: emp.birthdate || '2000-01-01',
+        signature: null,
+        image: null,
+        qr: emp.qr_code || '',
+        tin_no: document.getElementById("tin").value.trim(),
+        sss_no: document.getElementById("sss").value.trim(),
+        philhealth_no: document.getElementById("philhealth").value.trim(),
+        hdmf_no: document.getElementById("hdmf").value.trim()
+    };
     try {
-        const response = await fetch("http://backendidmaker.test/api/employee-store", {
+        const response = await fetch("http://127.0.0.1:8000/api/employee-store", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -558,11 +439,9 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(payload)
         });
-
         const result = await response.json();
-
         if (response.ok) {
-            window.location.href = `employeegenerateedit.php?name=${emp.first_name}`;
+            window.location.href = `employeegenerateedit.php?id=${employeeIdInput}`;
         } else {
             console.error("Save failed:");
             console.error("Status:", response.status);
@@ -574,7 +453,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("🔥 Fetch crashed (probably no connection to server):");
         console.error(error);
     }
-   });
+});
 
 </script>
 

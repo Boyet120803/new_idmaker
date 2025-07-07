@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Student;
+use App\Models\Complete;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -63,5 +64,16 @@ class StudentController extends Controller
                     'error' => $e->getMessage()
                 ], 500);
             }
+        }
+
+        public function destroy($id){
+            $student = Complete::find($id);
+            if(!$student) {
+                return response()->json(['message' => 'Student not found'], 404);
+            }
+            return response()->json([
+                'message' => 'Student deleted successfully',
+                'student' => $student->delete()
+            ], 200);
         }
 }

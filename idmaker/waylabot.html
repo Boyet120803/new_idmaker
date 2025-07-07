@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ID Editor with Drag + Font Resize</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #toolbar {
+      margin-bottom: 10px;
+    }
+
+    #idCard {
+      position: relative;
+      width: 324px;
+      height: 204px;
+      margin: auto;
+      background: #5420B5;
+      border: 2px solid #333;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .editable {
+      position: absolute;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: move;
+      padding: 2px 5px;
+      border: 1px dashed transparent;
+    }
+
+    .editable:focus {
+      outline: none;
+      border-color: yellow;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .resizer {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: yellow;
+      bottom: -4px;
+      right: -4px;
+      cursor: se-resize;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toolbar">
+    Font Size:
+    <select id="fontSizePicker">
+      <option value="12px">12px</option>
+      <option value="16px" selected>16px</option>
+      <option value="20px">20px</option>
+      <option value="24px">24px</option>
+      <option value="30px">30px</option>
+    </select>
+  </div>
+
+  <div id="idCard">
+    <div class="editable" contenteditable="true" style="top: 30px; left: 20px;">KISTADIO</div>
+    <div class="editable" contenteditable="true" style="top: 60px; left: 20px;">JHON BRIX P.</div>
+    <div class="editable" contenteditable="true" style="top: 120px; left: 20px;">BIRTH: 09/04/2000</div>
+    <div class="editable" contenteditable="true" style="top: 150px; left: 20px;">ADDRESS: Hilongos</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+  <script>
+    // Enable dragging for all .editable
+    interact('.editable')
+      .draggable({
+        listeners: {
+          move (event) {
+            const target = event.target;
+            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+            target.style.transform = `translate(${x}px, ${y}px)`;
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+          }
+        }
+      });
+
+    // Font size dropdown
+    const fontPicker = document.getElementById('fontSizePicker');
+    fontPicker.addEventListener('change', () => {
+      const active = document.activeElement;
+      if (active && active.classList.contains('editable')) {
+        active.style.fontSize = fontPicker.value;
+      }
+    });
+  </script>
+</body>
+</html>

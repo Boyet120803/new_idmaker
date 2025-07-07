@@ -1,0 +1,154 @@
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+    .id-card {
+      width: 204px;
+      height: 324px;
+      background: #fff;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 7px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .box {
+      padding: 7px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .certification {
+      text-align: center;
+      line-height: 1.2;
+      font-weight:400;
+    }
+
+    .certification b {
+      font-size: 6.7px;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .signature-block {
+      text-align: center;
+      margin: 2px 0 4px;
+      height:44px !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .signature img {
+        width: 54px;
+        height: auto;
+        position: absolute;
+        top: 50% !important;
+        left:50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .director-name {
+      font-weight: bolder;
+      font-size: 6.7px;
+      
+    }
+
+    .director-title {
+      font-size: 7px;
+      font-weight:bold;
+    }
+
+    .info-table {
+      width: 100%;
+      font-size: 6px;
+      border-collapse: collapse;
+      margin-top: 5px;
+    }
+
+    .info-table td {
+      border: 1px solid #969393;
+      padding: 2px 3px;
+      vertical-align: top;
+    }
+
+    .reminders {
+      text-align: center;
+      font-size: 6.5px;
+      font-weight: bold;
+      margin: 10px 0;
+      padding: 4px 0;
+      line-height: 1.3;
+     
+    }
+   
+
+    .contact-info {
+      font-size: 7.3px;
+      text-align: center;
+      line-height: 1.3;
+      font-weight:500;
+    }
+
+    .emergency {
+      font-weight: 900;
+      margin-top: 4px;
+      font-size: 7.4px;
+    }
+    .qr-box{
+      background: #d62828;
+    }
+
+    .red-box {
+      color: white;
+      font-size: 7px;
+      padding: 6px 5px;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+      text-transform: uppercase;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+
+    .bottom {
+      margin-top: 6px;
+    }
+
+    .social-link {
+      background: #d62828;
+      padding: 5px 4px;
+      text-align: center;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .facebook-link {
+      font-size: 7px;
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+    }
+
+    .fb-icon {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin-right: 4px;
+    }
+
+    .reminders span{
+      font-weight:bold;
+      font-size:6px;
+    }

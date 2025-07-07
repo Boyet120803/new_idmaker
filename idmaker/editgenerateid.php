@@ -1,18 +1,23 @@
 <?php  require_once ('admin-partials/header.php') ?>
 <?php  require_once ('admin-partials/sidebar.php') ?>
 <?php require_once ('admin-partials/js.php') ?>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <style>
  
 
 
     .id-wrapper {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      justify-content: center;
-        transform: scale(2);      /* adjust 1.2 to your preferred zoom level */
-  transform-origin: top center;
-  transition: transform 0.2s;
+       display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    transform: scale(1.4); 
+    transform-origin: top center;
+    transition: transform 0.2s;
     }
 
   .id {
@@ -30,6 +35,7 @@
       background: transparent;
       position: relative;
       overflow: hidden;
+      background: #b8d3e6;
     }
 
     .front-bg {
@@ -109,15 +115,16 @@
     object-fit: contain;
  
   }
+  .course{
+    font-size: 8px;
+  }
 
   .student-img {
    
     top: 0;
     left: 0;
-    /* width: 150%;
-    height: 240px; adjust as needed para mo-fit gyud sa taas sa polygon */
     object-fit: fill;
-    border-radius: 0 0 0px 0px; /* optional: rounded bottom corners */
+    border-radius: 0 0 0px 0px;
     border: none;
     background: transparent;
  
@@ -145,14 +152,15 @@
   color: #fff;
   letter-spacing: 1px;
   z-index: 2;
-  margin-bottom: 0px;
+  margin-bottom: -6px;
+
 }
 
 .name span {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
-  margin-top: -2px; /* dikit sa last name */
+  margin-top: -6px; /* dikit sa last name */
   display: block;
   line-height: 1.05;
 }
@@ -170,18 +178,18 @@
       flex-direction: column;
       align-items: flex-start;
       margin-bottom: 0;
-      justify-content: end; /* tanggalin ang extra space */
-      gap: 2px;           /* tanggalin ang gap */
+      justify-content: end; 
+      gap: 2px;         
     }
-    /* Adjust label and value font size */
+  
       .info-row-child .label {
-        font-size: 7px;   /* mas maliit ang label */
-        margin-top: 6px; /* dikit sa value */
+        font-size: 8px;  
+        margin-top: 6px;
         line-height: 1.2;
       }
 
       .info-row-child .value {
-        font-size: 10px;  /* pwede mong adjustan depende sa gusto mo */
+        font-size: 8px;  /* pwede mong adjustan depende sa gusto mo */
         margin-top: -2px; /* dikit sa label */
         line-height: 1.1;
         margin-bottom: 1px;
@@ -191,6 +199,7 @@
     }
 
     .address {
+      font-size:8px;
       text-align: right;
     }
 
@@ -204,7 +213,7 @@
       padding: 0px 10px;
       border-radius: 0px;
       margin: 0px 0 0px 0;
-      font-size: 13px;
+      font-size: 10px;
     }
 
     .footer {
@@ -216,6 +225,26 @@
         padding: 0 5px 5px 5px;
     }
 
+    .esc-logo {
+      position: absolute;
+      right: 5px;
+      top: -15px;
+      width: 40px;   /* adjust size as needed */
+      height: auto;
+      z-index: 5;
+    
+      pointer-events: none; /* para di madrag */
+}
+
+.esc{
+  display:flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size:8px;
+  margin-top:10px;
+  margin-right:5px;
+  font-weight: bold;
+}
 
 
     .id.back {
@@ -239,7 +268,6 @@
       font-size: 9px;
       position: relative;
       overflow: hidden;
-
     }
 
     .left-bar {
@@ -495,44 +523,46 @@
   z-index: 3;
 }
 .edit-mode .img-drop-area {
-  pointer-events: auto; /* pwede na mag-drag pag edit mode */
+  pointer-events: auto; 
   border: 2px dashed #5420B5;
   background: rgba(84,32,181,0.05);
 }
 
 @media print {
   body *:not(.id):not(.id *) {
-    /* font-style: ; */
     visibility: hidden !important;
-    
+    font-family: "Montserrat", sans-serif;
   }
-    .name,
+
+  .name,
   .name span,
   .info-row-child .label,
   .info-row-child .value,
   .info-row-child .address,
-   .info-row-child .dateofbirth,
+  .info-row-child .dateofbirth,
   .footer span {
-    color: #fff !important;
+   
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     text-shadow: none !important;
   }
+
   .id.front, .id.back {
     visibility: visible !important;
     position: absolute !important;
-    left: 0; top: 0;
-    width: 2.7in !important;
-    height: 4.2in !important;
+    left: 0;
+    top: 0;
+    width: 3.2in !important;
+    height: 5.0in !important;
     box-shadow: none !important;
     z-index: 9999 !important;
     display: none !important;
-
   }
- 
+
   .id.front[style*="display: block"], .id.back[style*="display: block"] {
     display: block !important;
   }
+
   .id-wrapper, .mt-6 {
     transform: none !important;
     margin: 0 !important;
@@ -541,6 +571,36 @@
     height: auto !important;
     display: block !important;
   }
+
+  .id-left {
+    width: 2.3in;
+  }
+  .esc-logo{
+    position: absolute;
+    right: 5px;
+    top: -30px;
+    width: 0.6in !important;  
+    height: 0.6in !important;
+    z-index: 5;
+    margin-right:5px;
+    pointer-events: none;
+  }
+
+  .esc{
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: black !important;
+     margin-right:19px;
+   
+  }
+  .esc img{
+      margin-top:25px !important;
+  }
+    .course{
+        font-size: 15px !important;
+        margin-right:7px;
+    }
+
   body, html {
     margin: 0 !important;
     padding: 0 !important;
@@ -549,101 +609,235 @@
     background: white !important;
     font-family: 'Montserrat', sans-serif !important;
   }
+
   .switch-btn, #editBtn, #saveBtn, #printBtn {
     display: none !important;
   }
- 
-.img-drop-area img{
-  width: 2.9in !important;
-  height: 3.0in !important;
-}
-.id-left .signature{
-  width: 3.8in !important;
-  height: 2.0in !important;
 
-}
-.name-block .name{
-  font-size: 0.3in !important;
-  line-height: 1.2 !important;
-}
+  /* QR CODE IMAGE */
+  .id-left .qr {
+    width: 1.1in !important;
+    height: 1.1in !important;
+    position: absolute !important;  
+    left: 20px !important;
+    margin-top: 30px !important;
+  }
 
-.id-left .signature{
-    top: 40px !important;
-    left: 15px !important;
-    width: 60px !important;
-    height: 85px !important;
-    object-fit: contain;
-}
-.id-left .qr{
-  width: 0.9in !important;
-  height: 0.9in !important;
-  position: absolute !important;  
-  left: 20px !important;
-  margin-top: 3px !important;
-}
-.id-left .school-name{
-   font-size: 9px !important;
-    margin-right: -17px !important;
-   
-}
-.id-left .school-address{
-  font-size: 7px !important;
-  margin-top: 2px !important;
-  margin-right: -17px !important;
-  font-weight: bold !important;
-}
-.id-left .logo{
+  /* SIGNATURE IMAGE INSIDE .sig */
+  .sig {
+    position: relative !important;
+     width: 1.8in !important;
+    height: 1.8n !important;
+    top: -20px !important;
+    left: -30px !important;
+  }
+
+  .sig img {
+    position: absolute !important;
+    object-fit: contain !important;
+  }
+
+  /* IMAGE DROP AREA */
+  .img-drop-area img {
+    width: 3.2in !important;
+    height: 3.4in !important;
+  }
+
+
+  /* SCHOOL INFO */
+  .id-left .school-name {
+    font-size: 12px !important;
+    margin-right: -39px !important;
+    margin-top: 18px;
+  }
+
+  .id-left .school-address {
+    font-size: 8px !important;
+    margin-top: 2px !important;
+    margin-right: -40px !important;
+    font-weight: bold !important;
+  }
+
+  .id-left .logo {
     position: absolute;
     top: 18px !important;
     left: 40px !important;
-    width: 43px !important;
-    height: 43px !important;
+    width: 65px !important;
+    height: 65px !important;
     z-index: 2;
+  }
+
+  /* NAME BLOCK */
+  .name-block .name {
+    
+    line-height: 1.2 !important;
+  }
+
+  .name-block .name span {
+    
+    line-height: 1.1 !important;  
+  }
+
+  .name-block {
+    margin-bottom: 0px !important;
+    padding: 0 18px 2px 5px !important;
+  }
+
+  /* INFO ROW */
+  .info-row {
+    padding: 5px 10px 2px 10px !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    margin-right:18px;
+  }
+
+  .info-row .label {
+    font-size: 11px !important;
+    font-weight: bold !important;
+    margin-right:18px;
+  }
+
+  .info-row .value {
+    font-size: 13px !important;
+    font-weight: bold !important;
+  }
+  .info-row .address{
+    margin-right: -10px !important;
+  }
+
+  /* ID ROW */
+  .id-row {
+    padding: 5px 10px 2px 10px !important;
+    height: 30px !important;
+    font-size: 19px !important;
+    margin-bottom: -10px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 12px 15px 2px 11px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .footer span {
+    font-size: 13px !important;
+    font-weight: bold !important;
+  }
 }
 
-.name-block .name{
-  font-size: 0.3in !important;
-  line-height: 1.2 !important;
-}
-.name-block .name span{
-  font-size: 0.2in !important;
-  line-height: 1.1 !important;  
-}
-.name-block{
-  margin-bottom: 0px !important;
-  padding: 0 10px 2px 5px !important;
-}
-.info-row{
-  padding: 5 10px 2px 10px !important;
-  font-size: 11px !important;
-  font-weight: bold !important;
-}
-
-.info-row .label{
-
-  font-size: 9px !important;
-  font-weight: bold !important;
-}
-.info-row .value{
-
-  font-size: 11px !important;
-  font-weight: bold !important;
-}
-
-
-.id-row{
-  padding: 5 10px 2px 10px !important;
-  height: 23px !important;
-  font-size: 15px !important;
-
-}
-
-.footer{
-  padding: 5 10px 2px 10px !important;
-  font-weight: bold !important;
-}
-
+@media print {
+  @page {
+    margin: 0;
   
+  }
+
+ body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-family: "Montserrat", sans-serif !important;
+  }
+
+
+ 
+  .left-content{
+    width:0.8in;
+  }
+   .right-content{
+    width:1.4in;
+    gap:13px;
+  }
+  .id-card-back{
+     height:453px !important;
+  }
+     .id.back{
+      height:485px !important; 
+      width:100% !important; 
+      background-color:blue;
+    }
+  
+
+  .top-text {
+    font-size: 11px !important;
+  }
+    .top-text b{
+    font-size: 0.1in !important;
+     margin-top:10px !important;
+  }
+  
+  .signature-name{
+     font-size: 11px !important;
+  }
+
+  .director{
+     font-size: 0.1in !important;
+  }
+
+  .facebook-footer{
+    color: white;
+    font-size: 10px;
+    font-weight:bold;
+    text-align: center;
+    padding: 10px 0 5px 0 !important;
+    letter-spacing: 0.5px;
+    width: 100% !important;
+    height:100% !important;
+    font-family: inherit;
+  }
+  .reminders{
+    text-align: center;
+    font-size: 11px;
+    margin-top: -10px;
+  }
+  .reminders .first{
+    font-size: 11px;
+    font-weight:bold;
+  }
+  .reminders .second{
+    font-size: 11px;
+    font-weight:bold;
+  }
+  .word-school-year{
+    height:86px;
+  }
+  .contact{
+    font-size:10px;
+    margin-top:-16px;
+
+  }
+  .contact .contact-name{
+    font-size:15px;
+  }
+  .contact .contact-number{
+    font-size:12px;
+    margin-top:-5px;
+  }
+  .qr-box{
+      margin-top:-12px;
+      background: black;
+      color: white;
+      font-size: 10px;
+      text-align: center;
+      padding: 4px 2px;
+      font-weight: bold;
+  }
+  .rotated-text{
+    font-size:10px !important;
+    font-weight:bold !important;
+     letter-spacing: 0.5px;
+  } 
+  .signature-img-wrap{
+    margin-top:69px;
+  }
+
+  .signature-img-wrap img{
+    width: 2.5in;
+    height: 2in;
+    object-fit: contain;
+    display: block;
+  }
 }
 
 </style>
@@ -701,62 +895,79 @@
                         <span class="text-gray-700">Page</span>
                     </div>
              </div>
-    </header>
+            </header>
     <div style="width:100%; display:flex; flex-direction:column; align-items:center; margin-top:40px;">
-  <div style="margin-bottom: 20px;">
-    <button id="showFront" class="switch-btn active">Front</button>
-    <button id="showBack" class="switch-btn">Back</button>
-    <button id="editBtn" class="switch-btn">Edit</button>
-    <button id="saveBtn" class="switch-btn" style="display:none;">Save</button>
-    <button id="printBtn" class="switch-btn">Print</button>
-  </div>
- <div class="mt-6">
-    <div class="id-wrapper">
-    <!-- FRONT SIDE -->
- 
-<div class="id front" id="idFront" style="display: block;">
-  <div class="front-bg"></div>
-  <div class="id-left">
-    <img src="assets/img/log.png" class="logo" alt="Logo">
-    <div class="school-info">
-      <span class="school-name">MLG COLLEGE<br>OF LEARNING, INC</span>
-      <span class="school-address">Brgy. Atabay, Hilongos, Leyte</span>
-    </div>
-    <img src="assets/photos/qr.png" class="qr" alt="QR Code" id="qr_code">
-    <div class="img-drop-area" id="signDropArea">
-      <img src="assets/img/yan.png" class="signature" id="signatureImg" alt="Signature">
-    </div>
-  </div>
-  <div class="img-drop-area" id="photoDropArea">
-  <img src="assets/img/id_final.png" class="student-img" id="studentImg" alt="Student Photo" style="width:150%;height:240px;">
-</div>
-  <div class="bottom-content">
-    <div class="name-block">
-      <div class="name">KISTADIO<br><span class="firstname">JHON BRIX P.</span></div>
-      <div class="info-row">
-        <div class="info-row-child">
-          <span class="label">Date of Birth:</span>
-          <span class="value">09/04/2000</span>
-        </div>
-        <div class="info-row-child">
-          <br><span class="address">Brgy. Atabay, Hilongos</span>
-        </div>
-        
+      <div style="margin-bottom: 20px;">
+        <button id="showFront" class="switch-btn active">Front</button>
+        <button id="showBack" class="switch-btn">Back</button>
+        <button id="editBtn" class="switch-btn">Edit</button>
+        <button id="saveBtn" class="switch-btn" style="display:none;">Save</button>
+        <button id="printBtn" class="switch-btn">Print</button>
       </div>
+
+    <div id="fontSizeControls" style="display:none; margin-bottom:10px;">
+      <label for="nameFontSize" style="font-weight:bold;">Name Font Size:</label>
+      <input type="range" id="nameFontSize" min="16" max="48" value="24" style="vertical-align:middle;">
+      <span id="fontSizeValue">24</span>px
     </div>
-    <div class="id-row">
-      <span class="student-id">21-003149</span>
-      <span class="course">BSED-SS</span>
+    <div id="firstNameFontSizeControls" style="display:none; margin-bottom:10px;">
+      <label for="firstNameFontSize" style="font-weight:bold;">First Name Font Size:</label>
+      <input type="range" id="firstNameFontSize" min="10" max="30" value="13" style="vertical-align:middle;">
+      <span id="firstNameFontSizeValue">13</span>px
     </div>
-    <div class="footer">
-      <span>https://mlgcl.edu.ph</span>
-      <span>mlg@mlgcl.edu.ph</span>
-    </div>
-  </div>
 </div>
 
-<!-- BACK SIDE -->
 
+<div class="mt-6">
+ <div class="id-wrapper">
+   <div class="id front" id="idFront" style="display: block;">
+      <div class="front-bg"></div>
+          <div class="id-left">
+             <img src="assets/img/log.png" class="logo" alt="Logo">
+              <div class="school-info">
+                <span class="school-name">MLG COLLEGE<br>OF LEARNING, INC</span>
+                <span class="school-address">Atabay, Hilongos, Leyte</span>
+              </div>
+              <img src="assets/photos/qr.png" class="qr" alt="QR Code" id="qr_code">
+              <div class="img-drop-area" id="signDropArea">
+                <div class="sig">
+                    <img src="assets/img/yan.png" class="signature" id="signatureImg" alt="Signature">
+                </div>
+              </div>
+          </div>
+          <div class="img-drop-area" id="photoDropArea">
+               <img src="assets/img/id_final.png" class="student-img" id="studentImg" alt="Student Photo" style="width:150%;height:240px;">  
+          </div>
+          <div class="bottom-content">
+            <div class="esc"style="display: none;">
+              ESC # <span id="esc_number"></span>
+            </div>
+             <div class="name-block">
+               <div class="name">KISTADIO<br><span class="firstname">JHON BRIX P.</span></div>
+                 <div class="info-row">
+                   <div class="info-row-child">
+                    <span class="label">Date of Birth:</span>
+                    <span class="value">09/04/2000</span>
+                   </div>
+                  <div class="info-row-child">
+                    <br><span class="address">Brgy. Atabay, Hilongos</span>
+                  </div>             
+              </div>
+            </div>
+          <div class="id-row">
+            <span class="student-id">21-003149</span>
+            <span id="course_span" class="course">BSED-SS</span>
+          </div>
+          <div class="footer">
+            <span>https://mlgcl.edu.ph</span>
+            <span>mlg@mlgcl.edu.ph</span>
+          </div>
+          <div class="esc-logo"style="display: none;">
+            <img src="assets/img/ESC-Logo.png" class="esc-logo" alt="ESC Logo">
+          </div>
+     </div>
+</div>
+<!-- BACK SIDE -->
     <div class="id back" id="idBack" style="display: none;">
         <div class="id-card-back back-top">
             <div class="left-content">
@@ -803,66 +1014,57 @@
                     herein is a bonafide student of<br>
                     <b>MLC College of Learning, Inc.</b>
                 </div>
-
-                  <div class="back-signature">
-                    <div class="signature-img-wrap">
-                        <img src="assets/img/yan.png" alt="signature" class="back-signature-img">
-                    </div>
-                    <div class="signature-name">MARY LILIBETH O. YAN, DEV. ED. D.</div>
-                    <div class="director">School Director</div>
-                  </div>
-
+                <div class="back-signature">
+                      <div class="signature-img-wrap">
+                          <img src="assets/img/yan.png" alt="signature" class="back-signature-img">
+                      </div>
+                      <div class="signature-name">MARY LILIBETH O. YAN, DEV. ED. D.</div>
+                      <div class="director">School Director</div>
+                </div>
                 <div class="reminders">
-                    <b>IMPORTANT REMINDERS</b><br>
+                    <b class="first">IMPORTANT REMINDERS</b><br>
                     Always wear this ID while inside<br>
                     the school campus.<br>
-                    <b>Do not forget your<br>
+                    <b class="second">Do not forget your<br>
                     STUDENT ID NUMBER.</b>
                 </div>
-
                 <div class="contact">
                     If lost and found, please surrender<br>
                     this ID to the<br>
-                    <b>STUDENT AFFAIRS OFFICE</b>,<br>
+                    STUDENT AFFAIRS OFFICE,<br>
                     MLC College of Learning, Inc.,<br>
                     Brgy. Atabay, Hilongos, Leyte
                 </div>
-
-                <div class="contact1">
-                    In case of emergency,<br>
-                    please contact
+                <div class="contact">
+                   <b> In case of emergency,<br>
+                    please contact</b>
                     <div class="contact-name">EFREN IBAÑEZ</div>
                     <div class="contact-number">0935-121-9395</div>
                 </div>
-
                 <div class="qr-box">
                     PLEASE SCAN THE QR<br>
                     CODE AT THE FRONT<br>
                     FOR MORE VALIDATION &<br>
                     CONTACT INFORMATION.
                 </div>
-            </div>
-            
+            </div>          
         </div>
         <div class="facebook-footer back-bottom">
             https://www.facebook.com/mlgcl/
         </div>
     </div>
-    
 </div>
 
 <script>
-printBtn.onclick = function() {
-  lastView = idFront.style.display !== 'none' ? 'front' : 'back';
-  if (lastView === 'front') {
-    idBack.style.display = 'none';
-    idFront.style.display = 'block';
-  } else {
-    idFront.style.display = 'none';
-    idBack.style.display = 'block';
-  }
-
-  // --- DYNAMIC PRINT COLOR PATCH ---
+  printBtn.onclick = function() {
+    lastView = idFront.style.display !== 'none' ? 'front' : 'back';
+    if (lastView === 'front') {
+      idBack.style.display = 'none';
+      idFront.style.display = 'block';
+    } else {
+      idFront.style.display = 'none';
+      idBack.style.display = 'block';
+    }
   const polygonColor = getComputedStyle(document.querySelector('.front-bg')).backgroundColor;
   let printStyle = document.getElementById('dynamicPrintStyle');
   if (!printStyle) {
@@ -880,8 +1082,6 @@ printBtn.onclick = function() {
       }
     }
   `;
-  // --- END PATCH ---
-
   window.print();
 };
 </script>
@@ -905,17 +1105,26 @@ printBtn.onclick = function() {
           };
         </script>
 <script>
-  let newPhotoFile = null;
-let newSignatureFile = null;
+    let newPhotoFile = null;
+    let newSignatureFile = null;
 
-const editBtn = document.getElementById('editBtn');
-const saveBtn = document.getElementById('saveBtn');
-editBtn.onclick = function() {
-  document.querySelector('.id.front').classList.toggle('edit-mode');
-  saveBtn.style.display = document.querySelector('.id.front').classList.contains('edit-mode') ? 'inline-block' : 'none';
-};
+    const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    editBtn.onclick = function() {
+      document.querySelector('.id.front').classList.toggle('edit-mode');
+      saveBtn.style.display = document.querySelector('.id.front').classList.contains('edit-mode') ? 'inline-block' : 'none';
 
-// Drag and drop for photo
+      // Show/hide font size controls
+      document.getElementById('fontSizeControls').style.display =
+      document.querySelector('.id.front').classList.contains('edit-mode') ? 'block' : 'none';
+
+      // Show/hide first name font size controls
+      document.getElementById('firstNameFontSizeControls').style.display =
+      document.querySelector('.id.front').classList.contains('edit-mode') ? 'block' : 'none';
+
+    };
+
+
 const photoDropArea = document.getElementById('photoDropArea');
 const studentImg = document.getElementById('studentImg');
 photoDropArea.addEventListener('dragover', function(e) {
@@ -938,11 +1147,9 @@ photoDropArea.addEventListener('drop', function(e) {
       studentImg.src = evt.target.result;
     };
     reader.readAsDataURL(file);
-    newPhotoFile = file; // <-- Mark as new photo
+    newPhotoFile = file; 
   }
 });
-
-// Drag and drop for signature
 const signDropArea = document.getElementById('signDropArea');
 const signatureImg = document.getElementById('signatureImg');
 signDropArea.addEventListener('dragover', function(e) {
@@ -965,7 +1172,7 @@ signDropArea.addEventListener('drop', function(e) {
       signatureImg.src = evt.target.result;
     };
     reader.readAsDataURL(file);
-    newSignatureFile = file; // <-- Mark as new signature
+    newSignatureFile = file; 
   }
 });
 </script>
@@ -978,8 +1185,6 @@ function makeDraggableResizable(img, container) {
   img.style.position = 'absolute';
   img.style.left = img.style.left || '0px';
   img.style.top = img.style.top || '0px';
-
-  // 8 handles: tl, t, tr, r, br, b, bl, l
   const handles = {};
   const positions = [
     ['tl', 'nwse-resize', '0', '0'],
@@ -1053,7 +1258,6 @@ function makeDraggableResizable(img, container) {
       let dx = e.clientX - startX;
       let dy = e.clientY - startY;
       let newLeft = startLeft, newTop = startTop, newWidth = startWidth, newHeight = startHeight;
-      // Direction logic
       if (resizeDir.includes('l')) {
         newLeft = startLeft + dx;
         newWidth = startWidth - dx;
@@ -1068,7 +1272,6 @@ function makeDraggableResizable(img, container) {
       if (resizeDir.includes('b')) {
         newHeight = startHeight + dy;
       }
-      // Minimum size
       newWidth = Math.max(30, newWidth);
       newHeight = Math.max(30, newHeight);
       img.style.left = newLeft + 'px';
@@ -1087,35 +1290,62 @@ function makeDraggableResizable(img, container) {
   document.getElementById('editBtn').addEventListener('click', updateHandles);
 }
 
-// Init for photo
 makeDraggableResizable(
   document.getElementById('studentImg'),
   document.getElementById('photoDropArea')
 );
-// Init for signature
 makeDraggableResizable(
   document.getElementById('signatureImg'),
   document.getElementById('signDropArea')
 );
 </script>
 
-<script>
-
- saveBtn.onclick = async function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const studentId = urlParams.get("student_id");
-
-  // Fetch pending data para makuha ang info
-  const pendingRes = await fetch(`http://backendidmaker.test/api/pending/${studentId}`, {
-    method: "GET",
-    headers: {
-      "Accept": "application/json",
-      "Authorization": "Bearer " + localStorage.getItem("auth_token")
+    <script>
+    // Helper: Convert URL (like from Google Drive) to File object
+    async function urlToFile(url, filename, mimeType = 'image/jpeg') {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      return new File([blob], filename, { type: mimeType });
     }
-  });
+
+    saveBtn.onclick = async function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const studentId = urlParams.get("student_id");
+
+      const pendingRes = await fetch(`http://127.0.0.1:8000/api/pending/${studentId}`, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("auth_token")
+        }
+      });
+
   const data = await pendingRes.json();
 
-  // Get positions
+  // Auto-apply saved FIRSTNAME font size
+  if (data.firstname_fontsize) {
+    document.getElementById('firstNameFontSize').value = data.firstname_fontsize;
+    document.getElementById('firstNameFontSizeValue').textContent = data.firstname_fontsize;
+
+    const firstNameSpan = document.querySelector('.name .firstname');
+    if (firstNameSpan) {
+      firstNameSpan.style.fontSize = data.firstname_fontsize + 'px';
+    }
+  }
+
+  // Auto-apply saved LASTNAME font size
+  if (data.lastname_fontsize) {
+    document.getElementById('nameFontSize').value = data.lastname_fontsize;
+    document.getElementById('fontSizeValue').textContent = data.lastname_fontsize;
+
+    const lastNameEl = document.querySelector('.name-block .name');
+    if (lastNameEl) {
+      lastNameEl.style.fontSize = data.lastname_fontsize + 'px';
+    }
+  }
+
+  const escNumber = document.getElementById('esc_number')?.textContent.trim() || '';
+
   const studentImg = document.getElementById('studentImg');
   const photoPosition = JSON.stringify({
     left: studentImg.style.left,
@@ -1123,6 +1353,7 @@ makeDraggableResizable(
     width: studentImg.style.width,
     height: studentImg.style.height
   });
+
   const signatureImg = document.getElementById('signatureImg');
   const signaturePosition = JSON.stringify({
     left: signatureImg.style.left,
@@ -1131,8 +1362,9 @@ makeDraggableResizable(
     height: signatureImg.style.height
   });
 
-  let response;
-if (newPhotoFile || newSignatureFile) {
+  const firstNameFontSize = document.getElementById('firstNameFontSize').value;
+  const lastNameFontSize = document.getElementById('nameFontSize').value;
+
   const formData = new FormData();
   formData.append('student_id', studentId);
   formData.append('first_name', data.first_name);
@@ -1145,62 +1377,52 @@ if (newPhotoFile || newSignatureFile) {
   formData.append('photo_position', photoPosition);
   formData.append('signature_position', signaturePosition);
   formData.append('qr_code', data.qr_code || '');
+  formData.append('emergency_contact_name', data.emergency_contact_name || '');
+  formData.append('emergency_contact_number', data.emergency_contact_number || '');
+  formData.append('firstname_fontsize', firstNameFontSize);
+  formData.append('lastname_fontsize', lastNameFontSize);
+  formData.append('esc', escNumber);
 
-  // Ito ang tamang paraan para sa nested array/object
-  if (typeof data.emergency_contact === 'object' && data.emergency_contact !== null) {
-    formData.append('emergency_contact[name]', data.emergency_contact.name || '');
-    formData.append('emergency_contact[number]', data.emergency_contact.number || '');
-  } else {
-    formData.append('emergency_contact[name]', '');
-    formData.append('emergency_contact[number]', '');
+  // ✅ Handle image file or Google Drive URL
+  if (typeof newPhotoFile === 'string' && newPhotoFile.startsWith('http')) {
+    const file = await urlToFile(newPhotoFile, 'photo.jpg');
+    formData.append('image', file);
+  } else if (newPhotoFile instanceof File) {
+    formData.append('image', newPhotoFile);
   }
 
-  if (newPhotoFile) formData.append('image', newPhotoFile);
-  if (newSignatureFile) formData.append('signature', newSignatureFile);
+  // ✅ Handle signature file or URL
+  if (typeof newSignatureFile === 'string' && newSignatureFile.startsWith('http')) {
+    const file = await urlToFile(newSignatureFile, 'signature.jpg');
+    formData.append('signature', file);
+  } else if (newSignatureFile instanceof File) {
+    formData.append('signature', newSignatureFile);
+  }
 
-    response = await fetch('http://backendidmaker.test/api/completed', {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/completed', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
       },
       body: formData
     });
-  } else {
-    // Walang bagong upload, JSON lang
-    const payload = {
-      student_id: studentId,
-      first_name: data.first_name,
-      last_name: data.last_name,
-      middle_name: data.middle_name,
-      address: data.address,
-      course: data.course,
-      contact: data.contact,
-      emergency_contact: data.emergency_contact,
-      birth_date: data.birth_date,
-      photo_position: photoPosition,
-      signature_position: signaturePosition,
-      qr_code: data.qr_code || ''
 
-    };
+    const result = await response.json();
 
-    response = await fetch('http://backendidmaker.test/api/completed', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
-      },
-      body: JSON.stringify(payload)
-    });
-  }
-
-  if (response.ok) {
-    Swal.fire('Saved!', 'ID layout has been saved.', 'success');
-    document.querySelector('.id.front').classList.remove('edit-mode');
-    saveBtn.style.display = 'none';
-    newPhotoFile = null;
-    newSignatureFile = null;
-  } else {
-    Swal.fire('Error', 'Failed to save changes.', 'error');
+    if (response.ok) {
+      Swal.fire('Saved!', 'ID layout has been saved.', 'success');
+      document.querySelector('.id.front').classList.remove('edit-mode');
+      saveBtn.style.display = 'none';
+      newPhotoFile = null;
+      newSignatureFile = null;
+    } else {
+      console.error("Save failed:", result);
+      Swal.fire('Error', 'Failed to save changes.', 'error');
+    }
+  } catch (err) {
+    console.error("Server error:", err);
+    Swal.fire('Error', 'Server error. Check console.', 'error');
   }
 };
 </script>
@@ -1247,7 +1469,7 @@ if (newPhotoFile || newSignatureFile) {
                         return;
                     }
 
-                    fetch("http://backendidmaker.test/api/logout", {
+                    fetch("http://127.0.0.1:8000/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1267,7 +1489,7 @@ if (newPhotoFile || newSignatureFile) {
                             showConfirmButton: false
                         }).then(() => {
                             localStorage.removeItem("auth_token");
-                            window.location.href = "index.php"; // redirect to login
+                            window.location.href = "index.php";
                         });
                     })
                     .catch(error => {
@@ -1285,7 +1507,7 @@ if (newPhotoFile || newSignatureFile) {
 
         if (!token) return;
 
-        fetch("http://backendidmaker.test/api/profile", {
+        fetch("http://127.0.0.1:8000/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -1305,8 +1527,7 @@ if (newPhotoFile || newSignatureFile) {
     });
 
 
-
-     document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const studentId = urlParams.get("student_id");
 
@@ -1316,7 +1537,7 @@ if (newPhotoFile || newSignatureFile) {
     }
 
     try {
-        const response = await fetch(`http://backendidmaker.test/api/pending/${studentId}`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/pending/${studentId}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -1324,98 +1545,142 @@ if (newPhotoFile || newSignatureFile) {
             }
         });
 
-        if (!response.ok) {
-            throw new Error("Record not found");
-        }
-
+        if (!response.ok) throw new Error("Record not found");
         const data = await response.json();
 
-        // Pangalan: LASTNAME (all caps), tapos FIRSTNAME M.
         const lastName = (data.last_name || "").toUpperCase();
         const firstName = (data.first_name || "").toUpperCase();
         const middleInitial = data.middle_name ? data.middle_name.charAt(0).toUpperCase() + "." : "";
 
-        // Birthday: tanggalin ang oras at timezone
-          let birthDate = data.birth_date || "";
-          if (birthDate.includes("T")) {
-              birthDate = birthDate.split("T")[0];
-          }
-          if (birthDate) {
-              const dateObj = new Date(birthDate);
-             birthDate = dateObj.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-});
-          }
+        let birthDate = data.birth_date || "";
+        if (birthDate.includes("T")) birthDate = birthDate.split("T")[0];
+        if (birthDate) {
+            const dateObj = new Date(birthDate);
+            birthDate = dateObj.toLocaleDateString("en-US", {
+                year: "numeric", month: "2-digit", day: "2-digit"
+            });
+        }
 
-// Function para gawing Title Case
-function toTitleCase(str) {
-    return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-}
+        function toTitleCase(str) {
+            return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+        }
 
-// Address: kunin lang ang "Eastern Pob. Hilongos" at lagyan ng "Brgy." sa unahan
-let address = data.address || "";
+        let address = data.address || "";
+        address = toTitleCase(address);
+        const pobMatch = address.match(/([A-Za-z\s]+Pob\.\s*Hilongos)/i);
+        if (pobMatch) {
+            address = "Brgy. " + pobMatch[1].trim();
+        } else {
+            const brgyIndex = address.indexOf("Brgy.");
+            const hilongosIndex = address.indexOf("Hilongos");
+            if (brgyIndex !== -1 && hilongosIndex !== -1) {
+                address = address.substring(brgyIndex, hilongosIndex + "Hilongos".length);
+            }
+        }
 
-// Convert to Title Case muna para standardized
-address = toTitleCase(address);
-
-// Hanapin ang "Pob." at "Hilongos"
-const pobMatch = address.match(/([A-Za-z\s]+Pob\.\s*Hilongos)/i);
-if (pobMatch) {
-    address = "Brgy. " + pobMatch[1].trim();
-} else {
-    // fallback: hanapin ang "Brgy." at "Hilongos"
-    const brgyIndex = address.indexOf("Brgy.");
-    const hilongosIndex = address.indexOf("Hilongos");
-    if (brgyIndex !== -1 && hilongosIndex !== -1) {
-        address = address.substring(brgyIndex, hilongosIndex + "Hilongos".length);
-    }
-}
-
-        // Student ID
         const student_id = data.student_id || "";
+        const idRow = document.querySelector(".id-row");
+        const courseSpan = document.getElementById("course_span");
 
-       let course = (data.course || "").toLowerCase();
-        let polygonColor = "#5420B5"; // default violet
+        let course = (data.course || "").toLowerCase();
+        let polygonColor = "#FFCC00";
 
         if (course.includes("elementary")) {
-            course = "BEED";
-            polygonColor = "#6EC6FF"; // sky blue
+            course = "BEED"; polygonColor = "#6EC6FF";
         } else if (course.includes("information technology")) {
-            course = "BSIT";
-            polygonColor = "#FF9800"; // orange
+            course = "BSIT"; polygonColor = "#FF9800";
         } else if (course.includes("social studies")) {
-            course = "BSED-SS";
-            polygonColor = "#5420B5"; // orange
-        }else if (course.includes("math")) {
-            course = "BSED-MATH";
-            polygonColor = "#43A047"; // orange
-        }
-      else {
-            course = course.toUpperCase().substring(0, 6); // fallback
+            course = "BSED-SS"; polygonColor = "#5420B5";
+        } else if (course.includes("math")) {
+            course = "BSED-MATH"; polygonColor = "#43A047";
+        } else {
+            const lowerCourse = course.trim().toLowerCase();
+            if (["tvl-ict", "abm", "humms"].includes(lowerCourse)) {
+                course = lowerCourse.toUpperCase();
+                polygonColor = "#FFCC00";
+            } else {
+                course = course.toUpperCase().substring(0, 20);
+            }
         }
 
-        // BAGUHIN ANG POLYGON COLOR
+        // Apply values
         document.querySelector('.front-bg').style.background = polygonColor;
-        // GAWING WHITE ANG TEXT NG NAME, BIRTHDATE, ADDRESS, WEBSITE, AT EMAIL
-document.querySelector('.name').style.color = '#fff';
-document.querySelector('.info-row-child .value').style.color = '#fff';
-document.querySelector('.info-row-child .address').style.color = '#fff';
-document.querySelectorAll('.footer span').forEach(e => e.style.color = '#fff');
-        // QR code
-        document.querySelector("#qr_code").src = data.qr_code;
+        document.querySelector('.name').innerHTML = `${lastName}<br><span class="firstname">${firstName} ${middleInitial}</span>`;
+        document.querySelector('.info-row-child .value').textContent = birthDate;
+        document.querySelector('.info-row-child .address').textContent = address;
+        document.querySelector('.student-id').textContent = student_id;
+        document.querySelector('.course').textContent = course;
+        document.querySelector('.contact-name').textContent = data.emergency_contact_name || "N/A";
+        document.querySelector('.contact-number').textContent = data.emergency_contact_number || "N/A";
+        document.querySelector('#qr_code').src = data.qr_code;
+        const escDiv = document.querySelector(".esc");
+        const escNumberSpan = document.getElementById("esc_number");
+        const escLogoDiv = document.querySelector(".esc-logo");
 
-        // Ilagay sa ID card
-        document.querySelector(".name").innerHTML = `${lastName}<br><span>${firstName} ${middleInitial}</span>`;
-        document.querySelector(".info-row-child .value").textContent = birthDate;
-        document.querySelector(".info-row-child .address").textContent = address;
-        document.querySelector(".student-id").textContent = student_id;
-        document.querySelector(".course").textContent = course;
+        const isHighSchool = student_id.toUpperCase().includes("JHS") || student_id.toUpperCase().includes("SHS");
 
-    } catch (error) {
-        console.error("Error fetching student data:", error);
-    }
-});
+        // Check ESC value
+        const hasValidESC = data.esc && data.esc.trim() !== "" && data.esc.trim().toUpperCase() !== "N/A";
 
+        if (isHighSchool && hasValidESC) {
+            // Show ESC and Logo
+            escDiv.style.display = "flex";
+            escLogoDiv.style.display = "block";
+            if (escNumberSpan) escNumberSpan.textContent = data.esc;
+        } else {
+            // Hide ESC and Logo
+            escDiv.style.display = "none";
+            escLogoDiv.style.display = "none";
+        }
+
+        // Font color control
+        if (isHighSchool) {
+            document.querySelector('.name').style.color = '#000';
+            document.querySelector('.info-row-child .value').style.color = '#000';
+            document.querySelector('.info-row-child .address').style.color = '#000';
+            document.querySelectorAll('.footer span').forEach(e => e.style.color = '#000');
+            document.querySelectorAll('.label').forEach(e => e.style.color = '#000');
+        } else {
+            document.querySelector('.name').style.color = '#fff';
+            document.querySelector('.info-row-child .value').style.color = '#fff';
+            document.querySelector('.info-row-child .address').style.color = '#fff';
+            document.querySelectorAll('.footer span').forEach(e => e.style.color = '#fff');
+        }
+
+            } catch (error) {
+                console.error("Error fetching student data:", error);
+            }
+        });
+
+
+  
+      // Font size slider logic for First Name
+      const firstNameFontSizeSlider = document.getElementById('firstNameFontSize');
+      if (firstNameFontSizeSlider) {
+        firstNameFontSizeSlider.addEventListener('input', function() {
+          const size = this.value;
+          const firstNameSpan = document.querySelector('.name .firstname');
+          if (firstNameSpan) {
+            firstNameSpan.style.fontSize = size + 'px';
+          }
+          document.getElementById('firstNameFontSizeValue').textContent = size;
+        });
+      }
+
+      // Font size slider logic for Last Name
+      const nameFontSizeSlider = document.getElementById('nameFontSize');
+      if (nameFontSizeSlider) {
+        nameFontSizeSlider.addEventListener('input', function() {
+          const size = this.value;
+          const lastNameEl = document.querySelector('.name-block .name');
+          if (lastNameEl) {
+            lastNameEl.style.fontSize = size + 'px';
+          }
+          document.getElementById('fontSizeValue').textContent = size;
+        });
+      }
+
+
+   
     </script>
+

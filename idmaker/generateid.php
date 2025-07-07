@@ -5,34 +5,34 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script> 
 <style>
-.input {
-  line-height: 28px;
-  border: 2px solid transparent;
-  border-bottom-color: #777;
-  padding: .2rem 0;
-  outline: none;
-  background-color: transparent;
-  color: #0d0c22;
-  transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  width: 250px; 
-}
+    .input {
+    line-height: 28px;
+    border: 2px solid transparent;
+    border-bottom-color: #777;
+    padding: .2rem 0;
+    outline: none;
+    background-color: transparent;
+    color: #0d0c22;
+    transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    width: 250px; 
+    }
 
-.input:focus,
-.input:hover {
-  outline: none;
-  padding: .2rem 1rem;
-  border-radius: 1rem;
-  border-color: #7a9cc6;
-}
+    .input:focus,
+    .input:hover {
+    outline: none;
+    padding: .2rem 1rem;
+    border-radius: 1rem;
+    border-color: #7a9cc6;
+    }
 
-.input::placeholder {
-  color: #777;
-}
+    .input::placeholder {
+    color: #777;
+    }
 
-.input:focus::placeholder {
-  opacity: 0;
-  transition: opacity .3s;
-}
+    .input:focus::placeholder {
+    opacity: 0;
+    transition: opacity .3s;
+    }
 
 </style>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="px-6 py-2 border-t border-gray-100">
                     <div class="flex items-center text-sm">
-                        <a href="#" class="text-gray-500 hover:text-primary">Student List</a>
+                        <a href="#" class="text-gray-500 hover:text-primary">Generate ID</a>
                         <div class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
                             <i class="ri-arrow-right-s-line"></i>
                         </div>
@@ -136,53 +136,101 @@
             </div>
             </div>
             </header>
-            <div class="p-4 relative mt-1 flex justify-end">
-                <div class="mb-4">
-                    <label for="student_id" class="block text-sm font-medium text-gray-700 mb-1">
-                    Enter Student ID:
-                    </label>
-                    <input
-                    type="text"
-                    id="student_id"
-                    placeholder="e.g. 24-003738"
-                    class="input"
-                    required
-                    >
-                    <ul
-                    id="student_dropdown"
-                    class="absolute z-10 mt-0 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto hidden"
-                    style="width: 250px;"
-                    ></ul>
-                    <p id="student_name" class="mt-1 text-sm text-green-600"></p>
-                </div>
-           </div>
+      <!-- Filters and Search -->
+        <div class="p-4 mt-1">
+        <div class="flex flex-wrap justify-center items-end gap-6 mb-6">
+            <!-- School Year -->
+            <div>
+            <label for="school_year" class="block text-sm font-medium text-gray-700 mb-1 text-center">Select School Year</label>
+            <select id="school_year" class="input w-56" required>
+                <option value="">-- Select School Year --</option>
+                <option value="2024-2025">2024-2025</option>
+                <option value="2023-2024">2023-2024</option>
+                <option value="2022-2023">2022-2023</option>
+            </select>
+            </div>
 
-    <div class="flex justify-center py-5 px-2">
+            <!-- Level -->
+            <div>
+            <label for="level" class="block text-sm font-medium text-gray-700 mb-1 text-center">Select Level</label>
+            <select id="level" class="input w-56" required>
+                <option value="">-- Select Level --</option>
+                <option value="college">College</option>
+                <option value="jhs">Junior High School</option>
+                <option value="shs">Senior High School</option>
+            </select>
+            </div>
+
+            <!-- Search -->
+            <div class="relative">
+            <label for="student_id" class="block text-sm font-medium text-gray-700 mb-1 text-center">Enter Student ID or Name:</label>
+            <input type="text" id="student_id" placeholder="e.g. SHS-24-003738" class="input w-64" required>
+            <ul id="student_dropdown" class="absolute z-10 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto hidden w-full"></ul>
+            </div>
+        </div>
+        </div>
+
+     <!-- ID Preview -->
+        <div class="flex justify-center py-5 px-2">
         <div id="id_template" class="hidden w-full max-w-xl bg-white border rounded-xl shadow-md p-5">
             <h2 id="template_name" class="text-base font-semibold text-gray-800 mb-4 text-center">Name</h2>
+
             <div class="flex items-start gap-6">
             <div class="flex flex-col items-center">
-                <p class="text-sm text-gray-700"><span class="font-medium"></span> <span id="template_id"></span></p>
+                <p class="text-sm text-gray-700">
+                <span class="font-medium">ID:</span> <span id="template_id"></span>
+                </p>
                 <img id="qr_image" src="" alt="QR Code" class="w-24 h-24 rounded border shadow-sm mb-2" />
+            </div>
+
+            <div class="flex-1 text-gray-700 text-sm">
+                <p><span class="font-medium">Address:</span> <span id="template_address"></span></p>
+                <p><span class="font-medium">Birthdate:</span> <span id="template_birthdate"></span></p>
+                <p><span class="font-medium">Contact:</span> <span id="template_contact"></span></p>
+                <p><span class="font-medium">Emergency Contact:</span> <span id="template_emergency_contact"></span></p>
+                    <!-- 🆕 ESC Input -->
+                <div id="esc_input_wrapper" class="mt-4 hidden">
+                    <label for="esc_input" class="block text-sm font-medium text-gray-700 mb-1">Education Service Contracting (ESC):</label>
+                    <input type="text" id="esc_input" name="esc_input"
+                        class="w-full border border-gray-300 rounded px-3 py-2"
+                        placeholder="" />
+                </div>
+                <!-- Course Input Field -->
+               <div id="course_input_wrapper" class="mt-4 hidden">
+                    <label for="course_input" class="block text-sm font-medium text-gray-700 mb-1">Strand / Track:</label>
+                    <input list="course_list" id="course_input" name="course_input"
+                        class="w-full border border-gray-300 rounded px-3 py-2"
+                        placeholder="e.g. ABM or custom..." />
+                    <datalist id="course_list">
+                        <option value="ABM"></option>
+                        <option value="HUMSS"></option>
+                        <option value="TVL-ICT"></option>
+                    </datalist>
+                </div>
+                     <!-- 🆕 LRN Input -->
+                <div id="lrn_input_wrapper" class="mt-4 hidden">
+                    <label for="lrn_input" class="block text-sm font-medium text-gray-700 mb-1">Learner Reference Number (LRN):</label>
+                    <input type="text" id="lrn_input" name="lrn_input"
+                        class="w-full border border-gray-300 rounded px-3 py-2"
+                        placeholder="Enter LRN" />
+                </div>
+                
+                  <!-- Save Button -->
+                <div class="mt-6 text-center">
+                    <button id="save_button"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow">
+                        Edit
+                    </button>
+                </div>
+            </div>
+            </div>
         </div>
-        <div class="flex-1 space-y-1 text-gray-700 text-sm">
-            <p><span class="font-medium"></span> <span id="template_course"></span></p>
-            <p><span class="font-medium"></span> <span id="template_year"></span></p>
-            <p><span class="font-medium"></span> <span id="template_address"></span></p>
-            <p><span class="font-medium"></span> <span id="template_birthdate"></span></p>
-            <p><span class="font-medium"></span> <span id="template_contact"></span></p>
         </div>
-        </div>
-        <div class="mt-5">
-            <button id="save_button"
-                class="w-full px-6 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-full hover:bg-blue-700 transition duration-200">
-                Edit
-             </button>
-        </div>
-       </div>
-    </div>
+
+
   <script>
- document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () 
+ {
         const dropdownBtn = document.getElementById("user-dropdown-btn");
         const dropdownMenu = document.getElementById("user-dropdown-menu");
 
@@ -196,11 +244,12 @@
                 dropdownMenu.classList.add("hidden");
             }
         });
-    });
+ });
 
 
 
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", function () 
+    {
         const logoutBtn = document.getElementById("logout-btn");
 
         logoutBtn.addEventListener("click", function (e) {
@@ -222,7 +271,7 @@
                         return;
                     }
 
-                    fetch("http://backendidmaker.test/api/logout", {
+                    fetch("http://127.0.0.1:8000/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -255,12 +304,13 @@
     });
 
 
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", () => 
+    {
         const token = localStorage.getItem("auth_token");
 
         if (!token) return;
 
-        fetch("http://backendidmaker.test/api/profile", {
+        fetch("http://127.0.0.1:8000/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -279,160 +329,7 @@
         });
     });
 
-
-let studentData = [];
-
-document.addEventListener("DOMContentLoaded", async function () 
-{
-    const headers = {
-        "x-api-key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOiJodHRwOi8vaWRtYWtlci50ZXN0IiwiaWF0IjoxNzMzMjMxMTU5LCJuYmYiOm51bGx9.T-m6B0towMc0NerWVHHk7zgueno-Cb-N5YHZ3sT2-dY",
-        "Origin": "http://idmaker.test",
-        "Content-Type": "application/json"
-    };
-
-    const totalPages = 34; 
-    let allStudents = [];
-
-    for (let page = 1; page <= totalPages; page++) {
-        try {
-            const response = await fetch(`https://api-portal.mlgcl.edu.ph/api/external/student-list?page=${page}`, {
-                method: "GET",
-                headers
-            });
-            const result = await response.json();
-            const pageData = result.data || [];
-            allStudents.push(...pageData);
-        } catch (error) {
-            console.error(`Error fetching page ${page}:`, error);
-        }
-    }
-    studentData = allStudents;
-    });
-
-    const input = document.getElementById("student_id");
-    const dropdown = document.getElementById("student_dropdown");
-    const nameDisplay = document.getElementById("student_name");
-
-    input.addEventListener("input", function () {
-    const value = input.value.trim().toLowerCase();
-    dropdown.innerHTML = "";
-    dropdown.classList.add("hidden");
-    nameDisplay.textContent = "";
-
-    if (value.length < 2) return;
-
-    const matches = [];
-
-    studentData.forEach(student => {
-        student.student_identification_number?.forEach(idObj => {
-            if (idObj.student_id.toLowerCase().includes(value)) {
-                matches.push({
-                    student_id: idObj.student_id,
-                    displayName: `${student.first_name} ${student.middle_name} ${student.last_name}`
-                });
-            }
-        });
-    });
-
-    if (matches.length > 0) {
-        matches.slice(0, 10).forEach(match => {
-            const li = document.createElement("li");
-            li.textContent = match.displayName;
-            li.className = "px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm";
-
-            li.addEventListener("click", () => {
-                input.value = match.student_id;
-                dropdown.innerHTML = "";
-                dropdown.classList.add("hidden");
-
-                const selectedStudent = studentData.find(s =>
-                    s.student_identification_number?.some(idObj => idObj.student_id === match.student_id)
-                );
-
-                if (selectedStudent) {
-                    document.getElementById("id_template").classList.remove("hidden");
-
-                    const fullName = `${selectedStudent.first_name} ${selectedStudent.middle_name} ${selectedStudent.last_name}`;
-                    document.getElementById("template_name").textContent = fullName;
-                    document.getElementById("template_id").textContent = `ID: ${match.student_id}`;
-                    document.getElementById("template_course").textContent = `Course: ${selectedStudent.course?.description || "N/A"}`;
-                    document.getElementById("qr_image").src = selectedStudent.qr_code || "";
-                    document.getElementById("template_address").textContent = `Address: ${selectedStudent.address?.barangay || "—"}, ${selectedStudent.address?.municipality || ""}`;
-                    document.getElementById("template_birthdate").textContent = `Birthdate: ${selectedStudent.birthdate || "—"}`;
-                    document.getElementById("template_contact").textContent = `Contact #: ${selectedStudent.contact_number || "—"}`;    
-                    
-                }
-            });
-
-            dropdown.appendChild(li);
-        });
-
-        dropdown.classList.remove("hidden");
-    }
-});
-
-document.addEventListener("click", function (e) {
-    if (!input.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.add("hidden");
-    }
-});
-
-//// Save button functionality
-
-document.getElementById("save_button").addEventListener("click", async () => {
-    const studentIdText = document.getElementById("template_id").textContent;
-    const studentId = studentIdText.replace("ID: ", "").trim();
-
-    const selectedStudent = studentData.find(s =>
-        s.student_identification_number?.some(idObj => idObj.student_id === studentId)
-    );
-
-    if (!selectedStudent) {
-        return; 
-    }
-
-    const payload = {
-        first_name: selectedStudent.first_name,
-        last_name: selectedStudent.last_name,
-        middle_name: selectedStudent.middle_name,
-        address: `${selectedStudent.address?.barangay || "—"}, ${selectedStudent.address?.municipality || ""}`,
-        course: selectedStudent.course?.description || "N/A",
-        student_id: studentId,
-        contact: selectedStudent.contact_number || "—",
-        emergency_contact: {
-            name: "N/A",
-            number: "N/A"
-        },
-        birth_date: selectedStudent.birthdate || "2000-01-01",
-        signature: null,
-        image: null,
-        qr_code: selectedStudent.qr_code || ""
-    };
-
-    try {
-        const response = await fetch("http://backendidmaker.test/api/store", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("auth_token")
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (response.ok || response.status === 409) {
-            window.location.href = `editgenerateid.php?student_id=${studentId}`;
-        } else {
-            console.error("Save failed:", await response.json());
-        }
-
-    } catch (error) {
-        console.error("Server error:", error);
-    }
-});
-
-
-//modal
+        //modal
         const modal = document.getElementById("profileModal");
         const modalContent = document.getElementById("profileModalContent");
 
@@ -466,7 +363,7 @@ document.getElementById("save_button").addEventListener("click", async () => {
     });
 
      const token = localStorage.getItem("auth_token");
-        fetch(`http://backendidmaker.test/api/profile-show`, 
+        fetch(`http://127.0.0.1:8000/api/profile-show`, 
     {
             method: "GET",
             headers: {
@@ -484,7 +381,6 @@ document.getElementById("save_button").addEventListener("click", async () => {
         })
         .catch(error => {
             console.error("Failed to fetch user:", error);
-            alert("Failed to load profile.");
     });
 
     function showLoadingBar() 
@@ -521,7 +417,7 @@ document.getElementById("save_button").addEventListener("click", async () => {
             email: document.getElementById("email").value,
         };
 
-        fetch(`http://backendidmaker.test/api/profile-edit/${userId}`, {
+        fetch(`http://127.0.0.1:8000/api/profile-edit/${userId}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -544,6 +440,296 @@ document.getElementById("save_button").addEventListener("click", async () => {
     });
 </script>
 
+
+
+<script>
+    const headers = {
+    "x-api-key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOiJodHRwczovL2lkbWFrZXIudGVzdCIsImlhdCI6MTc1MDkzNjE1NiwibmJmIjpudWxsfQ.pNifK7tDXmdpndMCN8VHVe1-3TiTbU7mamOpNtVQ3Fc",
+    "Origin": "https://idmaker.test",
+    "Content-Type": "application/json"
+    };
+
+const schoolYearInput = document.getElementById("school_year");
+const levelInput = document.getElementById("level");
+const searchInput = document.getElementById("student_id");
+const dropdown = document.getElementById("student_dropdown");
+const idCard = document.getElementById("id_template");
+
+let allStudents = [];
+
+async function fetchStudents() {
+  const schoolYear = schoolYearInput.value;
+  const level = levelInput.value;
+
+  if (!schoolYear || !level) return;
+
+  allStudents = [];
+  dropdown.innerHTML = "";
+
+  let levelsToFetch = [];
+  if (level === "college") levelsToFetch = [1, 2, 3, 4];
+  else if (level === "jhs") levelsToFetch = [7, 8, 9, 10];
+  else if (level === "shs") levelsToFetch = [11, 12];
+
+  try {
+    const fetchPromises = levelsToFetch.map(async lvl => {
+      const url = `https://api-portal.mlgcl.edu.ph/api/external/student-list?school_year=${schoolYear}&level=${lvl}&page=1`;
+      const res = await fetch(url, { method: "GET", headers });
+      const data = await res.json();
+      let students = [...(data.data || [])];
+
+      const totalPages = data.meta?.last_page || 1;
+      if (totalPages > 1) {
+        const morePages = [];
+        for (let p = 2; p <= totalPages; p++) {
+          const pageUrl = `https://api-portal.mlgcl.edu.ph/api/external/student-list?school_year=${schoolYear}&level=${lvl}&page=${p}`;
+          morePages.push(fetch(pageUrl, { method: "GET", headers }).then(r => r.json()));
+        }
+        const pages = await Promise.all(morePages);
+        pages.forEach(pg => students.push(...(pg.data || [])));
+      }
+
+      return students;
+    });
+
+    const results = await Promise.all(fetchPromises);
+    allStudents = results.flat();
+    searchStudent();
+  } catch (e) {
+    console.error("Fetch error:", e);
+  }
+}
+
+function searchStudent() {
+  const searchVal = searchInput.value.trim().toLowerCase();
+  const selectedLevel = levelInput.value;
+  const results = [];
+  const seen = new Set();
+
+  if (!searchVal) {
+    dropdown.classList.add("hidden");
+    return;
+  }
+
+  allStudents.forEach(student => {
+    const fullName = `${student.first_name} ${student.middle_name || ''} ${student.last_name}`.toLowerCase();
+    const nameMatch = fullName.includes(searchVal);
+    let idMatch = false;
+
+    student.student_identification_number?.forEach(idObj => {
+      const idLower = idObj.student_id.toLowerCase();
+      const idType = idObj.id_type?.toLowerCase() || "";
+      const isHS = ["jhs", "shs"].includes(selectedLevel);
+
+      const matchID = idLower.includes(searchVal) ||
+        (isHS &&
+          (
+            searchVal.includes("shs") || searchVal.includes("jhs") || searchVal.includes("-")
+          ) &&
+          (
+            idLower.includes(searchVal) ||
+            (idType === "shs" && searchVal.includes("shs")) ||
+            (idType === "jhs" && searchVal.includes("jhs"))
+          )
+        );
+
+      if (matchID) {
+        idMatch = true;
+        const key = `${idObj.student_id}-${fullName}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          results.push({ id: idObj.student_id, name: fullName });
+        }
+      }
+    });
+
+    if (!idMatch && nameMatch) {
+      const fallbackId = student.student_identification_number?.[0]?.student_id || "N/A";
+      const key = `${fallbackId}-${fullName}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        results.push({ id: fallbackId, name: fullName });
+      }
+    }
+  });
+
+  dropdown.innerHTML = "";
+
+  if (results.length === 0) {
+    const li = document.createElement("li");
+    li.className = "px-3 py-2 text-sm text-gray-500";
+    li.textContent = `No matches found for "${searchVal}"`;
+    dropdown.appendChild(li);
+  } else {
+    results.forEach(m => {
+      const li = document.createElement("li");
+      li.className = "px-3 py-2 cursor-pointer hover:bg-blue-100 text-sm";
+      li.textContent = `${m.name} - ${m.id}`;
+      li.onclick = () => {
+        searchInput.value = m.id;
+        dropdown.classList.add("hidden");
+
+        const student = allStudents.find(s =>
+          s.student_identification_number?.some(id => id.student_id === m.id)
+        );
+
+       if (student) {
+        const fullName = `${student.first_name} ${student.middle_name || ''} ${student.last_name}`;
+        document.getElementById("template_name").textContent = fullName;
+        document.getElementById("template_id").textContent = m.id;
+        document.getElementById("template_address").textContent = student.full_address || "-";
+        document.getElementById("template_birthdate").textContent = student.birthdate || "-";
+        document.getElementById("template_contact").textContent = student.contact_number || "-";
+        const emergencyName = student.emergency_contact?.name || "";
+        const emergencyNumber = student.emergency_contact?.number || "";
+        document.getElementById("template_emergency_contact").textContent =
+            emergencyName && emergencyNumber
+            ? `${emergencyName} - ${emergencyNumber}`
+            : "-";
+        document.getElementById("qr_image").src = student.qr_code || "";
+        idCard.classList.remove("hidden");
+        }
+      };
+      dropdown.appendChild(li);
+    });
+  }
+
+  dropdown.classList.remove("hidden");
+}
+
+// Event listeners
+schoolYearInput.addEventListener("change", fetchStudents);
+levelInput.addEventListener("change", fetchStudents);
+searchInput.addEventListener("input", () => {
+  clearTimeout(searchInput._debounce);
+  searchInput._debounce = setTimeout(searchStudent, 200);
+});
+
+
+
+        const courseWrapper = document.getElementById("course_input_wrapper");
+        const courseInput = document.getElementById("course_input");
+
+        const escWrapper = document.getElementById("esc_input_wrapper");
+        const escInput = document.getElementById("esc_input");
+
+        const lrnWrapper = document.getElementById("lrn_input_wrapper");
+        const lrnInput = document.getElementById("lrn_input");
+
+        levelInput.addEventListener("change", () => {
+        const level = levelInput.value;
+
+        // ESC is shown for SHS and JHS
+        if (level === "shs" || level === "jhs") {
+            escWrapper.classList.remove("hidden");
+        } else {
+            escWrapper.classList.add("hidden");
+            escInput.value = "";
+        }
+
+        // LRN shown ONLY for JHS
+        if (level === "jhs") {
+            lrnWrapper.classList.remove("hidden");
+        } else {
+            lrnWrapper.classList.add("hidden");
+            lrnInput.value = "";
+        }
+
+        // Course input ONLY for SHS
+        if (level === "shs") {
+            courseWrapper.classList.remove("hidden");
+        } else {
+            courseWrapper.classList.add("hidden");
+            courseInput.value = "";
+        }
+        });
+
+        document.getElementById("save_button").addEventListener("click", async () => {
+        const studentIdText = document.getElementById("template_id").textContent.trim();
+        const escValue = escInput.value.trim();
+        const lrnValue = lrnInput.value.trim();
+        const studentId = studentIdText;
+
+        const selectedStudent = allStudents.find(s =>
+            s.student_identification_number?.some(idObj => idObj.student_id === studentId)
+        );
+
+        if (!selectedStudent) {
+            notyf.error("Student not found.");
+            return;
+        }
+
+        const level = levelInput.value;
+        const emergency = selectedStudent.emergency_contact || {};
+
+        let barangay = selectedStudent.address?.barangay || "—";
+        let municipality = selectedStudent.address?.municipality || "—";
+
+        // 🧹 Clean up address
+        barangay = barangay.replace(/\bLeyte\b/i, "").trim();
+
+        let address = "";
+        if (barangay.toLowerCase().includes(municipality.toLowerCase())) {
+            address = barangay;
+        } else {
+            address = `${barangay}, ${municipality}`;
+        }
+
+        let course = "N/A";
+
+        if (level === "college") {
+            course = selectedStudent.course?.description || "N/A";
+        } else if (level === "jhs") {
+            if (!lrnValue || !/^\d+$/.test(lrnValue)) {
+            notyf.error("Please enter a valid numeric LRN.");
+            return;
+            }
+            course = `LRN: ${lrnValue}`;
+        } else if (level === "shs") {
+            course = courseInput.value.trim() || selectedStudent.course?.description || "SHS";
+        }
+
+        const payload = {
+            first_name: selectedStudent.first_name,
+            last_name: selectedStudent.last_name,
+            middle_name: selectedStudent.middle_name,
+            address: address,
+            course: course,
+            student_id: studentId,
+            contact: selectedStudent.contact_number || "—",
+            emergency_contact_name: emergency.name || "N/A",
+            emergency_contact_number: emergency.number || "N/A",
+            birth_date: selectedStudent.birthdate || "2000-01-01",
+            signature: null,
+            image: null,
+            qr_code: selectedStudent.qr_code || "",
+            esc: escValue
+        };
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/store", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("auth_token")
+            },
+            body: JSON.stringify(payload)
+            });
+
+            if (response.ok || response.status === 409) {
+            window.location.href = `editgenerateid.php?student_id=${studentId}`;
+            } else {
+            const error = await response.json();
+            console.error("Save failed:", error);
+            notyf.error("Saving failed. Check console.");
+            }
+        } catch (error) {
+            console.error("Server error:", error);
+            notyf.error("Server error. Please try again.");
+        }
+        });
+</script>
 
 
 

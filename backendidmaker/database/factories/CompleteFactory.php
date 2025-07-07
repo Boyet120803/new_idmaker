@@ -24,10 +24,8 @@ class CompleteFactory extends Factory
             'course' => $this->faker->word(),
             'student_id' => $this->faker->unique()->numerify('STU#####'),
             'contact' => $this->faker->phoneNumber(),
-            'emergency_contact' => [
-                'name' => $this->faker->name(),
-                'number' => $this->faker->phoneNumber()
-            ],
+            'emergency_contact_name' => $this->faker->name(),
+            'emergency_contact_number' => $this->faker->phoneNumber(),
             'birth_date' => $this->faker->date(),
             'signature' => null, 
             'image' => null, 

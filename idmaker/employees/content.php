@@ -60,6 +60,76 @@
     border: none;
     }
 
+        /* loader */
+          .ui-loader {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+    }
+
+    .loader-blk {
+      color: #3f51b5;
+      animation: rotate-outer08 1.4s linear infinite;
+    }
+
+    .multiColor-loader {
+      display: block;
+      animation: color-anim08 1.4s infinite;
+    }
+
+    .loader-circle {
+      stroke: currentColor;
+    }
+
+    .MuiCircularProgress-circleStatic {
+      transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    }
+
+    .loader-circle-animation {
+      animation: rotate-inner08 1.4s ease-in-out infinite;
+      stroke-dasharray: 80px, 200px;
+      stroke-dashoffset: 0;
+    }
+
+    @keyframes rotate-outer08 {
+      0% {
+        transform-origin: 50% 50%;
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rotate-inner08 {
+      0% {
+        stroke-dasharray: 1px, 200px;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 100px, 200px;
+        stroke-dashoffset: -15px;
+      }
+      100% {
+        stroke-dasharray: 100px, 200px;
+        stroke-dashoffset: -125px;
+      }
+    }
+
+    @keyframes color-anim08 {
+      0% {
+        color: #4285f4;
+      }
+      25% {
+        color: #ea4335;
+      }
+      50% {
+        color: #f9bb2d;
+      }
+      75% {
+        color: #34a853;
+      }
+    }
+
 </style>
         <main class="flex-1 ml-64">
             <header class="bg-white shadow-sm">
@@ -147,8 +217,17 @@
                             <th class="py-2 px-4 text-left">Position</th>
                         </tr>
                     </thead>
-                    <tbody id="employee-table-body" class="text-gray-600 text-sm font-light">
-                        <!-- Rows will be injected here -->
+                   <tbody id="employee-table-body" class="text-gray-600 text-sm font-light">
+                        <tr id="pageLoader">
+                            <td colspan="4" class="text-center py-10">
+                                <div class="ui-loader loader-blk mx-auto">
+                                    <svg viewBox="22 22 44 44" class="multiColor-loader w-12 h-12">
+                                        <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"
+                                            class="loader-circle loader-circle-animation"></circle>
+                                    </svg>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -255,7 +334,7 @@
                         return;
                     }
 
-                    fetch("http://backendidmaker.test/api/logout", {
+                    fetch("http://127.0.0.1:8000/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -293,7 +372,7 @@
 
         if (!token) return;
 
-        fetch("http://backendidmaker.test/api/profile", {
+        fetch("http://127.0.0.1:8000/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -326,7 +405,7 @@ const notyf = new Notyf({
         const token = localStorage.getItem("auth_token");
 
         let employees = [];
-        fetch("http://backendidmaker.test/api/employeecomplete", {
+        fetch("http://127.0.0.1:8000/api/employeecomplete", {
             headers: {
                 "Accept": "application/json",
                 "Authorization": "Bearer " + token
@@ -363,7 +442,7 @@ const notyf = new Notyf({
             });
 
             if (data.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="4" class="py-4 px-4 text-gray-500 text-center">No matching employees found.</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="4" class="py-4 px-4 text-gray-500 text-center">No employees found.</td></tr>`;
             }
         }
 
@@ -401,7 +480,7 @@ const notyf = new Notyf({
      });
 
      const token = localStorage.getItem("auth_token");
-        fetch(`http://backendidmaker.test/api/profile-show`, 
+        fetch(`http://127.0.0.1:8000/api/profile-show`, 
     {
             method: "GET",
             headers: {
@@ -456,7 +535,7 @@ const notyf = new Notyf({
             email: document.getElementById("email").value,
         };
 
-        fetch(`http://backendidmaker.test/api/profile-edit/${userId}`, {
+        fetch(`http://127.0.0.1:8000/api/profile-edit/${userId}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -480,3 +559,11 @@ const notyf = new Notyf({
 
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loader = document.getElementById("pageLoader");
+        setTimeout(() => {
+            if (loader) loader.remove();
+        }, 1500);
+    });
+</script>

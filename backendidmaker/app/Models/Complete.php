@@ -15,17 +15,16 @@ class Complete extends Model
         'course',
         'student_id',
         'contact',
-        'emergency_contact',
+        'emergency_contact_name',
+        'emergency_contact_number',
         'birth_date',
         'signature',
         'image',
         'qr_code' ,
         'photo_position',
-        'signature_position'
-    ];
-
-    protected $casts = [
-        'emergency_contact' => 'array',
-        'birth_date' => 'date',
+        'signature_position',
+        'firstname_fontsize',
+        'lastname_fontsize',
+        'esc',
     ];
 }

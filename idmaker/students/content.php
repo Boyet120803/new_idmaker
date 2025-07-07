@@ -1,6 +1,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 <style>
     .input-container {
     position: relative;
@@ -58,8 +60,77 @@
     border: none;
     }
 
+
+     .ui-loader {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+    }
+
+    .loader-blk {
+      color: #3f51b5;
+      animation: rotate-outer08 1.4s linear infinite;
+    }
+
+    .multiColor-loader {
+      display: block;
+      animation: color-anim08 1.4s infinite;
+    }
+
+    .loader-circle {
+      stroke: currentColor;
+    }
+
+    .MuiCircularProgress-circleStatic {
+      transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    }
+
+    .loader-circle-animation {
+      animation: rotate-inner08 1.4s ease-in-out infinite;
+      stroke-dasharray: 80px, 200px;
+      stroke-dashoffset: 0;
+    }
+
+    @keyframes rotate-outer08 {
+      0% {
+        transform-origin: 50% 50%;
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rotate-inner08 {
+      0% {
+        stroke-dasharray: 1px, 200px;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 100px, 200px;
+        stroke-dashoffset: -15px;
+      }
+      100% {
+        stroke-dasharray: 100px, 200px;
+        stroke-dashoffset: -125px;
+      }
+    }
+
+    @keyframes color-anim08 {
+      0% {
+        color: #4285f4;
+      }
+      25% {
+        color: #ea4335;
+      }
+      50% {
+        color: #f9bb2d;
+      }
+      75% {
+        color: #34a853;
+      }
+    }
 </style>
-            <main class="flex-1 ml-64">
+       <main class="flex-1 ml-64">
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-6 py-4">
                     <div class="flex items-center">
@@ -67,8 +138,7 @@
                             <div class="w-6 h-6 flex items-center justify-center">
                                 <i class="ri-menu-line"></i>
                             </div>
-                        </button>
-                       
+                        </button>                    
                     </div>
                     <div class="flex items-center space-x-4">
                         <button class="relative text-gray-500 hover:text-gray-700">
@@ -143,11 +213,20 @@
                             </th>
                             <th class="py-2 px-4 text-left">Student ID</th>
                             <th class="py-2 px-4 text-left">Full Name</th>
-                            <th class="py-2 px-4 text-left">Course</th>
+                            <th class="py-2 px-4 text-left">Course/LRN</th>
                         </tr>
                     </thead>
-                    <tbody id="student-table-body" class="text-gray-600 text-sm font-light">
-                        <!-- Dynamic rows will be inserted here -->
+                   <tbody id="student-table-body" class="text-gray-600 text-sm font-light">
+                        <tr id="pageLoader">
+                            <td colspan="4" class="text-center py-10">
+                                <div class="ui-loader loader-blk mx-auto">
+                                    <svg viewBox="22 22 44 44" class="multiColor-loader w-12 h-12">
+                                        <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"
+                                            class="loader-circle loader-circle-animation"></circle>
+                                    </svg>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             <div id="pagination-controls" class="flex justify-between items-center mt-2">
@@ -162,8 +241,7 @@
                       
                         <i class="ri-arrow-right-s-line text-lg ml-1"></i>
                     </button>
-                </div>
-              
+                </div>          
             </div>
             </div>
               <!-- modal -->
@@ -175,41 +253,40 @@
             </div>
                 <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
                 <form id="updateProfileForm">
-            <div class="space-y-4">
-            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md border:1px solid;">
-                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
-                <path d="M5 13l4 4L19 7" />
-                </svg>
-                <input type="text" id="first_name" name="first_name" class="flex-1 focus:outline-none" placeholder="First Name" />
-            </div>
-            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
-                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
-                <path d="M5 13l4 4L19 7" />
-                </svg>
-                <input type="text" id="middle_name" name="middle_name" class="flex-1 focus:outline-none" placeholder="Middle Name" />
-            </div>
-            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
-                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
-                <path d="M5 13l4 4L19 7" />
-                </svg>
-                <input type="text" id="last_name" name="last_name" class="flex-1 focus:outline-none" placeholder="Last Name" />
-            </div>
-            <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
-                <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <path d="M22 6l-10 7L2 6" />
-                </svg>
-                <input type="email" id="email" name="email" class="flex-1 focus:outline-none" placeholder="Email" />
-            </div>
-        </div>
-            <div class="text-right mt-3">
-                <button type="button" id="changePasswordBtn" class="text-sm text-blue-600 hover:underline">Change Password</button>
-            </div>
-
-            <div class="text-right mt-5 space-x-2">
-                <button type="button" id="closeProfileModal" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Update</button>
-            </div>
+                    <div class="space-y-4">
+                        <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md border:1px solid;">
+                            <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                            <path d="M5 13l4 4L19 7" />
+                            </svg>
+                            <input type="text" id="first_name" name="first_name" class="flex-1 focus:outline-none" placeholder="First Name" />
+                            </div>
+                        <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                            <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                            <path d="M5 13l4 4L19 7" />
+                            </svg>
+                            <input type="text" id="middle_name" name="middle_name" class="flex-1 focus:outline-none" placeholder="Middle Name" />
+                        </div>
+                        <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                            <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                            <path d="M5 13l4 4L19 7" />
+                            </svg>
+                            <input type="text" id="last_name" name="last_name" class="flex-1 focus:outline-none" placeholder="Last Name" />
+                        </div>
+                        <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
+                            <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <path d="M22 6l-10 7L2 6" />
+                            </svg>
+                            <input type="email" id="email" name="email" class="flex-1 focus:outline-none" placeholder="Email" />
+                        </div>
+                  </div>
+                    <div class="text-right mt-3">
+                        <button type="button" id="changePasswordBtn" class="text-sm text-blue-600 hover:underline">Change Password</button>
+                    </div>
+                    <div class="text-right mt-5 space-x-2">
+                    <button type="button" id="closeProfileModal" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Update</button>
+                </div>
             </form>
         </div>
         </div>
@@ -217,25 +294,26 @@
     </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-        const dropdownBtn = document.getElementById("user-dropdown-btn");
-        const dropdownMenu = document.getElementById("user-dropdown-menu");
 
-        dropdownBtn.addEventListener("click", function (e) {
-            e.stopPropagation(); 
-            dropdownMenu.classList.toggle("hidden");
-        });
-        document.addEventListener("click", function (e) {
-            const dropdownWrapper = document.getElementById("user-dropdown-wrapper");
-            if (!dropdownWrapper.contains(e.target)) {
-                dropdownMenu.classList.add("hidden");
-            }
-        });
+    document.addEventListener("DOMContentLoaded", function () 
+    {
+            const dropdownBtn = document.getElementById("user-dropdown-btn");
+            const dropdownMenu = document.getElementById("user-dropdown-menu");
+
+            dropdownBtn.addEventListener("click", function (e) {
+                e.stopPropagation(); 
+                dropdownMenu.classList.toggle("hidden");
+            });
+            document.addEventListener("click", function (e) {
+                const dropdownWrapper = document.getElementById("user-dropdown-wrapper");
+                if (!dropdownWrapper.contains(e.target)) {
+                    dropdownMenu.classList.add("hidden");
+                }
+            });
     });
 
-
-
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", function () 
+    {
         const logoutBtn = document.getElementById("logout-btn");
 
         logoutBtn.addEventListener("click", function (e) {
@@ -257,7 +335,7 @@
                         return;
                     }
 
-                    fetch("http://backendidmaker.test/api/logout", {
+                    fetch("http://127.0.0.1:8000/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -290,12 +368,13 @@
     });
 
 
-        document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => 
+    {
         const token = localStorage.getItem("auth_token");
 
         if (!token) return;
 
-        fetch("http://backendidmaker.test/api/profile", {
+        fetch("http://127.0.0.1:8000/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -315,77 +394,102 @@
     });
 
 
- document.addEventListener("DOMContentLoaded", async () =>
-{
-    const tableBody = document.getElementById("student-table-body");
-    const searchInput = document.getElementById("search-student-id");
+        document.addEventListener("DOMContentLoaded", async () => {
+            const tableBody = document.getElementById("student-table-body");
+            const searchInput = document.getElementById("search-student-id");
 
-    const prevBtn = document.getElementById("prev-page");
-    const nextBtn = document.getElementById("next-page");
-    const pageInfo = document.getElementById("page-info");
+            const prevBtn = document.getElementById("prev-page");
+            const nextBtn = document.getElementById("next-page");
+            const pageInfo = document.getElementById("page-info");
 
-    let allStudents = [];
-    let currentPage = 1;
-    const rowsPerPage = 14;
+            let allStudents = [];
+            let currentPage = 1;
+            const rowsPerPage = 10; 
 
-    try {
-        const response = await fetch("http://backendidmaker.test/api/complete", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("auth_token")
+            try {
+                const response = await fetch("http://127.0.0.1:8000/api/complete", {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("auth_token")
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data");
+                }
+
+                allStudents = await response.json();
+                renderPaginatedTable(filteredStudents());
+            } catch (error) {
+                console.error("Error loading student data:", error);
             }
-        });
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch data");
-        }
+            // 🔄 Filtered Students by search input
+            function filteredStudents() {
+                const keyword = searchInput.value.trim().toLowerCase();
+                return allStudents.filter(student =>
+                    student.student_id?.toLowerCase().includes(keyword)
+                );
+            }
 
-        allStudents = await response.json();
-        renderPaginatedTable(allStudents);
-    } catch (error) {
-        console.error("Error loading student data:", error);
-    }
+            // 🔢 Render paginated result
+            function renderPaginatedTable(data) {
+                const totalPages = Math.ceil(data.length / rowsPerPage);
+                currentPage = Math.max(1, Math.min(currentPage, totalPages));
 
-    function renderPaginatedTable(data) {
-        const totalPages = Math.ceil(data.length / rowsPerPage);
-        currentPage = Math.min(currentPage, totalPages);
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const paginatedData = data.slice(start, end);
 
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const paginatedData = data.slice(start, end);
+                renderTable(paginatedData);
+                updatePaginationInfo(currentPage, totalPages);
+            }
 
-        renderTable(paginatedData);
-        updatePaginationInfo(currentPage, totalPages);
-    }
+            // 📋 Render table
+            function renderTable(data) {
+                tableBody.innerHTML = "";
 
-    function renderTable(data) {
-        tableBody.innerHTML = "";
-        data.forEach(student => {
-            const row = document.createElement("tr");
-            row.className = "border-b border-gray-200 hover:bg-gray-100";
+                if (data.length === 0) {
+                    tableBody.innerHTML = `
+                        <tr><td colspan="4" class="text-center py-4 text-gray-500">No students found.</td></tr>
+                    `;
+                    return;
+                }
 
-            row.innerHTML = `
-                  <td class="py-2 px-4">
-                     <a href="#" title="View student">
-                        <i class="ri-eye-line text-blue-500 hover:text-blue-700 cursor-pointer text-lg view-icon"></i>
-                     </a>
-                  </td>
-                <td class="py-2 px-4">${student.student_id || ''}</td>
-                <td class="py-2 px-4">${student.full_name || ''}</td>
-                <td class="py-2 px-4">${student.course || ''}</td>
-            `;
+                data.forEach(student => {
+                    const row = document.createElement("tr");
+                    row.className = "border-b border-gray-200 hover:bg-gray-100";
+
+                    row.innerHTML = `
+                        <td class="py-2 px-4">
+                            <button class="btn btn-danger btn-sm delete-student-btn" onclick="deleteStudent(${student.id})" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <a href="viewstudent.php?id=${student.id}" title="View student">
+                                <i class="ri-eye-line text-blue-500 hover:text-blue-700 cursor-pointer text-lg view-icon"></i>
+                            </a>
+                            <a href="updatestudent.php?id=${student.id}" title="Edit student">
+                                <i class="ri-edit-line text-green-500 hover:text-green-700 cursor-pointer text-lg edit-icon"></i>
+                            </a>
+                        </td>
+                        <td class="py-2 px-4">${student.student_id || ''}</td>
+                        <td class="py-2 px-4">${student.full_name || ''}</td>
+                        <td class="py-2 px-4">${student.course || ''}</td>
+                    `;
 
                     tableBody.appendChild(row);
                 });
             }
 
+            // ⏩ Pagination Info
             function updatePaginationInfo(current, total) {
-                pageInfo.textContent = `Page ${current} of ${total}`;
+                pageInfo.textContent = `Page ${current} of ${total || 1}`;
                 prevBtn.disabled = current === 1;
                 nextBtn.disabled = current === total || total === 0;
             }
 
+            // ⬅ Prev Page
             prevBtn.addEventListener("click", () => {
                 if (currentPage > 1) {
                     currentPage--;
@@ -393,6 +497,7 @@
                 }
             });
 
+            // ➡ Next Page
             nextBtn.addEventListener("click", () => {
                 const totalPages = Math.ceil(filteredStudents().length / rowsPerPage);
                 if (currentPage < totalPages) {
@@ -401,21 +506,13 @@
                 }
             });
 
+            // 🔍 Search Input
             searchInput.addEventListener("input", () => {
                 currentPage = 1;
                 renderPaginatedTable(filteredStudents());
             });
-
-            function filteredStudents() {
-                const keyword = searchInput.value.trim().toLowerCase();
-                return allStudents.filter(student =>
-                    student.student_id && student.student_id.toLowerCase().includes(keyword)
-                );
-            }
         });
-
-
-//modal
+    //modal
         const modal = document.getElementById("profileModal");
         const modalContent = document.getElementById("profileModalContent");
 
@@ -449,7 +546,7 @@
     });
 
      const token = localStorage.getItem("auth_token");
-        fetch(`http://backendidmaker.test/api/profile-show`, 
+        fetch(`http://127.0.0.1:8000/api/profile-show`, 
     {
             method: "GET",
             headers: {
@@ -504,7 +601,7 @@
             email: document.getElementById("email").value,
         };
 
-        fetch(`http://backendidmaker.test/api/profile-edit/${userId}`, {
+        fetch(`http://127.0.0.1:8000/api/profile-edit/${userId}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -527,3 +624,53 @@
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loader = document.getElementById("pageLoader");
+        setTimeout(() => {
+            if (loader) loader.remove();
+        }, 1500); 
+    });
+</script>
+
+<script>
+function deleteStudent(id, event) {
+  if (event) event.preventDefault();
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You want to delete.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`http://127.0.0.1:8000/api/delete-student/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+          'Accept': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message === "Student deleted successfully") {
+          notyf.success('Student deleted successfully!');
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        } else {
+          Swal.fire('Error!', data.message || 'Failed to delete student.', 'error');
+        }
+      })
+      .catch(err => {
+        Swal.fire('Error!', 'Something went wrong while deleting.', 'error');
+        console.error(err);
+      });
+    }
+  });
+}
+
+
+</script>

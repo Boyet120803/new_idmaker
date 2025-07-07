@@ -78,6 +78,7 @@
             </div>
                 <nav class="flex-1 py-4 overflow-y-auto custom-scrollbar">
                     <ul class="space-y-1 px-3">
+                      <p class="mb-1 px-4" style="font-size: 12px; font-weight:bold; color:rgb(174, 174, 174)">MAIN MENU</p>
                         <li>
                            <a href="dashboard.php"
                              class="sidebar-link flex items-center px-4 py-3 rounded-md 
@@ -85,41 +86,40 @@
                                 <div class="w-6 h-6 flex items-center justify-center mr-3">
                                     <i class="ri-dashboard-line"></i>
                                 </div>
-                                <span>Dashboard</span>
-                             </a>
-                        </li>
-                        <li>
+                             <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
                         <div class="sidebar-dropdown">
-                            <button class="sidebar-link flex items-center px-4 py-3 rounded-md w-full justify-between text-gray-700 hover:bg-gray-50">
-                                <div class="flex items-center">
-                                    <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                        <i class="ri-group-line"></i>
+                                <button class="sidebar-link flex items-center px-4 py-3 rounded-md w-full justify-between text-gray-700 hover:bg-gray-50">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 flex items-center justify-center mr-3">
+                                            <i class="ri-community-line"></i>
+                                        </div>
+                                        <span>Students</span>
                                     </div>
-                                    <span>Students</span>
-                                </div>
-                                <div class="w-5 h-5 flex items-center justify-center">
-                                    <i class="ri-arrow-down-s-line rotate-icon"></i>
-                                </div>
-                            </button>
-                            <ul class="sidebar-dropdown-menu ml-9 space-y-1 mt-1">
-                                <li>
-                                    <a href="students.php" class="flex items-center px-4 py-2 text-sm rounded-md text-gray-600 hover:bg-gray-100">
-                                       <i class="ri-user-3-line mr-2 text-lg text-blue-500 "></i>   
-                                          Student List
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="generateid.php" class="flex items-center px-4 py-2 text-sm rounded-md text-gray-600 hover:bg-gray-100">
-                                     <i class="ri-id-card-line mr-2 text-lg text-green-500"></i>   
-                                    Generate ID
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        </li>
-                        <li>
-                            <div class="sidebar-dropdown">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-arrow-down-s-line rotate-icon"></i>
+                                    </div>
+                                </button>
+                                <ul class="sidebar-dropdown-menu ml-9 space-y-1 mt-1">
+                                    <li>
+                                        <a href="students.php" class="flex items-center px-4 py-2 text-sm rounded-md text-gray-600 hover:bg-gray-100">
+                                        <i class="ri-graduation-cap-line mr-2 text-lg text-blue-500 "></i>   
+                                            Student List
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="generateid.php" class="flex items-center px-4 py-2 text-sm rounded-md text-gray-600 hover:bg-gray-100">
+                                        <i class="ri-id-card-line mr-2 text-lg text-green-500"></i>   
+                                        Generate ID
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                          </li>
+                      <li>
+                          <div class="sidebar-dropdown">
                             <button class="sidebar-link flex items-center px-4 py-3 rounded-md w-full justify-between text-gray-700 hover:bg-gray-50">
                                 <div class="flex items-center">
                                     <div class="w-6 h-6 flex items-center justify-center mr-3">
@@ -146,6 +146,15 @@
                                 </li>
                             </ul>
                         </div>
+                        </li>
+                       <p class="mb-1 px-4" style="font-size: 12px; font-weight:bold; color:rgb(174, 174, 174)">SETTINGS</p>
+                        <li>
+                            <a href="#" class="flex items-center px-4 py-3 rounded-md text-gray-700 hover:bg-gray-50 transition-all duration-200">
+                                <div class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-settings-3-line text-xl text-gray-600"></i>
+                                </div>
+                                <span class="text-sm text-gray-800 font-medium">Settings</span>
+                            </a>
                         </li>
                     </ul>
                 </nav>              

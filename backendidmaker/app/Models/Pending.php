@@ -14,15 +14,12 @@ class Pending extends Model
         'course',
         'student_id',
         'contact',
-        'emergency_contact',
+        'emergency_contact_name',
+        'emergency_contact_number',
         'birth_date',
         'signature',
+        'esc',
         'image',
         'qr_code' ,
-    ];
-    
-    protected $casts = [
-        'emergency_contact' => 'array',
-        'birth_date' => 'date',
     ];
 }
