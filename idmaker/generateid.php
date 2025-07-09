@@ -684,7 +684,7 @@ searchInput.addEventListener("input", () => {
             notyf.error("Please enter a valid numeric LRN.");
             return;
             }
-            course = `LRN: ${lrnValue}`;
+            course = lrnValue;
         } else if (level === "shs") {
             course = courseInput.value.trim() || selectedStudent.course?.description || "SHS";
         }

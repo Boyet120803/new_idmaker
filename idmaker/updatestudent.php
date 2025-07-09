@@ -250,7 +250,6 @@
     }
 
     .id-card-back {
-      /* width: 204px; */
       height: 300px;
       background: white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -258,7 +257,6 @@
       font-size: 9px;
       position: relative;
       overflow: hidden;
-
     }
 
     .left-bar {
@@ -300,15 +298,15 @@
     }
 
     .back-signature {
-      position: relative; 
+      position: relative;
       text-align: center;
-      margin: 18px 0 4px 0;
+      margin: 18px 0 4px 0; 
       font-size: 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 2px;
-      min-height: 0px;
+      min-height: 0px; 
     }
     .signature-img-wrap {
       position: absolute;
@@ -346,7 +344,7 @@
     }
 
     .reminders b {
-      font-size: 7px;
+      font-size: 6px;
     }
 
     .contact {
@@ -354,16 +352,16 @@
       font-size: 7px;
       margin-top: 1px;
     }
-        .contact1{
+        .contact_1{
       text-align: center;
-      font-size: 7px;
-      margin-top: 1px;
+      font-size: 6px;
+      margin-top: -9px;
       font-weight: bold;
     }
 
     .contact-name {
       font-weight: bold;
-      font-size: 7px;
+      font-size: 10px;
       margin-top: 2px;
     }
 
@@ -466,6 +464,7 @@
       height: 56px;
     }
 
+
     .switch-btn {
   background: linear-gradient(90deg, #5420B5 60%, #7B3FF2 100%);
   color: #fff;
@@ -522,6 +521,92 @@
    
   
 
+</style>
+
+<style>
+     @media print {
+      html, body {
+        zoom: 1.03; 
+        padding: 0;
+        margin: 0;
+      }
+
+      body * {
+        visibility: hidden;
+      }
+
+      #idWrapper, #idWrapper * {
+        visibility: visible;
+      }
+
+      #idWrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+      }
+
+      #idFront, #idBack {
+        page-break-before: avoid;
+        page-break-after: avoid;
+      }
+
+      .front {
+        background-color: #b8d3e6 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      @page {
+        margin: 0;
+        size: auto;
+      }
+    
+      .back {
+        background-color: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .id.back .back-top {
+        background-color: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+
+      .year-cell,
+      .semester-cell {
+        background-color: black !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+
+      .rotated-text {
+        color: white !important;
+        background-color: black !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+
+      .first-cell .rotated-text,
+      .second-cell .rotated-text {
+        background-color: white !important;
+        color: black !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* Print setup */
+      @page {
+        margin: 0;
+        size: auto;
+      }
+    }
 </style>
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -587,159 +672,160 @@
         <button id="printBtn" class="switch-btn">Print</button>
       </div>
 <div class="mt-6">
- <div class="id-wrapper">
-   <div class="id front" id="idFront" style="display: block;">
-      <div class="front-bg"></div>
-          <div class="id-left">
-             <img src="assets/img/log.png" class="logo" alt="Logo">
-              <div class="school-info">
-                <span class="school-name">MLG COLLEGE<br>OF LEARNING, INC</span>
-                <span class="school-address">Atabay, Hilongos, Leyte</span>
-              </div>
-              <img src="assets/photos/qr.png" class="qr" alt="QR Code" id="qr_code">
-               <!-- SIGNATURE -->
-            <div class="img-drop-area" id="signDropArea" style="position: relative;">
-              <img
-                src="assets/img/yan.png"
-                class="signature"
-                id="signatureImg"
-                alt="Signature"
-                style="position: absolute;"
-              />
-            </div>
-          </div>
-          <!-- STUDENT PHOTO -->
-          <div class="img-drop-area" id="photoDropArea" style="position: relative;">
-            <img
-              src="assets/img/id_final.png"
-              class="student-img"
-              id="studentImg"
-              alt="Student Photo"
-              style="position: absolute; width: 150%; height: 240px;"
-            />
-          </div>
-          <div class="bottom-content">
-            <div class="esc" style="display: none; text-align: right; margin-right: 7px;">
-               ESC # <span id="esc_number"></span>
-            </div>
-             <div class="name-block">
-               <div class="name">KISTADIO<br><span class="firstname">JHON BRIX P.</span></div>
-                 <div class="info-row">
-                   <div class="info-row-child">
-                    <span class="label">Date of Birth:</span>
-                    <span class="value">09/04/2000</span>
-                   </div>
-                  <div class="info-row-child">
-                    <br><span class="address">Brgy. Atabay, Hilongos</span>
-                  </div>             
-              </div>
-            </div>
-          <div class="id-row">
-            <span class="student-id">21-003149</span>
-            <span id="course_span" class="course">BSED-SS</span>
-          </div>
-          <div class="footer">
-            <span>https://mlgcl.edu.ph</span>
-            <span>mlg@mlgcl.edu.ph</span>
-          </div>
-          <div class="esc-logo"style="display: none;">
-              <img src="assets/img/ESC-Logo.png" class="esc-logo" alt="ESC Logo">
-          </div>
-     </div>
-</div>
-<!-- BACK SIDE -->
-    <div class="id back" id="idBack" style="display: none;">
-        <div class="id-card-back back-top">
-            <div class="left-content">
-                <div class="left-bar year-strip">
-                    <table>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2023-2024</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
-                        <td class="year-cell"><div class="rotated-text">2022-2023</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2021-2022</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="semester-cell"><div class="rotated-text">Semester</div></td>
-                        <td class="first-cell"><div class="rotated-text">First</div></td>
-                        <td class="second-cell"><div class="rotated-text">Second</div></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="right-content">
-                <div class="top-text">
-                    This is to certify that the person<br>
-                    whose picture and signature appear<br>
-                    herein is a bonafide student of<br>
-                    <b>MLC College of Learning, Inc.</b>
-                </div>
-
-                  <div class="back-signature">
-                    <div class="signature-img-wrap">
-                        <img src="assets/img/yan.png" alt="signature" class="back-signature-img">
+   <div class="id-wrapper hidden" id="idWrapper">
+          <div class="id front" id="idFront" style="display: block;">
+            <div class="front-bg"></div>
+                <div class="id-left">
+                    <img src="assets/img/log.png" class="logo" alt="Logo">
+                    <div class="school-info">
+                        <span class="school-name">MLG COLLEGE<br>OF LEARNING, INC</span>
+                        <span class="school-address">Atabay, Hilongos, Leyte</span>
                     </div>
-                    <div class="signature-name">MARY LILIBETH O. YAN, DEV. ED. D.</div>
-                    <div class="director">School Director</div>
+                    <img src="assets/photos/qr.png" class="qr" alt="QR Code" id="qr_code">
+                    <div class="img-drop-area" id="signDropArea" style="position: relative;">                   
+                          <img
+                              src="assets/img/yan.png"
+                              class="signature"
+                              id="signatureImg"
+                              alt="Signature"
+                              style="position: absolute;"
+                          />                       
+                    </div>
+                </div>
+                <!-- STUDENT PHOTO -->
+                <div class="img-drop-area" id="photoDropArea" style="position: relative;">
+                    <img
+                    src="assets/img/id_final.png"
+                    class="student-img"
+                    id="studentImg"
+                    alt="Student Photo"
+                    style="position: absolute; width: 150%; height: 240px;"
+                    />
+                </div>
+                <div class="bottom-content">
+                   <div class="esc" style="display: none; text-align: right; margin-right: 7px;">
+                    ESC # <span id="esc_number"></span>
+                   </div>
+                    <div class="name-block">
+                      <div class="name">KISTADIO<br><span class="firstname">JHON BRIX P.</span></div>
+                          <div class="info-row">
+                              <div class="info-row-child">
+                                  <span class="label">Date of Birth:</span>
+                                  <span class="value">09/04/2000</span>
+                              </div>
+                              <div class="info-row-child">
+                                  <br><span class="address">Brgy. Atabay, Hilongos</span>
+                              </div>             
+                         </div>
+                      </div>
+                    <div class="id-row">
+                        <span class="student-id">21-003149</span>
+                        <span id="course_span" class="course">BSED-SS</span>
+                    </div>
+                    <div class="footer">
+                        <span>https://mlgcl.edu.ph</span>
+                        <span>mlg@mlgcl.edu.ph</span>
+                    </div>
+                    <div class="esc-logo"style="display: none;">
+                      <img src="assets/img/ESC-Logo.png" class="esc-logo" alt="ESC Logo">
                   </div>
-
-                <div class="reminders">
-                    <b class="first">IMPORTANT REMINDERS</b><br>
-                    Always wear this ID while inside<br>
-                    the school campus.<br>
-                    <b class="second">Do not forget your<br>
-                    STUDENT ID NUMBER.</b>
-                </div>
-
-                <div class="contact">
-                    If lost and found, please surrender<br>
-                    this ID to the<br>
-                    STUDENT AFFAIRS OFFICE,<br>
-                    MLC College of Learning, Inc.,<br>
-                    Brgy. Atabay, Hilongos, Leyte
-                </div>
-
-                <div class="contact">
-                   <b> In case of emergency,<br>
-                    please contact</b>
-                    <div class="contact-name">EFREN IBAÑEZ</div>
-                    <div class="contact-number">0935-121-9395</div>
-                </div>
-
-                <div class="qr-box">
-                    PLEASE SCAN THE QR<br>
-                    CODE AT THE FRONT<br>
-                    FOR MORE VALIDATION &<br>
-                    CONTACT INFORMATION.
-                </div>
             </div>
-            
         </div>
-        <div class="facebook-footer back-bottom">
-            https://www.facebook.com/mlgcl/
-        </div>
-    </div>
-</div>
+
+        
+        <!-- BACK SIDE -->
+            <div class="id back" id="idBack" style="display: block;">
+                <div class="id-card-back back-top">
+                    <div class="left-content">
+                        <div class="left-bar year-strip">
+                            <table>
+                                <tr>
+                                <td class="word-school-year"></td>
+                                <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
+                                <td class="empty-cell"></td>
+                                <td class="empty-cell"></td>
+                                </tr>
+                                <tr>
+                                <td class="word-school-year"></td>
+                                <td class="year-cell"><div class="rotated-text">2023-2024</div></td>
+                                <td class="empty-cell"></td>
+                                <td class="empty-cell"></td>
+                                </tr>
+                                <tr>
+                                <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
+                                <td class="year-cell"><div class="rotated-text">2022-2023</div></td>
+                                <td class="empty-cell"></td>
+                                <td class="empty-cell"></td>
+                                </tr>
+                                <tr>
+                                <td class="word-school-year"></td>
+                                <td class="year-cell"><div class="rotated-text">2021-2022</div></td>
+                                <td class="empty-cell"></td>
+                                <td class="empty-cell"></td>
+                                </tr>
+                                <tr>
+                                <td class="word-school-year"></td>
+                                <td class="semester-cell"><div class="rotated-text">Semester</div></td>
+                                <td class="first-cell"><div class="rotated-text">First</div></td>
+                                <td class="second-cell"><div class="rotated-text">Second</div></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="right-content">
+                        <div class="top-text">
+                            This is to certify that the person<br>
+                            whose picture and signature appear<br>
+                            herein is a bonafide student of<br>
+                            <b>MLC College of Learning, Inc.</b>
+                        </div>
+
+                        <div class="back-signature">
+                            <div class="signature-img-wrap">
+                                <img src="assets/img/yan.png" alt="signature" class="back-signature-img">
+                            </div>
+                            <div class="signature-name">MARY LILIBETH O. YAN, DEV. ED. D.</div>
+                            <div class="director">School Director</div>
+                        </div>
+
+                        <div class="reminders">
+                            <b class="first">IMPORTANT REMINDERS</b><br>
+                            Always wear this ID while inside<br>
+                            the school campus.<br>
+                            <b class="second">Do not forget your<br>
+                            STUDENT ID NUMBER.</b>
+                        </div>
+
+                        <div class="contact_1">
+                            If lost and found, please surrender<br>
+                            this ID to the<br>
+                            STUDENT AFFAIRS OFFICE,<br>
+                            MLC College of Learning, Inc.,<br>
+                            Brgy. Atabay, Hilongos, Leyte
+                        </div>
+
+                        <div class="contact">
+                        <b> In case of emergency,<br>
+                            please contact</b>
+                            <div class="contact-name">EFREN IBAÑEZ</div>
+                            <div class="contact-number">0935-121-9395</div>
+                        </div>
+
+                        <div class="qr-box">
+                            PLEASE SCAN THE QR<br>
+                            CODE AT THE FRONT<br>
+                            FOR MORE VALIDATION &<br>
+                            CONTACT INFORMATION.
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="facebook-footer back-bottom">
+                    https://www.facebook.com/mlgcl/
+                </div>
+             </div>
+          </div>
 
 <script>
   printBtn.onclick = function() 

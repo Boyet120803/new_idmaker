@@ -59,9 +59,9 @@
         }
             
 
-    .sidebar-dropdown-menu {
-    transition: all 0.3s ease;
-}
+        .sidebar-dropdown-menu {
+        transition: all 0.3s ease;
+    }
 
 
 </style>
@@ -80,13 +80,14 @@
                     <ul class="space-y-1 px-3">
                       <p class="mb-1 px-4" style="font-size: 12px; font-weight:bold; color:rgb(174, 174, 174)">MAIN MENU</p>
                         <li>
-                           <a href="dashboard.php"
-                             class="sidebar-link flex items-center px-4 py-3 rounded-md 
-                                    <?= $currentPage == 'dashboard.php' ? 'text-primary font-bold bg-gray-100' : 'text-gray-700' ?>">
-                                <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                    <i class="ri-dashboard-line"></i>
-                                </div>
-                             <span>Dashboard</span>
+                       <a href="dashboard.php"
+                            class="sidebar-link flex items-center px-4 py-3 rounded-md
+                            <?= $currentPage == 'dashboard.php' ? 'text-blue-700 font-bold bg-gray-100' : 'text-gray-700' ?>">
+                            
+                            <div class="w-6 h-6 flex items-center justify-center mr-3">
+                                <i class="ri-dashboard-line"></i>
+                            </div>
+                            <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
@@ -94,7 +95,7 @@
                                 <button class="sidebar-link flex items-center px-4 py-3 rounded-md w-full justify-between text-gray-700 hover:bg-gray-50">
                                     <div class="flex items-center">
                                         <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                            <i class="ri-community-line"></i>
+                                         <i class="ri-user-line"></i>
                                         </div>
                                         <span>Students</span>
                                     </div>
@@ -174,5 +175,26 @@
                     icon.classList.toggle('open');
                 });
             });
+        });
+
+          document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("auth_token");
+
+            if (!token) {
+                Swal.fire({
+                    title: 'Opps bawal yan bata!!!!!!!',
+                    text: 'Login sa diha!!',
+                    imageUrl: 'assets/gif/malupiton.gif', 
+                    imageWidth: 300,
+                    imageHeight: 300,
+                    imageAlt: 'Unauthorized GIF',
+                    confirmButtonText: 'Go to Login',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    backdrop: `rgba(0, 0, 0, 1)`
+                }).then(() => {
+                    window.location.href = "index.php";
+                });
+            }
         });
     </script>

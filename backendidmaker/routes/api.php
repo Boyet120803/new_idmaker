@@ -32,19 +32,30 @@ Route::middleware('auth:sanctum')->group(function(){
         return $request->user();
     });
     Route::get('/employeecomplete',[EmployeeCompleteController::class, 'index']);
+    Route::post('/employee-complete-store', [EmployeeCompleteController::class, 'store']);
+    Route::get('/employeeshowpending/{id}', [EmployeePendingController::class, 'employeeshowpending']);
     Route::post('/employee-store', [EmployeePendingController::class, 'store']);
     Route::get('/pending/{student_id}', [PendingController::class, 'showid']);
     Route::post('/save-id-layout', [PendingController::class, 'saveIdLayout']);
     Route::get('/completed/{student_id}', [CompletedController::class, 'show']);
     Route::post('/completed', [CompletedController::class, 'store']);
     Route::get('/showcompleteid/{id}', [CompletedController::class, 'showcompleteid']);
+    Route::get('/showemployeecomplete/{id}', [EmployeeCompleteController::class, 'showemployeecompleteid']);
     Route::post('/completed/{id}', [CompletedController::class, 'update']);
+    Route::post('/employeecompleteupdate/{id}', [EmployeeCompleteController::class, 'employeeupdate']);
     Route::get('/completeid/{id}', [CompletedController::class, 'completeid']);
+    Route::get('/total-generated-ids',[EmployeeCompleteController::class,'totalemployees']);
+    Route::get('/totalstudents' ,[CompletedController::class, 'totalstudents']);
+    // archive and unarchive routes
+    Route::get('/students', [CompleteController::class, 'getActive']);
+    Route::get('/archived-students', [CompleteController::class, 'getArchived']);
+    Route::post('/archive/{id}/archive', [CompleteController::class, 'archive']);
+    Route::post('/unarchive/{id}/unarchive', [CompleteController::class, 'unarchive']);
 });
 
 
 
-Route::get('/student-list', [AuthController::class, 'list']);
+// Route::get('/student-list', [AuthController::class, 'list']);
 
 
 

@@ -4,63 +4,120 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 <style>
-    .input-container {
-    position: relative;
+
+  
+    .searchbar {
+    font-size: 14px;
+    font-family: arial, sans-serif;
+    color: #202124;
+    display: flex;
+    z-index: 3;
+    height: 44px;
+    background: white;
+    border: 1px solid #dfe1e5;
+    box-shadow: none;
+    border-radius: 24px;
+    margin: 0 auto;
+    width: auto;
+    max-width: 224px;
+    }
+
+    .searchbar:hover {
+    box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+    border-color: rgba(223,225,229,0);
+    }
+
+    .searchbar-wrapper {
+    flex: 1;
+    display: flex;
+    padding: 5px 8px 0 14px;
+    }
+
+    .searchbar-left {
+    font-size: 14px;
+    font-family: arial, sans-serif;
+    color: #202124;
     display: flex;
     align-items: center;
+    padding-right: 13px;
+    margin-top: -5px;
     }
 
-    .input {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    padding: 18px 16px;
-    background-color: transparent;
-    cursor: pointer;
-    transition: all 0.5s ease-in-out;
+    .search-icon-wrapper {
+    margin: auto;
     }
 
-    .input::placeholder {
+    .search-icon {
+    margin-top: 3px;
+    color: #9aa0a6;
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+    }
+
+    .searchbar-icon {
+    display: inline-block;
+    fill: currentColor;
+    height: 24px;
+    line-height: 24px;
+    position: relative;
+    width: 24px;
+    }
+
+    .searchbar-center {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    }
+
+    .searchbar-input-spacer {
     color: transparent;
+    flex: 100%;
+    white-space: pre;
+    height: 34px;
+    font-size: 16px;
     }
 
-    .input:focus::placeholder,
-    .input:not(:placeholder-shown)::placeholder {
-    color: rgb(131, 128, 128);
-    }
-
-    .input:focus,
-    .input:not(:placeholder-shown) {
-    background-color: #fff;
-    border: black;
-    width: 290px;
-    padding: 18px 16px 18px 45px;
-    cursor: text;
-    }
-
-    .icon {
-    position: absolute;
-    left: 0;
-    height: 45px;
-    width: 45px;
-    background-color: #fff;
-    border-radius: 99px;
-    z-index: -1;
-    fill: rgb(80, 80, 255);
-    border: 1px solid rgb(32, 32, 255);
-    pointer-events: none;
-    }
-
-    .input:focus + .icon,
-    .input:not(:placeholder-shown) + .icon {
-    z-index: 0;
+    .searchbar-input {
     background-color: transparent;
     border: none;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, .87);
+    word-wrap: break-word;
+    outline: none;
+    display: flex;
+    flex: 100%;
+    margin-top: -37px;
+    height: 34px;
+    font-size: 16px;
+    max-width: 100%;
+    width: 100%;
     }
 
+    .searchbar-right {
+    display: flex;
+    flex: 0 0 auto;
+    margin-top: -5px;
+    align-items: stretch;
+    flex-direction: row;
+    }
 
+    .searchbar-clear-icon {
+    margin-right: 12px;
+    }
+
+    .voice-search {
+    flex: 1 0 auto;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border: 0;
+    background: transparent;
+    outline: none;
+    padding: 0 8px;
+    width: 2.8em;
+    }
      .ui-loader {
       display: inline-block;
       width: 50px;
@@ -183,22 +240,47 @@
             <div class="p-4">
                <div class="flex flex-wrap items-center justify-between mb-2">
                     <div class="text-sm text-gray-500">
-                      
+                      <a href="archivedstudents.php" class="btn btn-secondary">View Archived Students</a>
                     </div>
                <div class="relative">
-                <div class="input-container">
-                <input
-                    type="text"
-                    id="search-student-id"
-                    name="search-student-id"
-                    class="input"
-                    placeholder="Search student ID"
-                    autocomplete="off"
-                />
-                <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" class="icon">
-                    <rect fill="white" height="24" width="24"></rect>
-                    <path fill="" d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM9 11.5C9 10.1193 10.1193 9 11.5 9C12.8807 9 14 10.1193 14 11.5C14 12.8807 12.8807 14 11.5 14C10.1193 14 9 12.8807 9 11.5ZM11.5 7C9.01472 7 7 9.01472 7 11.5C7 13.9853 9.01472 16 11.5 16C12.3805 16 13.202 15.7471 13.8957 15.31L15.2929 16.7071C15.6834 17.0976 16.3166 17.0976 16.7071 16.7071C17.0976 16.3166 17.0976 15.6834 16.7071 15.2929L15.31 13.8957C15.7471 13.202 16 12.3805 16 11.5C16 9.01472 13.9853 7 11.5 7Z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                </svg>
+                  <div class="searchbar">
+                    <div class="searchbar-wrapper">
+                        <div class="searchbar-left">
+                            <div class="search-icon-wrapper">
+                                <span class="search-icon searchbar-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="searchbar-center">
+                            <div class="searchbar-input-spacer"></div>
+
+                            <input
+                                type="text"
+                                id="search-student-id"
+                                name="search-student-id"
+                                class="searchbar-input"
+                                maxlength="2048"
+                                autocapitalize="off"
+                                autocomplete="off"
+                                title="Search"
+                                role="combobox"
+                                placeholder="Search student">
+                        </div>
+
+                        <div class="searchbar-right">
+                            <svg class="voice-search" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path fill="#4285f4" d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z"></path>
+                                <path fill="#34a853" d="m11 18.08h2v3.92h-2z"></path>
+                                <path fill="#fbbc05" d="m7.05 16.87c-1.27-1.33-2.05-2.83-2.05-4.87h2c0 1.45 0.56 2.42 1.47 3.38v0.32l-1.15 1.18z"></path>
+                                <path fill="#ea4335" d="m12 16.93a4.97 5.25 0 0 1 -3.54 -1.55l-1.41 1.49c1.26 1.34 3.02 2.13 4.95 2.13 3.87 0 6.99-2.92 6.99-7h-1.99c0 2.92-2.24 4.93-5 4.93z"></path>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
                 </div>
                 </div>
@@ -214,20 +296,22 @@
                             <th class="py-2 px-4 text-left">Student ID</th>
                             <th class="py-2 px-4 text-left">Full Name</th>
                             <th class="py-2 px-4 text-left">Course/LRN</th>
+                            <th class="py-2 px-4 text-left">Status</th>
+                            <th class="py-2 px-4 text-left">Reason</th>
                         </tr>
                     </thead>
-                   <tbody id="student-table-body" class="text-gray-600 text-sm font-light">
-                        <tr id="pageLoader">
-                            <td colspan="4" class="text-center py-10">
-                                <div class="ui-loader loader-blk mx-auto">
-                                    <svg viewBox="22 22 44 44" class="multiColor-loader w-12 h-12">
-                                        <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"
-                                            class="loader-circle loader-circle-animation"></circle>
-                                    </svg>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                  <tbody id="student-table-body" class="text-gray-600 text-sm font-light">
+                    <tr id="pageLoader">
+                        <td colspan="6" class="text-center py-10">
+                            <div class="ui-loader loader-blk mx-auto">
+                                <svg viewBox="22 22 44 44" class="multiColor-loader w-12 h-12 mx-auto">
+                                    <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"
+                                        class="loader-circle loader-circle-animation"></circle>
+                                </svg>
+                            </div>
+                        </td>
+                     </tr>
+                  </tbody>
                 </table>
             <div id="pagination-controls" class="flex justify-between items-center mt-2">
              <div></div>
@@ -394,125 +478,156 @@
     });
 
 
-        document.addEventListener("DOMContentLoaded", async () => {
-            const tableBody = document.getElementById("student-table-body");
-            const searchInput = document.getElementById("search-student-id");
+       document.addEventListener("DOMContentLoaded", async () => {
+        const tableBody = document.getElementById("student-table-body");
+        const searchInput = document.getElementById("search-student-id");
 
-            const prevBtn = document.getElementById("prev-page");
-            const nextBtn = document.getElementById("next-page");
-            const pageInfo = document.getElementById("page-info");
+        const prevBtn = document.getElementById("prev-page");
+        const nextBtn = document.getElementById("next-page");
+        const pageInfo = document.getElementById("page-info");
 
-            let allStudents = [];
-            let currentPage = 1;
-            const rowsPerPage = 10; 
+        let allStudents = [];
+        let currentPage = 1;
+        const rowsPerPage = 10;
 
-            try {
-                const response = await fetch("http://127.0.0.1:8000/api/complete", {
-                    method: "GET",
-                    headers: {
-                        "Accept": "application/json",
-                        "Authorization": "Bearer " + localStorage.getItem("auth_token")
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/complete", {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("auth_token")
                 }
+            });
 
-                allStudents = await response.json();
-                renderPaginatedTable(filteredStudents());
-            } catch (error) {
-                console.error("Error loading student data:", error);
+            if (!response.ok) {
+                throw new Error("Failed to fetch data");
             }
 
-            // 🔄 Filtered Students by search input
-            function filteredStudents() {
-                const keyword = searchInput.value.trim().toLowerCase();
-                return allStudents.filter(student =>
-                    student.student_id?.toLowerCase().includes(keyword)
+            allStudents = await response.json();
+            renderPaginatedTable(filteredStudents());
+        } catch (error) {
+            console.error("Error loading student data:", error);
+        }
+        function filteredStudents() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            return allStudents.filter(student => {
+                const fullName = `${student.firstname || ''} ${student.middlename || ''} ${student.lastname || ''}`.toLowerCase();
+                return (
+                    student.student_id?.toLowerCase().includes(keyword) ||
+                    student.full_name?.toLowerCase().includes(keyword) ||
+                    student.firstname?.toLowerCase().includes(keyword) ||
+                    student.middlename?.toLowerCase().includes(keyword) ||
+                    student.lastname?.toLowerCase().includes(keyword) ||
+                    fullName.includes(keyword)
                 );
-            }
-
-            // 🔢 Render paginated result
-            function renderPaginatedTable(data) {
-                const totalPages = Math.ceil(data.length / rowsPerPage);
-                currentPage = Math.max(1, Math.min(currentPage, totalPages));
-
-                const start = (currentPage - 1) * rowsPerPage;
-                const end = start + rowsPerPage;
-                const paginatedData = data.slice(start, end);
-
-                renderTable(paginatedData);
-                updatePaginationInfo(currentPage, totalPages);
-            }
-
-            // 📋 Render table
-            function renderTable(data) {
-                tableBody.innerHTML = "";
-
-                if (data.length === 0) {
-                    tableBody.innerHTML = `
-                        <tr><td colspan="4" class="text-center py-4 text-gray-500">No students found.</td></tr>
-                    `;
-                    return;
-                }
-
-                data.forEach(student => {
-                    const row = document.createElement("tr");
-                    row.className = "border-b border-gray-200 hover:bg-gray-100";
-
-                    row.innerHTML = `
-                        <td class="py-2 px-4">
-                            <button class="btn btn-danger btn-sm delete-student-btn" onclick="deleteStudent(${student.id})" title="Delete">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                            <a href="viewstudent.php?id=${student.id}" title="View student">
-                                <i class="ri-eye-line text-blue-500 hover:text-blue-700 cursor-pointer text-lg view-icon"></i>
-                            </a>
-                            <a href="updatestudent.php?id=${student.id}" title="Edit student">
-                                <i class="ri-edit-line text-green-500 hover:text-green-700 cursor-pointer text-lg edit-icon"></i>
-                            </a>
-                        </td>
-                        <td class="py-2 px-4">${student.student_id || ''}</td>
-                        <td class="py-2 px-4">${student.full_name || ''}</td>
-                        <td class="py-2 px-4">${student.course || ''}</td>
-                    `;
-
-                    tableBody.appendChild(row);
-                });
-            }
-
-            // ⏩ Pagination Info
-            function updatePaginationInfo(current, total) {
-                pageInfo.textContent = `Page ${current} of ${total || 1}`;
-                prevBtn.disabled = current === 1;
-                nextBtn.disabled = current === total || total === 0;
-            }
-
-            // ⬅ Prev Page
-            prevBtn.addEventListener("click", () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderPaginatedTable(filteredStudents());
-                }
             });
+        }
+        function renderPaginatedTable(data) {
+            const totalPages = Math.ceil(data.length / rowsPerPage);
+            currentPage = Math.max(1, Math.min(currentPage, totalPages));
 
-            // ➡ Next Page
-            nextBtn.addEventListener("click", () => {
-                const totalPages = Math.ceil(filteredStudents().length / rowsPerPage);
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderPaginatedTable(filteredStudents());
-                }
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = data.slice(start, end);
+
+            renderTable(paginatedData);
+            updatePaginationInfo(currentPage, totalPages);
+        }
+        function renderTable(data) {
+            tableBody.innerHTML = "";
+
+            if (data.length === 0) {
+                tableBody.innerHTML = `
+                    <tr><td colspan="4" class="text-center py-4 text-gray-500">No students found.</td></tr>
+                `;
+                return;
+            }
+
+            data.forEach(student => {
+                const row = document.createElement("tr");
+                row.className = "border-b border-gray-200 hover:bg-gray-100";
+
+                row.innerHTML = `
+                    <td class="py-2 px-4">
+                        <button class="btn btn-warning btn-sm" onclick="archiveStudent(${student.id}, event)" title="Archive">
+                            <i class="bi bi-archive"></i>
+                        </button>
+                        <a href="viewstudent.php?id=${student.id}" title="View student">
+                            <i class="ri-eye-line text-blue-500 hover:text-blue-700 cursor-pointer text-lg view-icon"></i>
+                        </a>
+                        <a href="updatestudent.php?id=${student.id}" title="Edit student">
+                            <i class="ri-edit-line text-green-500 hover:text-green-700 cursor-pointer text-lg edit-icon"></i>
+                        </a>
+                    </td>
+                    <td class="py-2 px-4">${student.student_id || ''}</td>
+                    <td class="py-2 px-4">${student.full_name || ''}</td>
+                    <td class="py-2 px-4">${student.course || ''}</td>
+                    <td class="py-2 px-4">${formatStatus(student.status)}</td>
+                    <td class="py-2 px-4">${formatReason(student.reason)}</td>
+                `;
+
+                tableBody.appendChild(row);
             });
-
-            // 🔍 Search Input
-            searchInput.addEventListener("input", () => {
-                currentPage = 1;
+             function formatStatus(status) {
+                if (status === 'first_print') {
+                    return `<span style="
+                        background-color: #3498db;
+                        color: white;
+                        padding: 3px 8px;
+                        border-radius: 12px;
+                        font-size: 12px;
+                        display: inline-block;
+                    ">First Print</span>`;
+                }
+                if (status === 're_print') {
+                    return `<span style="
+                        background-color: #e67e22;
+                        color: white;
+                        padding: 3px 8px;
+                        border-radius: 12px;
+                        font-size: 12px;
+                        display: inline-block;
+                    ">Reprint</span>`;
+                }
+                return `<span style="
+                    background-color: #7f8c8d;
+                    color: white;
+                    padding: 3px 8px;
+                    border-radius: 12px;
+                    font-size: 12px;
+                    display: inline-block;
+                ">${status}</span>`;
+            }
+            function formatReason(reason) {
+                if (!reason || reason.trim() === '') {
+                    return `<span style="color: #7f8c8d;">------------</span>`;
+                }
+                return `<span style="background-color: #2ecc71; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px;">${reason}</span>`;
+            }
+        }
+        function updatePaginationInfo(current, total) {
+            pageInfo.textContent = `Page ${current} of ${total || 1}`;
+            prevBtn.disabled = current === 1;
+            nextBtn.disabled = current === total || total === 0;
+        }
+        prevBtn.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
                 renderPaginatedTable(filteredStudents());
-            });
+            }
         });
-    //modal
+        nextBtn.addEventListener("click", () => {
+            const totalPages = Math.ceil(filteredStudents().length / rowsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPaginatedTable(filteredStudents());
+            }
+        });
+        searchInput.addEventListener("input", () => {
+            currentPage = 1;
+            renderPaginatedTable(filteredStudents());
+        });
+    });
         const modal = document.getElementById("profileModal");
         const modalContent = document.getElementById("profileModalContent");
 
@@ -633,44 +748,53 @@
     });
 </script>
 
+
+
+
 <script>
-function deleteStudent(id, event) {
-  if (event) event.preventDefault();
+function archiveStudent(id, event) {
+    if (event) event.preventDefault();
 
-  Swal.fire({
-    title: 'Are you sure?',
-    text: 'You want to delete.',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'Cancel'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      fetch(`http://127.0.0.1:8000/api/delete-student/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-          'Accept': 'application/json'
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You want to archive this student.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, archive it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            fetch(`http://127.0.0.1:8000/api/archive/${id}/archive`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    if (typeof notyf !== 'undefined') {
+                        notyf.success('Student archived successfully!');
+                    } else {
+                        alert('Student archived successfully!');
+                    }
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    Swal.fire('Error!', data.message || 'Failed to archive student.', 'error');
+                }
+            })
+            .catch(err => {
+                Swal.fire('Error!', 'Something went wrong while archiving.', 'error');
+                console.error(err);
+            });
+
         }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.message === "Student deleted successfully") {
-          notyf.success('Student deleted successfully!');
-          setTimeout(() => {
-            location.reload();
-          }, 1500);
-        } else {
-          Swal.fire('Error!', data.message || 'Failed to delete student.', 'error');
-        }
-      })
-      .catch(err => {
-        Swal.fire('Error!', 'Something went wrong while deleting.', 'error');
-        console.error(err);
-      });
-    }
-  });
+    });
 }
-
-
 </script>

@@ -41,6 +41,8 @@ class CompletedController extends Controller
                     'firstname_fontsize' => 'nullable|string',
                     'lastname_fontsize' => 'nullable|string',
                     'esc' => 'nullable|string|max:255',
+                    'status' => 'nullable|in:first_print,re_print',
+                    'reason' => 'nullable|string|max:500',
                 ];
 
                 $validated = $request->validate($rules);
@@ -48,7 +50,8 @@ class CompletedController extends Controller
                 $data = $request->only([
                     'first_name', 'last_name', 'middle_name', 'address', 'course',
                     'student_id', 'contact', 'emergency_contact_name', 'emergency_contact_number',
-                    'birth_date', 'qr_code', 'photo_position', 'signature_position', 'firstname_fontsize','lastname_fontsize', 'esc'
+                    'birth_date', 'qr_code', 'photo_position', 'signature_position', 'firstname_fontsize','lastname_fontsize', 'esc',
+                    'status', 'reason'
                 ]);
 
                 if ($request->hasFile('signature')) {
@@ -208,4 +211,47 @@ class CompletedController extends Controller
             return response()->json($complete);
         }
 
+
+         public function totalstudents()
+            {
+                $total = Complete::count(); 
+                $goal = 500;
+
+                $progress = min(100, ($total / $goal) * 100); 
+
+                return response()->json([
+                    'total' => $total,
+                    'goal' => $goal,
+                    'progress' => round($progress, 1)
+                ]);
+            }
+
+
+            public function getActive()
+            {
+                return response()->json(Complete::active()->get());
+            }
+
+            public function getArchived()
+            {
+                return response()->json(Complete::archived()->get());
+            }
+
+            public function archive($id)
+            {
+                $student = Complete::findOrFail($id);
+                $student->is_archived = true;
+                $student->save();
+
+                return response()->json(['success' => true, 'message' => 'Student archived successfully.']);
+            }
+
+            public function unarchive($id)
+            {
+                $student = Complete::findOrFail($id);
+                $student->is_archived = false;
+                $student->save();
+
+                return response()->json(['success' => true, 'message' => 'Student unarchived successfully.']);
+            }
 }

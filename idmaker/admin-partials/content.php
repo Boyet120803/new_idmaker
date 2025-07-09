@@ -1,6 +1,203 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:active {
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-icon.blue {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        .card-icon.green {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+        }
+
+        .card-icon.orange {
+            background: rgba(249, 115, 22, 0.1);
+            color: #ea580c;
+        }
+
+        .card-icon.purple {
+            background: rgba(147, 51, 234, 0.1);
+            color: #9333ea;
+        }
+
+        .card:hover .card-icon.blue {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .card:hover .card-icon.green {
+            background: rgba(34, 197, 94, 0.2);
+        }
+
+        .card:hover .card-icon.orange {
+            background: rgba(249, 115, 22, 0.2);
+        }
+
+        .card:hover .card-icon.purple {
+            background: rgba(147, 51, 234, 0.2);
+        }
+
+        .card-trend {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .card-trend.positive {
+            color: #16a34a;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .card-trend.negative {
+            color: #dc2626;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .card-trend::before {
+            content: '↗';
+            margin-right: 0.25rem;
+        }
+
+        .card-trend.negative::before {
+            content: '↘';
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-label {
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+
+
+        .card-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .card-gradient::before {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .card-gradient .card-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-gradient .card-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .card-gradient .card-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .card-gradient .card-trend {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
         <main class="flex-1 ml-64">
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-6 py-4">
@@ -53,9 +250,8 @@
                 </div>
             </header>
 
-            <!-- Page Content -->
-            <div class="p-6">
-                <!-- Date and Actions -->
+           <!-- Page Content -->
+          <div class="p-6">
                 <div class="flex flex-wrap items-center justify-between mb-6">
                     <div class="text-sm text-gray-500">
                         <div class="flex items-center">
@@ -63,36 +259,34 @@
                         </div>
                     </div>                  
                 </div>
-
-                <!--Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                    <div class="bg-white rounded-lg shadow-sm p-6 transition-all hover:shadow-md">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <p class="text-gray-500 text-sm">ID</p>            
-                            </div>                        
-                        </div>                     
+            <div class="container">
+               <div class="cards-grid">
+                 <a href="#" class="card">
+                    <div class="card-header">
+                        <div class="card-icon blue"><i class="fas fa-user-tie"></i></div>
+                        <div id="id-trend" class="card-trend employee">—%</div>
                     </div>
-
-
-                    <div class="bg-white rounded-lg shadow-sm p-6 transition-all hover:shadow-md">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <p class="text-gray-500 text-sm">ID</p>                            
-                            </div>                          
-                        </div>                     
+                    <div class="card-content">
+                        <div class="card-label">Employees</div>
+                        <div id="id-total" class="card-value">Loading...</div>
                     </div>
-
-                    <!-- New Customers -->
-                    <div class="bg-white rounded-lg shadow-sm p-6 transition-all hover:shadow-md">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <p class="text-gray-500 text-sm">ID</p>
-                            </div>                        
-                        </div>                  
-                    </div>             
-                </div>
+                </a>
+            
+                  <!-- Total Students Card -->
+               <a href="#" class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-graduation-cap text-yellow-400"></i></div>
+                        <div id="student-trend" class="card-trend students">—%</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label">Students</div>
+                        <div id="student-total" class="card-value">Loading...</div>
+                    </div>
+                </a>
             </div>
+         </div>
+      </div>
+
                <!-- modal -->
         <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden opacity-0 transition-opacity duration-300">
             <div id="profileModalContent" class="relative bg-white w-[500px] max-h-[90vh] overflow-y-auto p-8 rounded shadow-lg transform scale-95 transition-transform duration-300">
@@ -356,4 +550,68 @@
             hideLoadingBar(); 
         });
     });
+</script>
+
+<script>
+      // employees total
+
+      document.addEventListener("DOMContentLoaded", async () =>
+    {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/total-generated-ids", {
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("auth_token")
+                }
+            });
+
+            if (!response.ok) throw new Error("Fetch failed");
+
+            const data = await response.json();
+            document.getElementById("id-total").textContent = data.total.toLocaleString();
+            const trend = document.getElementById("id-trend");
+            const progress = data.progress;
+
+            trend.textContent = `${progress}%`;
+            trend.classList.remove("positive", "negative");
+            if (progress >= 100) {
+                trend.classList.add("positive");
+            }
+
+        } catch (err) {
+            console.error("Error loading data:", err);
+        }
+    });
+
+
+        // students total
+
+    document.addEventListener("DOMContentLoaded", async () => 
+    {
+     try {
+            const response = await fetch("http://127.0.0.1:8000/api/totalstudents", {
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("auth_token")
+                }
+            });
+
+            if (!response.ok) throw new Error("Fetch failed");
+
+            const data = await response.json();
+            document.getElementById("student-total").textContent = data.total.toLocaleString();
+            const trend = document.getElementById("student-trend");
+            const progress = data.progress;
+
+            trend.textContent = `${progress}%`;
+            trend.classList.remove("positive", "negative");
+            if (progress >= 100) {
+                trend.classList.add("positive");
+            }
+
+        } catch (err) {
+            console.error("Error loading student data:", err);
+        }
+    });
+
 </script>

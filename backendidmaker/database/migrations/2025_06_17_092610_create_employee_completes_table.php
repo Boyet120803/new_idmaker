@@ -18,13 +18,12 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('address');
             $table->string('contact');
-            $table->string('emergency_contact');
             $table->string('position');
             $table->string('employee_id')->unique();
             $table->string('birth_date');
-            $table->string('qr')->nullable();
             $table->string('signature')->nullable();
             $table->string('image')->nullable();
+            $table->string('qr')->nullable();
             $table->timestamps();
         });
     }

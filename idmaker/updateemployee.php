@@ -488,111 +488,6 @@
       }
     }
 </style>
-<style>
-.modal {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 20px 25px;
-    border-radius: 10px;
-    width: 400px;
-    max-width: 90%;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h3 {
-    margin: 0;
-    font-size: 20px;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.modal-body {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.select-input {
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.reason-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.reason-input {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.submit-btn {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.submit-btn:hover {
-    background-color: #218838;
-}
-
-.cancel-btn {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.cancel-btn:hover {
-    background-color: #c82333;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-</style>
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
@@ -640,7 +535,7 @@
                 </div>
                 <div class="px-6 py-2 border-t border-gray-100">
                     <div class="flex items-center text-sm">
-                        <a href="#" class="text-gray-500 hover:text-primary">Generate ID</a>
+                        <a href="#" class="text-gray-500 hover:text-primary">Update ID</a>
                         <div class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
                             <i class="ri-arrow-right-s-line"></i>
                         </div>
@@ -653,7 +548,7 @@
               <button id="showFront" class="switch-btn active">Front</button>
               <button id="showBack" class="switch-btn">Back</button>
               <button id="editBtn" class="switch-btn">Edit</button>
-              <button id="saveAsBtn" class="switch-btn" style="display:none;">Save as</button>
+              <button id="saveBtn" class="switch-btn" style="display:none;">Save</button>
               <button id="printBtn" class="switch-btn">Print</button>
             </div>
 
@@ -669,45 +564,17 @@
           </div>
       </div>
 
-<!-- Modal for Save As -->
-<div id="saveAsModal" class="modal" style="display:none;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Select Print Type</h3>
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-        </div>
 
-        <div class="modal-body">
-            <label for="printType">Print Type:</label>
-          <select id="printType" class="select-input">
-              <option value="" disabled selected>Select an option</option>
-              <option value="first_print">First Print</option>
-              <option value="re_print">Reprint</option>
-          </select>
-
-            <div id="reasonContainer" class="reason-container" style="display:none;">
-                <label for="reasonInput">Reason for Reprint:</label>
-                <input type="text" id="reasonInput" placeholder="Enter reason..." class="reason-input">
-            </div>
-        </div>
-
-        <div class="modal-footer">
-            <button id="submitPrintBtn" class="submit-btn">Submit</button>
-            <button onclick="closeModal()" class="cancel-btn">Cancel</button>
-        </div>
-    </div>
-</div>
 <div class="mt-1">
    <div class="id-wrapper hidden" id="idWrapper">
   <!-- FRONT SIDE -->
   <div class="id front" id="idFront" style="display: block;">
     <div class="front-bg"></div>
 
-      <!-- STUDENT PHOTO -->
+    <!-- STUDENT PHOTO (LEFT) -->
     <div class="img-drop-area" id="photoDropArea" style="position: relative;">
       <img src="assets/img/id_final.png" class="student-img" id="studentImg" alt="Employee Photo"
         style="position: absolute; width: 150%; height: 240px;" />
-        <input type="file" id="photoInput" hidden>
     </div>
 
     <!-- RIGHT SIDE INFO -->
@@ -719,7 +586,6 @@
       </div>
       <img src="assets/photos/qr.png" class="qr" alt="QR Code" id="qr_code" />
 
-      <!-- SIGNATURE -->
       <div class="img-drop-area" id="signDropArea" style="position: relative;">
         <img src="assets/img/yan.png" class="signature" id="signatureImg" alt="Signature"
           style="position: absolute;" />
@@ -882,9 +748,10 @@
     let newSignatureFile = null;
 
     const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
     editBtn.onclick = function() {
       document.querySelector('.id.front').classList.toggle('edit-mode');
-      saveAsBtn.style.display = document.querySelector('.id.front').classList.contains('edit-mode') ? 'inline-block' : 'none';
+      saveBtn.style.display = document.querySelector('.id.front').classList.contains('edit-mode') ? 'inline-block' : 'none';
 
       // Show/hide font size controls
       document.getElementById('fontSizeControls').style.display =
@@ -1071,154 +938,139 @@
 </script>
 
 <script>
-
-    // Modal Elements
-    const saveAsBtn = document.getElementById('saveAsBtn');
-    const saveAsModal = document.getElementById('saveAsModal');
-    const reasonContainer = document.getElementById('reasonContainer');
-    const printType = document.getElementById('printType');
-    const submitPrintBtn = document.getElementById('submitPrintBtn');
-
-    // Open Modal
-    saveAsBtn.onclick = () => {
-        saveAsModal.style.display = 'flex';
-        reasonContainer.style.display = 'none';
-        printType.value = '';
-    };
-
-    // Show reason if re_print is selected
-    printType.onchange = () => {
-        reasonContainer.style.display = (printType.value === 're_print') ? 'flex' : 'none';
-    };
-
-    // Close Modal
-    function closeModal() {
-        saveAsModal.style.display = 'none';
-    }
-
-    // Handle Submit
-    submitPrintBtn.onclick = async function () {
-        const reason = document.getElementById('reasonInput').value.trim();
-        const status = printType.value;
-
-        if (!status) {
-            Swal.fire('Warning', 'Please select a print type.', 'warning');
-            return;
-        }
-
-        if (status === 're_print' && reason === '') {
-            Swal.fire('Warning', 'Please enter a reason for reprint.', 'warning');
-            return;
-        }
-
-        saveAsModal.style.display = 'none';
-        await saveEmployee(status, reason);
-    };
-
-    // Convert URL to File
-    async function urlToFile(url, filename, mimeType = 'image/jpeg') {
+        async function urlToFile(url, filename, mimeType = 'image/jpeg') {
         const res = await fetch(url);
         const blob = await res.blob();
         return new File([blob], filename, { type: mimeType });
-    }
+        }
 
-    // Save Employee to API
-    async function saveEmployee(status, reason) {
+        saveBtn.onclick = async function () {
         const urlParams = new URLSearchParams(window.location.search);
         const employeeId = urlParams.get("id");
+        console.log("Employee ID from URL:", employeeId);
+
+        if (!employeeId) {
+            Swal.fire('Error', 'Missing employee ID in URL.', 'error');
+            return;
+        }
 
         try {
-            const pendingRes = await fetch(`http://127.0.0.1:8000/api/employeeshowpending/${employeeId}`, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem("auth_token")
-                }
+            const fetchRes = await fetch(`http://127.0.0.1:8000/api/showemployeecomplete/${employeeId}`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("auth_token")
+            }
             });
-            const data = await pendingRes.json();
+            const data = await fetchRes.json();
 
             const studentImg = document.getElementById('studentImg');
             const signatureImg = document.getElementById('signatureImg');
 
             const photoPosition = JSON.stringify({
-                left: studentImg.style.left,
-                top: studentImg.style.top,
-                width: studentImg.style.width,
-                height: studentImg.style.height
+            left: studentImg?.style.left || '0px',
+            top: studentImg?.style.top || '0px',
+            width: studentImg?.style.width || '100px',
+            height: studentImg?.style.height || '100px'
             });
 
             const signaturePosition = JSON.stringify({
-                left: signatureImg.style.left,
-                top: signatureImg.style.top,
-                width: signatureImg.style.width,
-                height: signatureImg.style.height
+            left: signatureImg?.style.left || '0px',
+            top: signatureImg?.style.top || '0px',
+            width: signatureImg?.style.width || '100px',
+            height: signatureImg?.style.height || '100px'
             });
 
             const firstNameFontSize = document.getElementById('firstNameFontSize')?.value || '16';
             const lastNameFontSize = document.getElementById('nameFontSize')?.value || '16';
 
+            let response;
+
+            if (newPhotoFile || newSignatureFile) {
             const formData = new FormData();
-            formData.append('employee_id', employeeId);
             formData.append('first_name', data.first_name || '');
-            formData.append('last_name', data.last_name || '');
             formData.append('middle_name', data.middle_name || '');
+            formData.append('last_name', data.last_name || '');
             formData.append('address', data.address || '');
-            formData.append('position', data.position || '');
             formData.append('contact', data.contact || '');
             formData.append('birth_date', data.birth_date || '');
+            formData.append('position', data.position || '');
+            formData.append('employee_id', data.employee_id || '');
             formData.append('tin_no', data.tin_no || '');
             formData.append('sss_no', data.sss_no || '');
             formData.append('philhealth_no', data.philhealth_no || '');
             formData.append('hdmf_no', data.hdmf_no || '');
-            formData.append('qr', data.qr || '');
             formData.append('emergency_contact_name', data.emergency_contact_name || '');
             formData.append('emergency_contact_number', data.emergency_contact_number || '');
+            formData.append('qr', data.qr || '');
             formData.append('photo_position', photoPosition);
             formData.append('signature_position', signaturePosition);
             formData.append('firstname_fontsize', firstNameFontSize);
             formData.append('lastname_fontsize', lastNameFontSize);
-            formData.append('status', status);
-            formData.append('reason', reason);
 
-            if (typeof newPhotoFile === 'string' && newPhotoFile.startsWith('http')) {
-                const file = await urlToFile(newPhotoFile, 'photo.jpg');
-                formData.append('image', file);
-            } else if (newPhotoFile instanceof File) {
-                formData.append('image', newPhotoFile);
-            }
+            if (newPhotoFile) formData.append('image', newPhotoFile);
+            if (newSignatureFile) formData.append('signature', newSignatureFile);
 
-            if (typeof newSignatureFile === 'string' && newSignatureFile.startsWith('http')) {
-                const file = await urlToFile(newSignatureFile, 'signature.jpg');
-                formData.append('signature', file);
-            } else if (newSignatureFile instanceof File) {
-                formData.append('signature', newSignatureFile);
-            }
-
-            const response = await fetch('http://127.0.0.1:8000/api/employee-complete-store', {
+            response = await fetch(`http://127.0.0.1:8000/api/employeecompleteupdate/${employeeId}`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
+                'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
                 },
                 body: formData
             });
+            } else {
+            const payload = {
+                first_name: data.first_name || '',
+                middle_name: data.middle_name || '',
+                last_name: data.last_name || '',
+                address: data.address || '',
+                contact: data.contact || '',
+                birth_date: data.birth_date || '',
+                position: data.position || '',
+                employee_id: data.employee_id || '',
+                tin_no: data.tin_no || '',
+                sss_no: data.sss_no || '',
+                philhealth_no: data.philhealth_no || '',
+                hdmf_no: data.hdmf_no || '',
+                emergency_contact_name: data.emergency_contact_name || '',
+                emergency_contact_number: data.emergency_contact_number || '',
+                qr: data.qr || '',
+                photo_position: photoPosition,
+                signature_position: signaturePosition,
+                firstname_fontsize: firstNameFontSize,
+                lastname_fontsize: lastNameFontSize
+            };
+
+            response = await fetch(`http://127.0.0.1:8000/api/employeecompleteupdate/${employeeId}`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
+                },
+                body: JSON.stringify(payload)
+            });
+            }
 
             const result = await response.json();
 
             if (response.ok) {
-                Swal.fire('Saved!', 'Employee data has been saved.', 'success');
-                document.querySelector('.id.front').classList.remove('edit-mode');
-                newPhotoFile = null;
-                newSignatureFile = null;
+            Swal.fire('Updated!', 'Employee data has been updated.', 'success');
+            document.querySelector('.id.front').classList.remove('edit-mode');
+            saveBtn.style.display = 'none';
+            newPhotoFile = null;
+            newSignatureFile = null;
             } else {
-                console.error("Save failed:", result);
-                Swal.fire('Error', 'Failed to save employee.', 'error');
+            const errors = Object.values(result.errors || {}).flat().join('<br>');
+            Swal.fire('Error', errors || result.message || 'Failed to update employee.', 'error');
+            console.error("Update failed:", result);
             }
 
         } catch (err) {
             console.error("Server error:", err);
             Swal.fire('Error', 'Server error. Check console.', 'error');
         }
-    }
+        };
+
 </script>
 
          <script>
@@ -1331,7 +1183,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/employeeshowpending/${employeeId}`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/showemployeecomplete/${employeeId}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -1341,12 +1193,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (!response.ok) throw new Error("Record not found");
         const data = await response.json();
-
         const lastName = (data.last_name || "").toUpperCase();
         const firstName = (data.first_name || "").toUpperCase();
         const middleInitial = data.middle_name ? data.middle_name.charAt(0).toUpperCase() + "." : "";
 
-        // Format birth date
         let birthDate = data.birth_date || "";
         if (birthDate.includes("T")) birthDate = birthDate.split("T")[0];
         if (birthDate) {
@@ -1355,19 +1205,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 year: "numeric", month: "2-digit", day: "2-digit"
             });
         }
+
         function toTitleCase(str) {
             return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
         }
 
         let address = data.address || "";
         address = address
-            .replace(/,/g, "")           
-            .replace(/\bBrgy\.?/gi, "")   
-            .replace(/\bLeyte\b/gi, "")   
-            .replace(/\b\d{4}\b/g, "")    
-            .replace(/\s+/g, " ")        
+            .replace(/,/g, "")
+            .replace(/\bBrgy\.?/gi, "")
+            .replace(/\bLeyte\b/gi, "")
+            .replace(/\b\d{4}\b/g, "")
+            .replace(/\s+/g, " ")
             .trim();
         address = toTitleCase(address);
+
         document.querySelector('.name').innerHTML = `${lastName}<br><span class="firstname">${firstName} ${middleInitial}</span>`;
         document.querySelector('.info-row-child .value').textContent = birthDate;
         document.querySelector('.info-row-child .address').textContent = address;
@@ -1379,11 +1231,44 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelector('.sss-number').textContent = data.sss_no || "N/A";
         document.querySelector('.philhealth-number').textContent = data.philhealth_no || "N/A";
         document.querySelector('.hdmf-number').textContent = data.hdmf_no || "N/A";
-
-        // Images
+        const studentImg = document.getElementById("studentImg");
+        const signatureImg = document.getElementById("signatureImg");
         if (data.qr) document.getElementById("qr_code").src = data.qr;
-        if (data.signature) document.getElementById("signatureImg").src = data.signature;
-        if (data.image) document.getElementById("studentImg").src = data.image;
+        if (data.image && studentImg) {
+            studentImg.src = data.image.includes('http') ? data.image : `http://127.0.0.1:8000/storage/${data.image}`;
+        }
+        if (data.signature && signatureImg) {
+            signatureImg.src = data.signature.includes('http') ? data.signature : `http://127.0.0.1:8000/storage/${data.signature}`;
+        }
+        if (data.photo_position && studentImg) {
+            try {
+                const pos = JSON.parse(data.photo_position);
+                Object.assign(studentImg.style, pos);
+            } catch (e) {
+                console.error("Invalid photo_position JSON");
+            }
+        }
+
+        // Signature position
+        if (data.signature_position && signatureImg) {
+            try {
+                const pos = JSON.parse(data.signature_position);
+                Object.assign(signatureImg.style, pos);
+            } catch (e) {
+                console.error("Invalid signature_position JSON");
+            }
+        }
+
+        // Font sizes
+        const firstNameSpan = document.querySelector(".name .firstname");
+        const lastNameBlock = document.querySelector(".name-block .name");
+
+        if (data.firstname_fontsize && firstNameSpan) {
+            firstNameSpan.style.fontSize = data.firstname_fontsize + "px";
+        }
+        if (data.lastname_fontsize && lastNameBlock) {
+            lastNameBlock.style.fontSize = data.lastname_fontsize + "px";
+        }
 
         // Font colors
         document.querySelector('.name').style.color = '#fff';
@@ -1392,16 +1277,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelectorAll('.footer span').forEach(e => e.style.color = '#fff');
         document.querySelectorAll('.label').forEach(e => e.style.color = '#fff');
 
-      
+        // Background color
         const frontBg = document.querySelector('.front-bg');
         const positionText = (data.position || "").toLowerCase();
 
         if (positionText.includes('instructor')) {
-            frontBg.style.background = '#00008B'; 
+            frontBg.style.background = '#00008B';
         } else if (positionText.includes('head') || positionText.includes('admin')) {
-            frontBg.style.background = '#CC0000'; 
+            frontBg.style.background = '#CC0000';
         } else {
-            frontBg.style.background = '#000000'; 
+            frontBg.style.background = '#000000';
         }
 
     } catch (error) {

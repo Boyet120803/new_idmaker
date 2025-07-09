@@ -10,8 +10,9 @@
  
 
 
+
     .id-wrapper {
-       display: flex;
+    display: flex;
     gap: 30px;
     flex-wrap: wrap;
     justify-content: center;
@@ -19,23 +20,21 @@
     transform-origin: top center;
     transition: transform 0.2s;
     }
-
-  .id {
+    
+    .id {
       width: 204px;
       height: 324px;
-    /* background: rgb(0, 0, 0); */
-    border-radius: 0px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    position: relative;
-    overflow: hidden;
-    
-  }
-
-    .front {
-      background: transparent;
+      border-radius: 0px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       position: relative;
       overflow: hidden;
-      background: #b8d3e6;
+      
+    }
+
+    .front {
+     background: #b8d3e6;
+      position: relative;
+      overflow: hidden;
     }
 
     .front-bg {
@@ -57,22 +56,22 @@
       align-items: flex-start;
       gap: 8px;
       z-index: 2;
-      width: 90px; /* adjust as needed */
+      width: 90px; 
     }
-    /* Logo */
+   
     .logo {
       position: absolute;
-      top: 18px;
-      left: 30px;
+      top: 10px;
+      left: 28px;
       width: 43px;
       height: 43px;
       z-index: 2;
     }
 
   .school-info {
-    position: absolute;
-    top: 68px;
-    left: -5px;
+     position: absolute;
+    top: 55px;
+    left: -12px;
     width: 120px;
     z-index: 2;
     display: flex;
@@ -81,42 +80,39 @@
     text-align: center;
   }
   .school-name {
-    font-size: 10px;
+    font-size: 7px;
     font-weight: bold;
     color: #222;
-    line-height: 1.1;
+    line-height: 1.0;
     text-align: center;
   }
   .school-address {
     font-size: 6px;
     color: #222;
-    margin-top: 2px;
+    margin-top: 1px;
+    font-weight: 500;
   }
 
   .qr {
     position: absolute;
-    top: 105px;
-    left: 15px;
-    width: 65px;
-    height: 65px;
+    top: 79px;
+    left: 14px;
+    width: 70px;
+    height: 70px;
 
     object-fit: cover;
     background: #fff;
     z-index: 2;
 
+
   }
 
   .signature {
- 
-    top: 150px;
-    left: 20px;
-    width: 55px;
-    height: 78px;
+    top: auto;
+    left: auto;
+    width: 220px !important;
+    height:auto;
     object-fit: contain;
- 
-  }
-  .course{
-    font-size: 8px;
   }
 
   .student-img {
@@ -139,31 +135,30 @@
       z-index: 2;
     }
 
-.name-block {
-  margin-bottom: 0px;
-  padding: 0 5px 2px 5px;
-}
+  .name-block {
+    margin-bottom: 0px;
+    padding: 0 5px 2px 5px;
+  }
 
-.name {
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 1.4; /* mas dikit */
-  text-align: right;
-  color: #fff;
-  letter-spacing: 1px;
-  z-index: 2;
-  margin-bottom: -6px;
+  .name {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.4;
+    text-align: right;
+    color: #fff;
+    letter-spacing: 1px;
+    z-index: 2;
+    margin-bottom: -6px;
+  }
 
-}
-
-.name span {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-top: -6px; /* dikit sa last name */
-  display: block;
-  line-height: 1.05;
-}
+  .name span {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: -6px; /* dikit sa last name */
+    display: block;
+    line-height: 1.05;
+  }
 
     .info-row {
       display: flex;
@@ -172,19 +167,20 @@
       font-size: 10px;
       color: #fff;
       margin-top: 0px;
+      font-weight:600;
     }
     .info-row-child {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       margin-bottom: 0;
-      justify-content: end; 
-      gap: 2px;         
+      justify-content: end; /* tanggalin ang extra space */
+      gap: 2px;           /* tanggalin ang gap */
     }
-  
+    /* Adjust label and value font size */
       .info-row-child .label {
-        font-size: 8px;  
-        margin-top: 6px;
+        font-size: 8px;   /* mas maliit ang label */
+        margin-top: 6px; /* dikit sa value */
         line-height: 1.2;
       }
 
@@ -199,8 +195,8 @@
     }
 
     .address {
-      font-size:8px;
       text-align: right;
+        font-size: 8px;
     }
 
     .id-row {
@@ -210,10 +206,16 @@
       font-weight: bold;
       background: #fff;
       color: #000000;
-      padding: 0px 10px;
+      padding: 6px 5px 0px 5px;
       border-radius: 0px;
       margin: 0px 0 0px 0;
-      font-size: 10px;
+      font-size: 13px;
+    }   
+    .student-id{
+      margin-top: -7px;
+    }
+    .course{
+      margin-top:-7px;
     }
 
     .footer {
@@ -222,7 +224,8 @@
       justify-content: space-between;
       color: #fff;
       margin-top: 2px;
-        padding: 0 5px 5px 5px;
+      padding: 0 5px 5px 5px;
+        font-weight:600;
     }
 
     .esc-logo {
@@ -234,17 +237,18 @@
       z-index: 5;
     
       pointer-events: none; /* para di madrag */
-}
+  }
 
-.esc{
-  display:flex;
-  justify-content: flex-end;
-  align-items: center;
-  font-size:8px;
-  margin-top:10px;
-  margin-right:5px;
-  font-weight: bold;
-}
+  .esc{
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size:8px;
+    margin-top:10px;
+    margin-right:5px;
+    font-weight: bold;
+  }
+
 
 
     .id.back {
@@ -260,7 +264,6 @@
     }
 
     .id-card-back {
-      /* width: 204px; */
       height: 300px;
       background: white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -308,36 +311,36 @@
       font-size: 7px;
     }
 
-.back-signature {
-  position: relative; /* para anchor ng absolute sa loob */
-  text-align: center;
-  margin: 18px 0 4px 0; /* dagdagan ang taas para di matakpan ang name */
-  font-size: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  min-height: 0px; /* para may space sa taas */
-}
-.signature-img-wrap {
-  position: absolute;
-  top: -11px; /* adjust mo depende sa gusto mong taas */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70px;
-  height: 28px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin: 0;
-  z-index: 2;
-}
-.back-signature-img {
-  width: 85px;
-  height: 45px;
-  object-fit: contain;
-  display: block;
-}
+    .back-signature {
+      position: relative;
+      text-align: center;
+      margin: 18px 0 4px 0; 
+      font-size: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      min-height: 0px; 
+    }
+    .signature-img-wrap {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin: 0;
+      z-index: 2;
+    }
+    .back-signature-img {
+      width: 85px;
+      height: 45px;
+      object-fit: contain;
+      display: block;
+    }
 
     .signature-name {
       font-weight: bold;
@@ -355,7 +358,7 @@
     }
 
     .reminders b {
-      font-size: 7px;
+      font-size: 6px;
     }
 
     .contact {
@@ -363,16 +366,16 @@
       font-size: 7px;
       margin-top: 1px;
     }
-        .contact1{
+        .contact_1{
       text-align: center;
-      font-size: 7px;
-      margin-top: 1px;
+      font-size: 6px;
+      margin-top: -9px;
       font-weight: bold;
     }
 
     .contact-name {
       font-weight: bold;
-      font-size: 7px;
+      font-size: 10px;
       margin-top: 2px;
     }
 
@@ -489,357 +492,238 @@
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(84,32,181,0.08);
   transition: background 0.2s, transform 0.2s;
-}
-
-.switch-btn:hover, .switch-btn.active {
-  background: linear-gradient(90deg, #2b2a2c 60%, #212122 100%);
-  transform: translateY(-2px) scale(1.04);
-}
-
-.img-drop-area {
-  position: absolute;
-  overflow: visible;
-  width: 100%;
-  height: 240px; /* adjust as needed for photo */
-  top: 0;
-  left: 0;
-  pointer-events: none; /* default: di ma-edit */
-   box-sizing: border-box; /* <-- important para di lumaki/lumiit pag may border */
-  border: none;
-  background: transparent;
-}
-#photoDropArea {
-  width: 120%;
-  height: 240px;
-  top: 0;
-  left: 0;
-  z-index: 1; /* photo area sa ilalim */
-}
-#signDropArea {
-  width: 55px;
-  height: 78px;
-  top: 150px;
-  left: 20px;
-  z-index: 3;
-}
-.edit-mode .img-drop-area {
-  pointer-events: auto; 
-  border: 2px dashed #5420B5;
-  background: rgba(84,32,181,0.05);
-}
-
-@media print {
-  body *:not(.id):not(.id *) {
-    visibility: hidden !important;
-    font-family: "Montserrat", sans-serif;
   }
 
-  .name,
-  .name span,
-  .info-row-child .label,
-  .info-row-child .value,
-  .info-row-child .address,
-  .info-row-child .dateofbirth,
-  .footer span {
-   
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    text-shadow: none !important;
+  .switch-btn:hover, .switch-btn.active {
+    background: linear-gradient(90deg, #2b2a2c 60%, #212122 100%);
+    transform: translateY(-2px) scale(1.04);
   }
 
-  .id.front, .id.back {
-    visibility: visible !important;
-    position: absolute !important;
-    left: 0;
-    top: 0;
-    width: 3.2in !important;
-    height: 5.0in !important;
-    box-shadow: none !important;
-    z-index: 9999 !important;
-    display: none !important;
-  }
-
-  .id.front[style*="display: block"], .id.back[style*="display: block"] {
-    display: block !important;
-  }
-
-  .id-wrapper, .mt-6 {
-    transform: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: auto !important;
-    height: auto !important;
-    display: block !important;
-  }
-
-  .id-left {
-    width: 2.3in;
-  }
-  .esc-logo{
-    position: absolute;
-    right: 5px;
-    top: -30px;
-    width: 0.6in !important;  
-    height: 0.6in !important;
-    z-index: 5;
-    margin-right:5px;
-    pointer-events: none;
-  }
-
-  .esc{
-    font-size: 14px !important;
-    font-weight: bold !important;
-    color: black !important;
-     margin-right:19px;
-   
-  }
-  .esc img{
-      margin-top:25px !important;
-  }
-    .course{
-        font-size: 15px !important;
-        margin-right:7px;
+  .img-drop-area {
+      position: absolute;
+      overflow: visible;
+      width: 100%;
+      height: 240px;
+      top: 0;
+      left: 0;
+      pointer-events: none; 
+      box-sizing: border-box; 
+      border: none;
+      background: transparent;
+    }
+    #photoDropArea {
+      width: 120%;
+      height: 240px;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    #signDropArea {
+      width: 90px;
+      height: 78px;
+      top: 150px;
+      left: 20px;
+      z-index: 3;
+    }
+    .edit-mode .img-drop-area {
+      pointer-events: auto; 
+      border: 2px dashed #5420B5;
+      background: rgba(84,32,181,0.05);
     }
 
-  body, html {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: auto !important;
-    height: auto !important;
-    background: white !important;
-    font-family: 'Montserrat', sans-serif !important;
-  }
 
-  .switch-btn, #editBtn, #saveBtn, #printBtn {
-    display: none !important;
-  }
+</style>
+<style>
 
-  /* QR CODE IMAGE */
-  .id-left .qr {
-    width: 1.1in !important;
-    height: 1.1in !important;
-    position: absolute !important;  
-    left: 20px !important;
-    margin-top: 30px !important;
-  }
+   @media print {
+      html, body {
+        zoom: 1.03; 
+        padding: 0;
+        margin: 0;
+      }
 
-  /* SIGNATURE IMAGE INSIDE .sig */
-  .sig {
-    position: relative !important;
-     width: 1.8in !important;
-    height: 1.8n !important;
-    top: -20px !important;
-    left: -30px !important;
-  }
+      body * {
+        visibility: hidden;
+      }
 
-  .sig img {
-    position: absolute !important;
-    object-fit: contain !important;
-  }
+      #idWrapper, #idWrapper * {
+        visibility: visible;
+      }
 
-  /* IMAGE DROP AREA */
-  .img-drop-area img {
-    width: 3.2in !important;
-    height: 3.4in !important;
-  }
+      #idWrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+      }
 
+      #idFront, #idBack {
+        page-break-before: avoid;
+        page-break-after: avoid;
+      }
 
-  /* SCHOOL INFO */
-  .id-left .school-name {
-    font-size: 12px !important;
-    margin-right: -39px !important;
-    margin-top: 18px;
-  }
+      .front {
+        background-color: #b8d3e6 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
 
-  .id-left .school-address {
-    font-size: 8px !important;
-    margin-top: 2px !important;
-    margin-right: -40px !important;
-    font-weight: bold !important;
-  }
-
-  .id-left .logo {
-    position: absolute;
-    top: 18px !important;
-    left: 40px !important;
-    width: 65px !important;
-    height: 65px !important;
-    z-index: 2;
-  }
-
-  /* NAME BLOCK */
-  .name-block .name {
+      @page {
+        margin: 0;
+        size: auto;
+      }
     
-    line-height: 1.2 !important;
-  }
+      .back {
+        background-color: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
 
-  .name-block .name span {
-    
-    line-height: 1.1 !important;  
-  }
+      .id.back .back-top {
+        background-color: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
 
-  .name-block {
-    margin-bottom: 0px !important;
-    padding: 0 18px 2px 5px !important;
-  }
 
-  /* INFO ROW */
-  .info-row {
-    padding: 5px 10px 2px 10px !important;
-    font-size: 12px !important;
-    font-weight: bold !important;
-    margin-right:18px;
-  }
+      .year-cell,
+      .semester-cell {
+        background-color: black !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
 
-  .info-row .label {
-    font-size: 11px !important;
-    font-weight: bold !important;
-    margin-right:18px;
-  }
 
-  .info-row .value {
-    font-size: 13px !important;
-    font-weight: bold !important;
-  }
-  .info-row .address{
-    margin-right: -10px !important;
-  }
+      .rotated-text {
+        color: white !important;
+        background-color: black !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
 
-  /* ID ROW */
-  .id-row {
-    padding: 5px 10px 2px 10px !important;
-    height: 30px !important;
-    font-size: 19px !important;
-    margin-bottom: -10px;
-    display:flex;
+
+      .first-cell .rotated-text,
+      .second-cell .rotated-text {
+        background-color: white !important;
+        color: black !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* Print setup */
+      @page {
+        margin: 0;
+        size: auto;
+      }
+    }
+</style>
+
+<style>
+  .modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
     align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-header {
+    display: flex;
     justify-content: space-between;
-  }
-
-  /* FOOTER */
-  .footer {
-    padding: 12px 15px 2px 11px !important;
-    margin-bottom: 2px !important;
-  }
-
-  .footer span {
-    font-size: 13px !important;
-    font-weight: bold !important;
-  }
+    align-items: center;
 }
 
-@media print {
-  @page {
+.modal-header h3 {
     margin: 0;
-  
-  }
-
- body {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    font-family: "Montserrat", sans-serif !important;
-  }
-
-
- 
-  .left-content{
-    width:0.8in;
-  }
-   .right-content{
-    width:1.4in;
-    gap:13px;
-  }
-  .id-card-back{
-     height:453px !important;
-  }
-     .id.back{
-      height:485px !important; 
-      width:100% !important; 
-      background-color:blue;
-    }
-  
-
-  .top-text {
-    font-size: 11px !important;
-  }
-    .top-text b{
-    font-size: 0.1in !important;
-     margin-top:10px !important;
-  }
-  
-  .signature-name{
-     font-size: 11px !important;
-  }
-
-  .director{
-     font-size: 0.1in !important;
-  }
-
-  .facebook-footer{
-    color: white;
-    font-size: 10px;
-    font-weight:bold;
-    text-align: center;
-    padding: 10px 0 5px 0 !important;
-    letter-spacing: 0.5px;
-    width: 100% !important;
-    height:100% !important;
-    font-family: inherit;
-  }
-  .reminders{
-    text-align: center;
-    font-size: 11px;
-    margin-top: -10px;
-  }
-  .reminders .first{
-    font-size: 11px;
-    font-weight:bold;
-  }
-  .reminders .second{
-    font-size: 11px;
-    font-weight:bold;
-  }
-  .word-school-year{
-    height:86px;
-  }
-  .contact{
-    font-size:10px;
-    margin-top:-16px;
-
-  }
-  .contact .contact-name{
-    font-size:15px;
-  }
-  .contact .contact-number{
-    font-size:12px;
-    margin-top:-5px;
-  }
-  .qr-box{
-      margin-top:-12px;
-      background: black;
-      color: white;
-      font-size: 10px;
-      text-align: center;
-      padding: 4px 2px;
-      font-weight: bold;
-  }
-  .rotated-text{
-    font-size:10px !important;
-    font-weight:bold !important;
-     letter-spacing: 0.5px;
-  } 
-  .signature-img-wrap{
-    margin-top:69px;
-  }
-
-  .signature-img-wrap img{
-    width: 2.5in;
-    height: 2in;
-    object-fit: contain;
-    display: block;
-  }
+    font-size: 20px;
 }
 
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.select-input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reason-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.reason-input {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.submit-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 </style>
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -901,7 +785,7 @@
         <button id="showFront" class="switch-btn active">Front</button>
         <button id="showBack" class="switch-btn">Back</button>
         <button id="editBtn" class="switch-btn">Edit</button>
-        <button id="saveBtn" class="switch-btn" style="display:none;">Save</button>
+        <button id="saveAsBtn" class="switch-btn" style="display:none;">Save as</button>
         <button id="printBtn" class="switch-btn">Print</button>
       </div>
 
@@ -917,143 +801,191 @@
     </div>
 </div>
 
-
-<div class="mt-6">
- <div class="id-wrapper">
-   <div class="id front" id="idFront" style="display: block;">
-      <div class="front-bg"></div>
-          <div class="id-left">
-             <img src="assets/img/log.png" class="logo" alt="Logo">
-              <div class="school-info">
-                <span class="school-name">MLG COLLEGE<br>OF LEARNING, INC</span>
-                <span class="school-address">Atabay, Hilongos, Leyte</span>
-              </div>
-              <img src="assets/photos/qr.png" class="qr" alt="QR Code" id="qr_code">
-              <div class="img-drop-area" id="signDropArea">
-                <div class="sig">
-                    <img src="assets/img/yan.png" class="signature" id="signatureImg" alt="Signature">
-                </div>
-              </div>
-          </div>
-          <div class="img-drop-area" id="photoDropArea">
-               <img src="assets/img/id_final.png" class="student-img" id="studentImg" alt="Student Photo" style="width:150%;height:240px;">  
-          </div>
-          <div class="bottom-content">
-            <div class="esc"style="display: none;">
-              ESC # <span id="esc_number"></span>
-            </div>
-             <div class="name-block">
-               <div class="name">KISTADIO<br><span class="firstname">JHON BRIX P.</span></div>
-                 <div class="info-row">
-                   <div class="info-row-child">
-                    <span class="label">Date of Birth:</span>
-                    <span class="value">09/04/2000</span>
-                   </div>
-                  <div class="info-row-child">
-                    <br><span class="address">Brgy. Atabay, Hilongos</span>
-                  </div>             
-              </div>
-            </div>
-          <div class="id-row">
-            <span class="student-id">21-003149</span>
-            <span id="course_span" class="course">BSED-SS</span>
-          </div>
-          <div class="footer">
-            <span>https://mlgcl.edu.ph</span>
-            <span>mlg@mlgcl.edu.ph</span>
-          </div>
-          <div class="esc-logo"style="display: none;">
-            <img src="assets/img/ESC-Logo.png" class="esc-logo" alt="ESC Logo">
-          </div>
-     </div>
-</div>
-<!-- BACK SIDE -->
-    <div class="id back" id="idBack" style="display: none;">
-        <div class="id-card-back back-top">
-            <div class="left-content">
-                <div class="left-bar year-strip">
-                    <table>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2023-2024</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
-                        <td class="year-cell"><div class="rotated-text">2022-2023</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2021-2022</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="semester-cell"><div class="rotated-text">Semester</div></td>
-                        <td class="first-cell"><div class="rotated-text">First</div></td>
-                        <td class="second-cell"><div class="rotated-text">Second</div></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <div class="right-content">
-                <div class="top-text">
-                    This is to certify that the person<br>
-                    whose picture and signature appear<br>
-                    herein is a bonafide student of<br>
-                    <b>MLC College of Learning, Inc.</b>
-                </div>
-                <div class="back-signature">
-                      <div class="signature-img-wrap">
-                          <img src="assets/img/yan.png" alt="signature" class="back-signature-img">
-                      </div>
-                      <div class="signature-name">MARY LILIBETH O. YAN, DEV. ED. D.</div>
-                      <div class="director">School Director</div>
-                </div>
-                <div class="reminders">
-                    <b class="first">IMPORTANT REMINDERS</b><br>
-                    Always wear this ID while inside<br>
-                    the school campus.<br>
-                    <b class="second">Do not forget your<br>
-                    STUDENT ID NUMBER.</b>
-                </div>
-                <div class="contact">
-                    If lost and found, please surrender<br>
-                    this ID to the<br>
-                    STUDENT AFFAIRS OFFICE,<br>
-                    MLC College of Learning, Inc.,<br>
-                    Brgy. Atabay, Hilongos, Leyte
-                </div>
-                <div class="contact">
-                   <b> In case of emergency,<br>
-                    please contact</b>
-                    <div class="contact-name">EFREN IBAÑEZ</div>
-                    <div class="contact-number">0935-121-9395</div>
-                </div>
-                <div class="qr-box">
-                    PLEASE SCAN THE QR<br>
-                    CODE AT THE FRONT<br>
-                    FOR MORE VALIDATION &<br>
-                    CONTACT INFORMATION.
-                </div>
-            </div>          
+<!-- Modal for Save As -->
+<div id="saveAsModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Select Print Type</h3>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
         </div>
-        <div class="facebook-footer back-bottom">
-            https://www.facebook.com/mlgcl/
+
+        <div class="modal-body">
+            <label for="printType">Print Type:</label>
+          <select id="printType" class="select-input">
+              <option value="" disabled selected>Select an option</option>
+              <option value="first_print">First Print</option>
+              <option value="re_print">Reprint</option>
+          </select>
+
+            <div id="reasonContainer" class="reason-container" style="display:none;">
+                <label for="reasonInput">Reason for Reprint:</label>
+                <input type="text" id="reasonInput" placeholder="Enter reason..." class="reason-input">
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button id="submitPrintBtn" class="submit-btn">Submit</button>
+            <button onclick="closeModal()" class="cancel-btn">Cancel</button>
         </div>
     </div>
 </div>
+
+
+<div class="mt-6">
+<div class="id-wrapper hidden" id="idWrapper">
+          <div class="id front" id="idFront" style="display: block;">
+            <div class="front-bg"></div>
+                <div class="id-left">
+                    <img src="assets/img/log.png" class="logo" alt="Logo">
+                    <div class="school-info">
+                        <span class="school-name">MLG COLLEGE<br>OF LEARNING, INC</span>
+                        <span class="school-address">Atabay, Hilongos, Leyte</span>
+                    </div>
+                    <img src="assets/photos/qr.png" class="qr" alt="QR Code" id="qr_code">
+                    <div class="img-drop-area" id="signDropArea" style="position: relative;">                   
+                          <img
+                              src="assets/img/yan.png"
+                              class="signature"
+                              id="signatureImg"
+                              alt="Signature"
+                              style="position: absolute;"
+                          />                       
+                    </div>
+                </div>
+                <!-- STUDENT PHOTO -->
+                <div class="img-drop-area" id="photoDropArea" style="position: relative;">
+                    <img
+                    src="assets/img/id_final.png"
+                    class="student-img"
+                    id="studentImg"
+                    alt="Student Photo"
+                    style="position: absolute; width: 150%; height: 240px;"
+                    />
+                </div>
+                <div class="bottom-content">
+                   <div class="esc" style="display: none; text-align: right; margin-right: 7px;">
+                    ESC # <span id="esc_number"></span>
+                   </div>
+                    <div class="name-block">
+                      <div class="name">KISTADIO<br><span class="firstname">JHON BRIX P.</span></div>
+                          <div class="info-row">
+                              <div class="info-row-child">
+                                  <span class="label">Date of Birth:</span>
+                                  <span class="value">09/04/2000</span>
+                              </div>
+                              <div class="info-row-child">
+                                  <br><span class="address">Brgy. Atabay, Hilongos</span>
+                              </div>             
+                         </div>
+                      </div>
+                    <div class="id-row">
+                        <span class="student-id">21-003149</span>
+                        <span id="course_span" class="course">BSED-SS</span>
+                    </div>
+                    <div class="footer">
+                        <span>https://mlgcl.edu.ph</span>
+                        <span>mlg@mlgcl.edu.ph</span>
+                    </div>
+                    <div class="esc-logo"style="display: none;">
+                      <img src="assets/img/ESC-Logo.png" class="esc-logo" alt="ESC Logo">
+                  </div>
+            </div>
+        </div>
+
+        
+        <!-- BACK SIDE -->
+            <div class="id back" id="idBack" style="display: block;">
+                <div class="id-card-back back-top">
+                    <div class="left-content">
+                        <div class="left-bar year-strip">
+                            <table>
+                                <tr>
+                                <td class="word-school-year"></td>
+                                <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
+                                <td class="empty-cell"></td>
+                                <td class="empty-cell"></td>
+                                </tr>
+                                <tr>
+                                <td class="word-school-year"></td>
+                                <td class="year-cell"><div class="rotated-text">2023-2024</div></td>
+                                <td class="empty-cell"></td>
+                                <td class="empty-cell"></td>
+                                </tr>
+                                <tr>
+                                <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
+                                <td class="year-cell"><div class="rotated-text">2022-2023</div></td>
+                                <td class="empty-cell"></td>
+                                <td class="empty-cell"></td>
+                                </tr>
+                                <tr>
+                                <td class="word-school-year"></td>
+                                <td class="year-cell"><div class="rotated-text">2021-2022</div></td>
+                                <td class="empty-cell"></td>
+                                <td class="empty-cell"></td>
+                                </tr>
+                                <tr>
+                                <td class="word-school-year"></td>
+                                <td class="semester-cell"><div class="rotated-text">Semester</div></td>
+                                <td class="first-cell"><div class="rotated-text">First</div></td>
+                                <td class="second-cell"><div class="rotated-text">Second</div></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="right-content">
+                        <div class="top-text">
+                            This is to certify that the person<br>
+                            whose picture and signature appear<br>
+                            herein is a bonafide student of<br>
+                            <b>MLC College of Learning, Inc.</b>
+                        </div>
+
+                        <div class="back-signature">
+                            <div class="signature-img-wrap">
+                                <img src="assets/img/yan.png" alt="signature" class="back-signature-img">
+                            </div>
+                            <div class="signature-name">MARY LILIBETH O. YAN, DEV. ED. D.</div>
+                            <div class="director">School Director</div>
+                        </div>
+
+                        <div class="reminders">
+                            <b class="first">IMPORTANT REMINDERS</b><br>
+                            Always wear this ID while inside<br>
+                            the school campus.<br>
+                            <b class="second">Do not forget your<br>
+                            STUDENT ID NUMBER.</b>
+                        </div>
+
+                        <div class="contact_1">
+                            If lost and found, please surrender<br>
+                            this ID to the<br>
+                            STUDENT AFFAIRS OFFICE,<br>
+                            MLC College of Learning, Inc.,<br>
+                            Brgy. Atabay, Hilongos, Leyte
+                        </div>
+
+                        <div class="contact">
+                        <b> In case of emergency,<br>
+                            please contact</b>
+                            <div class="contact-name">EFREN IBAÑEZ</div>
+                            <div class="contact-number">0935-121-9395</div>
+                        </div>
+
+                        <div class="qr-box">
+                            PLEASE SCAN THE QR<br>
+                            CODE AT THE FRONT<br>
+                            FOR MORE VALIDATION &<br>
+                            CONTACT INFORMATION.
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="facebook-footer back-bottom">
+                    https://www.facebook.com/mlgcl/
+                </div>
+             </div>
+          </div>
 
 <script>
   printBtn.onclick = function() {
@@ -1109,10 +1041,10 @@
     let newSignatureFile = null;
 
     const editBtn = document.getElementById('editBtn');
-    const saveBtn = document.getElementById('saveBtn');
+    const saveAsBtn = document.getElementById('saveAsBtn');
     editBtn.onclick = function() {
       document.querySelector('.id.front').classList.toggle('edit-mode');
-      saveBtn.style.display = document.querySelector('.id.front').classList.contains('edit-mode') ? 'inline-block' : 'none';
+      saveAsBtn.style.display = document.querySelector('.id.front').classList.contains('edit-mode') ? 'inline-block' : 'none';
 
       // Show/hide font size controls
       document.getElementById('fontSizeControls').style.display =
@@ -1301,130 +1233,135 @@ makeDraggableResizable(
 </script>
 
     <script>
-    // Helper: Convert URL (like from Google Drive) to File object
-    async function urlToFile(url, filename, mimeType = 'image/jpeg') {
-      const res = await fetch(url);
-      const blob = await res.blob();
-      return new File([blob], filename, { type: mimeType });
+    const saveAsModal = document.getElementById('saveAsModal');
+    const reasonContainer = document.getElementById('reasonContainer');
+    const printType = document.getElementById('printType');
+    const submitPrintBtn = document.getElementById('submitPrintBtn');
+    saveAsBtn.onclick = () => {
+        saveAsModal.style.display = 'flex';
+        reasonContainer.style.display = 'none';
+        printType.value = '';
+    };
+    printType.onchange = () => {
+        reasonContainer.style.display = (printType.value === 're_print') ? 'flex' : 'none';
+    };
+    function closeModal() {
+        saveAsModal.style.display = 'none';
     }
+    submitPrintBtn.onclick = async function () {
+        const reason = document.getElementById('reasonInput').value.trim();
+        const status = printType.value;
 
-    saveBtn.onclick = async function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      const studentId = urlParams.get("student_id");
-
-      const pendingRes = await fetch(`http://127.0.0.1:8000/api/pending/${studentId}`, {
-        method: "GET",
-        headers: {
-          "Accept": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("auth_token")
+        if (!status) {
+            Swal.fire('Warning', 'Please select a print type.', 'warning');
+            return;
         }
-      });
 
-  const data = await pendingRes.json();
+        if (status === 're_print' && reason === '') {
+            Swal.fire('Warning', 'Please enter a reason for reprint.', 'warning');
+            return;
+        }
 
-  // Auto-apply saved FIRSTNAME font size
-  if (data.firstname_fontsize) {
-    document.getElementById('firstNameFontSize').value = data.firstname_fontsize;
-    document.getElementById('firstNameFontSizeValue').textContent = data.firstname_fontsize;
-
-    const firstNameSpan = document.querySelector('.name .firstname');
-    if (firstNameSpan) {
-      firstNameSpan.style.fontSize = data.firstname_fontsize + 'px';
+        saveAsModal.style.display = 'none';
+        await saveStudent(status, reason);
+    };
+    async function urlToFile(url, filename, mimeType = 'image/jpeg') {
+        const res = await fetch(url);
+        const blob = await res.blob();
+        return new File([blob], filename, { type: mimeType });
     }
-  }
+    async function saveStudent(status, reason) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentId = urlParams.get("student_id");
 
-  // Auto-apply saved LASTNAME font size
-  if (data.lastname_fontsize) {
-    document.getElementById('nameFontSize').value = data.lastname_fontsize;
-    document.getElementById('fontSizeValue').textContent = data.lastname_fontsize;
+        try {
+            const pendingRes = await fetch(`http://127.0.0.1:8000/api/pending/${studentId}`, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("auth_token")
+                }
+            });
+            const data = await pendingRes.json();
 
-    const lastNameEl = document.querySelector('.name-block .name');
-    if (lastNameEl) {
-      lastNameEl.style.fontSize = data.lastname_fontsize + 'px';
+            const studentImg = document.getElementById('studentImg');
+            const signatureImg = document.getElementById('signatureImg');
+
+            const photoPosition = JSON.stringify({
+                left: studentImg.style.left,
+                top: studentImg.style.top,
+                width: studentImg.style.width,
+                height: studentImg.style.height
+            });
+
+            const signaturePosition = JSON.stringify({
+                left: signatureImg.style.left,
+                top: signatureImg.style.top,
+                width: signatureImg.style.width,
+                height: signatureImg.style.height
+            });
+
+            const firstNameFontSize = document.getElementById('firstNameFontSize').value;
+            const lastNameFontSize = document.getElementById('nameFontSize').value;
+            const escNumber = document.getElementById('esc_number')?.textContent.trim() || '';
+
+            const formData = new FormData();
+            formData.append('student_id', studentId);
+            formData.append('first_name', data.first_name);
+            formData.append('last_name', data.last_name);
+            formData.append('middle_name', data.middle_name);
+            formData.append('address', data.address);
+            formData.append('course', data.course);
+            formData.append('contact', data.contact);
+            formData.append('birth_date', data.birth_date);
+            formData.append('photo_position', photoPosition);
+            formData.append('signature_position', signaturePosition);
+            formData.append('qr_code', data.qr_code || '');
+            formData.append('emergency_contact_name', data.emergency_contact_name || '');
+            formData.append('emergency_contact_number', data.emergency_contact_number || '');
+            formData.append('firstname_fontsize', firstNameFontSize);
+            formData.append('lastname_fontsize', lastNameFontSize);
+            formData.append('esc', escNumber);
+            formData.append('status', status);
+            formData.append('reason', reason);
+            if (typeof newPhotoFile === 'string' && newPhotoFile.startsWith('http')) {
+                const file = await urlToFile(newPhotoFile, 'photo.jpg');
+                formData.append('image', file);
+            } else if (newPhotoFile instanceof File) {
+                formData.append('image', newPhotoFile);
+            }
+            if (typeof newSignatureFile === 'string' && newSignatureFile.startsWith('http')) {
+                const file = await urlToFile(newSignatureFile, 'signature.jpg');
+                formData.append('signature', file);
+            } else if (newSignatureFile instanceof File) {
+                formData.append('signature', newSignatureFile);
+            }
+
+            const response = await fetch('http://127.0.0.1:8000/api/completed', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                Swal.fire('Saved!', 'Student ID has been saved.', 'success');
+                document.querySelector('.id.front').classList.remove('edit-mode');
+                newPhotoFile = null;
+                newSignatureFile = null;
+            } else {
+                console.error("Save failed:", result);
+                Swal.fire('Error', 'Failed to save changes.', 'error');
+            }
+
+        } catch (err) {
+            console.error("Server error:", err);
+            Swal.fire('Error', 'Server error. Check console.', 'error');
+        }
     }
-  }
-
-  const escNumber = document.getElementById('esc_number')?.textContent.trim() || '';
-
-  const studentImg = document.getElementById('studentImg');
-  const photoPosition = JSON.stringify({
-    left: studentImg.style.left,
-    top: studentImg.style.top,
-    width: studentImg.style.width,
-    height: studentImg.style.height
-  });
-
-  const signatureImg = document.getElementById('signatureImg');
-  const signaturePosition = JSON.stringify({
-    left: signatureImg.style.left,
-    top: signatureImg.style.top,
-    width: signatureImg.style.width,
-    height: signatureImg.style.height
-  });
-
-  const firstNameFontSize = document.getElementById('firstNameFontSize').value;
-  const lastNameFontSize = document.getElementById('nameFontSize').value;
-
-  const formData = new FormData();
-  formData.append('student_id', studentId);
-  formData.append('first_name', data.first_name);
-  formData.append('last_name', data.last_name);
-  formData.append('middle_name', data.middle_name);
-  formData.append('address', data.address);
-  formData.append('course', data.course);
-  formData.append('contact', data.contact);
-  formData.append('birth_date', data.birth_date);
-  formData.append('photo_position', photoPosition);
-  formData.append('signature_position', signaturePosition);
-  formData.append('qr_code', data.qr_code || '');
-  formData.append('emergency_contact_name', data.emergency_contact_name || '');
-  formData.append('emergency_contact_number', data.emergency_contact_number || '');
-  formData.append('firstname_fontsize', firstNameFontSize);
-  formData.append('lastname_fontsize', lastNameFontSize);
-  formData.append('esc', escNumber);
-
-  // ✅ Handle image file or Google Drive URL
-  if (typeof newPhotoFile === 'string' && newPhotoFile.startsWith('http')) {
-    const file = await urlToFile(newPhotoFile, 'photo.jpg');
-    formData.append('image', file);
-  } else if (newPhotoFile instanceof File) {
-    formData.append('image', newPhotoFile);
-  }
-
-  // ✅ Handle signature file or URL
-  if (typeof newSignatureFile === 'string' && newSignatureFile.startsWith('http')) {
-    const file = await urlToFile(newSignatureFile, 'signature.jpg');
-    formData.append('signature', file);
-  } else if (newSignatureFile instanceof File) {
-    formData.append('signature', newSignatureFile);
-  }
-
-  try {
-    const response = await fetch('http://127.0.0.1:8000/api/completed', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
-      },
-      body: formData
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      Swal.fire('Saved!', 'ID layout has been saved.', 'success');
-      document.querySelector('.id.front').classList.remove('edit-mode');
-      saveBtn.style.display = 'none';
-      newPhotoFile = null;
-      newSignatureFile = null;
-    } else {
-      console.error("Save failed:", result);
-      Swal.fire('Error', 'Failed to save changes.', 'error');
-    }
-  } catch (err) {
-    console.error("Server error:", err);
-    Swal.fire('Error', 'Server error. Check console.', 'error');
-  }
-};
 </script>
 
          <script>

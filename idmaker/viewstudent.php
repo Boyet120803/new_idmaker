@@ -615,6 +615,202 @@
       }
     }
 </style>
+<style>
+    .glass-radio-group {
+      --bg: rgba(255, 255, 255, 0.06);
+      --text: rgb(155, 148, 148);
+      display: flex;
+      position: relative;
+      background: var(--bg);
+      border-radius: 1rem;
+      backdrop-filter: blur(12px);
+      box-shadow:
+        inset 1px 1px 4px rgba(255, 255, 255, 0.2),
+        inset -1px -1px 6px rgba(0, 0, 0, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .glass-radio-group input {
+      display: none;
+    }
+
+    .glass-radio-group label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 100px;
+      font-size: 14px;
+      padding: 0.8rem 1.6rem;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: var(--text);
+      position: relative;
+      z-index: 2;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .glass-radio-group label:hover {
+      color: gray;
+    }
+
+    .glass-radio-group input:checked + label {
+      color: #fff;
+    }
+
+    .glass-glider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: calc(100% / 3);
+      border-radius: 1rem;
+      z-index: 1;
+      transition:
+        transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56),
+        background 0.4s ease-in-out,
+        box-shadow 0.4s ease-in-out;
+    }
+
+   
+    #showAllBtn:checked ~ .glass-glider {
+      transform: translateX(0%);
+      background: linear-gradient(135deg, #ffc10788, #ffeb3b);
+      box-shadow:
+        0 0 18px rgba(255, 193, 7, 0.5),
+        0 0 10px rgba(255, 255, 150, 0.4) inset;
+    }
+
+    
+    #showFrontBtn:checked ~ .glass-glider {
+      transform: translateX(100%);
+      background: linear-gradient(135deg, #3498db88, #6dd5fa);
+      box-shadow:
+        0 0 18px rgba(52, 152, 219, 0.5),
+        0 0 10px rgba(255, 255, 255, 0.4) inset;
+    }
+
+  
+    #showBackBtn:checked ~ .glass-glider {
+      transform: translateX(200%);
+      background: linear-gradient(135deg, #28a74588, #a8e063);
+      box-shadow:
+        0 0 18px rgba(40, 167, 69, 0.5),
+        0 0 10px rgba(200, 240, 200, 0.4) inset;
+    }
+
+    button.print-button {
+        width: 60px;
+        height: 60px;     
+        border-radius: 50%;
+        position: relative;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        transition: transform 0.2s;
+    }
+
+    button.print-button:hover {
+        transform: scale(1.1);
+    }
+
+    span.print-icon,
+    span.print-icon::before,
+    span.print-icon::after,
+    button.print-button:hover .print-icon::after {
+        box-sizing: border-box;
+        background-color: #fff;
+        border: solid 3px #333;
+    }
+
+    span.print-icon::after {
+        border-width: 2px;
+    }
+
+    span.print-icon {
+        position: relative;
+        display: inline-block;
+        width: 50%;
+        height: 30%;
+        background: #fff;
+        border-radius: 20% 20% 0 0;
+    }
+
+    span.print-icon::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 12%;
+        right: 12%;
+        height: 110%;
+        transition: height 0.2s 0.15s;
+    }
+
+    span.print-icon::after {
+        content: "";
+        position: absolute;
+        top: 55%;
+        left: 12%;
+        right: 12%;
+        height: 0%;
+        background: #fff;
+        background-repeat: no-repeat;
+        background-size: 70% 90%;
+        background-position: center;
+        background-image: linear-gradient(
+            to top,
+            #fff 0, #fff 14%,
+            #333 14%, #333 28%,
+            #fff 28%, #fff 42%,
+            #333 42%, #333 56%,
+            #fff 56%, #fff 70%,
+            #333 70%, #333 84%,
+            #fff 84%, #fff 100%
+        );
+        transition: height 0.2s, border-width 0s 0.2s, width 0s 0.2s;
+    }
+
+    button.print-button:hover .print-icon::before {
+        height: 0;
+        transition: height 0.2s;
+    }
+
+    button.print-button:hover .print-icon::after {
+        height: 120%;
+        transition: height 0.2s 0.15s, border-width 0s 0.16s;
+    }
+
+
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: transparent;
+        transition: background 0.3s;
+        margin-left: 10px;
+        text-decoration: none;
+    }
+
+    .back-button:hover {
+        background: #e0e0e0;
+    }
+
+    .back-button svg {
+        transition: transform 0.3s;
+    }
+
+    .back-button:hover svg {
+        transform: translateX(-2px); 
+    }
+</style>
         <main class="flex-1 ml-64">        
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-6 py-4">
@@ -665,32 +861,38 @@
                     </div>
              </div>
             </header>
-            <div class="mt-3 p-4">
+            <div class="-mt-1 p-4">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
                     <div style="flex: 1;">
-                        <a href="students.php" id="goBackBtn" style="display: inline-flex; align-items: center; background: none; border: none; cursor: pointer; text-decoration: none; margin-left: 10px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="19" y1="12" x2="5" y2="12"/>
-                                <polyline points="12 19 5 12 12 5"/>
-                            </svg>
-                        </a>
-                    </div>
-                    <div style="flex: 1; text-align: center;">
-                        <button id="showFrontBtn" style="margin-right: 10px; padding: 6px 14px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer;">
-                            Front
-                        </button>
-                        <button id="showBackBtn" style="padding: 6px 14px; border: none; background: #28a745; color: white; border-radius: 5px; cursor: pointer;">
-                            Back
-                        </button>
-                    </div>
-                    <div style="flex: 1; text-align: right; padding-right: 10px;">
-                       <button onclick="printVisibleID()" style="padding: 6px 14px; border: none; background: #dc3545; color: white; border-radius: 5px; cursor: pointer;">
-                        🖨️ Print
+                      <button onclick="goBack()" class="back-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="19" y1="12" x2="5" y2="12"/>
+                              <polyline points="12 19 5 12 12 5"/>
+                          </svg>
                       </button>
                     </div>
+                   <div style="flex: 1; text-align: center;">
+                      <div class="glass-radio-group" style="margin: 0 auto;">
+                          <input type="radio" name="id-view" id="showAllBtn" checked />
+                          <label for="showAllBtn">All</label>
+
+                          <input type="radio" name="id-view" id="showFrontBtn" />
+                          <label for="showFrontBtn">Front</label>
+
+                          <input type="radio" name="id-view" id="showBackBtn" />
+                          <label for="showBackBtn">Back</label>
+
+                          <div class="glass-glider"></div>
+                      </div>
+                  </div>
+                  <div style="flex: 1; text-align: right; padding-right: 10px;">
+                      <button class="print-button" onclick="printVisibleID()">
+                          <span class="print-icon"></span>
+                      </button>
+                  </div>
                 </div>
             </div>
-        <div class="mt-6">
+        <div class="-mt-7">
           <div id="pageLoader" class="flex justify-center items-center py-10">
               <div class="ui-loader loader-blk">
                   <svg viewBox="22 22 44 44" class="multiColor-loader w-12 h-12">
@@ -769,25 +971,25 @@
                             <table>
                                 <tr>
                                 <td class="word-school-year"></td>
-                                <td class="year-cell"><div class="rotated-text">2028-2029</div></td>
+                                <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
                                 <td class="empty-cell"></td>
                                 <td class="empty-cell"></td>
                                 </tr>
                                 <tr>
                                 <td class="word-school-year"></td>
-                                <td class="year-cell"><div class="rotated-text">2027-2028</div></td>
+                                <td class="year-cell"><div class="rotated-text">2023-2024</div></td>
                                 <td class="empty-cell"></td>
                                 <td class="empty-cell"></td>
                                 </tr>
                                 <tr>
                                 <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
-                                <td class="year-cell"><div class="rotated-text">2026-2027</div></td>
+                                <td class="year-cell"><div class="rotated-text">2022-2023</div></td>
                                 <td class="empty-cell"></td>
                                 <td class="empty-cell"></td>
                                 </tr>
                                 <tr>
                                 <td class="word-school-year"></td>
-                                <td class="year-cell"><div class="rotated-text">2025-2026</div></td>
+                                <td class="year-cell"><div class="rotated-text">2021-2022</div></td>
                                 <td class="empty-cell"></td>
                                 <td class="empty-cell"></td>
                                 </tr>
@@ -1129,17 +1331,42 @@
   <script>
     const frontBtn = document.getElementById('showFrontBtn');
     const backBtn = document.getElementById('showBackBtn');
+    const allBtn = document.getElementById('showAllBtn');
+
     const idFront = document.getElementById('idFront');
     const idBack = document.getElementById('idBack');
 
-    frontBtn.addEventListener('click', () => {
-      idFront.style.display = 'block';
-      idBack.style.display = 'none';
+    function showWithAnimation(showEl, hideEl) {
+        hideEl.style.transition = 'opacity 0.5s ease';
+        hideEl.style.opacity = '0';
+        setTimeout(() => {
+            hideEl.style.display = 'none';
+            showEl.style.display = 'block';
+            showEl.style.opacity = '0';
+            showEl.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                showEl.style.opacity = '1';
+            }, 10);
+        }, 400);
+    }
+
+    frontBtn.addEventListener('change', () => {
+        showWithAnimation(idFront, idBack);
     });
 
-    backBtn.addEventListener('click', () => {
-      idFront.style.display = 'none';
-      idBack.style.display = 'block';
+    backBtn.addEventListener('change', () => {
+        showWithAnimation(idBack, idFront);
+    });
+
+    allBtn.addEventListener('change', () => {
+        idFront.style.transition = 'opacity 0.5s ease';
+        idBack.style.transition = 'opacity 0.5s ease';
+        idFront.style.display = 'block';
+        idBack.style.display = 'block';
+        setTimeout(() => {
+            idFront.style.opacity = '1';
+            idBack.style.opacity = '1';
+        }, 10);
     });
 </script>
 
@@ -1164,4 +1391,10 @@
       }
     }, 100);
   }
+</script>
+
+<script>
+function goBack() {
+    window.history.back();
+}
 </script>

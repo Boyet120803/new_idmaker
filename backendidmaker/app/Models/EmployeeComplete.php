@@ -9,20 +9,28 @@ class EmployeeComplete extends Model
      use HasFactory;
     protected $fillable = [
         'first_name',
-        'last_name',
         'middle_name',
+        'last_name',
         'address',
         'contact',
-        'emergency_contact',
+        'emergency_contact_name',
+        'emergency_contact_number',
         'position',
         'employee_id',
+        'tin_no',
+        'sss_no',
+        'philhealth_no',
+        'hdmf_no',
         'birth_date',
-        'qr',
         'signature',
-        'image'
-    ];
-      protected $casts = [
-        'emergency_contact' => 'array',
-        'birth_date' => 'date',
+        'image',
+        'qr',
+        'photo_position',
+        'signature_position',
+        'firstname_fontsize',
+        'lastname_fontsize',
+        'status',
+        'reason',
     ];
 }
+

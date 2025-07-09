@@ -58,5 +58,35 @@ class EmployeePendingController extends Controller
             ], 500);
         }
     }
+  public function employeeshowpending($employee_id) {
+    $employee = EmployeePending::where('employee_id', $employee_id)->first();
+
+    if (!$employee) {
+        return response()->json(['message' => 'Employee not found'], 404);
+    }
+
+    return response()->json([
+        'id' => $employee->id,
+        'first_name' => $employee->first_name,
+        'middle_name' => $employee->middle_name,
+        'last_name' => $employee->last_name,
+        'address' => $employee->address,
+        'contact' => $employee->contact,
+        'emergency_contact_name' => $employee->emergency_contact_name,
+        'emergency_contact_number' => $employee->emergency_contact_number,
+        'position' => $employee->position,
+        'employee_id' => $employee->employee_id,               
+        'tin_no' => $employee->tin_no,
+        'sss_no' => $employee->sss_no,
+        'philhealth_no' => $employee->philhealth_no,
+        'hdmf_no' => $employee->hdmf_no,               
+        'birth_date' => $employee->birth_date,
+        'signature' => $employee->signature,
+        'image' => $employee->image,
+        'qr' => $employee->qr,
+    ]);
+}
 
 }
+
+

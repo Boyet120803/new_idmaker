@@ -412,7 +412,9 @@
         first_name: emp.first_name,
         middle_name: emp.middle_name || '',
         last_name: emp.last_name,
-        address: emp.full_address || '—',
+        address: [emp.address?.barangay, emp.address?.municipality]
+           .filter(Boolean)
+           .join(", "),
         contact: emp.contact_number || '—',
         emergency_contact: {
             name: emp.emergency_contact?.name || '—',

@@ -26,5 +26,20 @@ class Complete extends Model
         'firstname_fontsize',
         'lastname_fontsize',
         'esc',
+        'status',
+        'reason',
+        'is_archived',
     ];
+       protected $casts = [
+        'is_archived' => 'boolean',
+    ];
+      public function scopeActive($query)
+    {
+        return $query->where('is_archived', false);
+    }
+
+    public function scopeArchived($query)
+    {
+        return $query->where('is_archived', true);
+    }
 }

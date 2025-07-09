@@ -190,6 +190,13 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("auth_token");
+
+        if (token) {
+          window.location.href = "dashboard.php";
+        }
+      });
       document.getElementById("togglePassword").addEventListener("click", function () {
         const password = document.getElementById("password");
         const icon = this.querySelector("i");

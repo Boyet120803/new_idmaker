@@ -4,61 +4,120 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script> 
 <style>
-    .input-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    }
+   /* From Uiverse.io by TimTrayler */ 
+        .searchbar {
+        font-size: 14px;
+        font-family: arial, sans-serif;
+        color: #202124;
+        display: flex;
+        z-index: 3;
+        height: 44px;
+        background: white;
+        border: 1px solid #dfe1e5;
+        box-shadow: none;
+        border-radius: 24px;
+        margin: 0 auto;
+        width: auto;
+        max-width: 224px;
+        }
 
-    .input {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    padding: 18px 16px;
-    background-color: transparent;
-    cursor: pointer;
-    transition: all .5s ease-in-out;
-    }
+        .searchbar:hover {
+        box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+        border-color: rgba(223,225,229,0);
+        }
 
-    .input::placeholder {
-    color: transparent;
-    }
+        .searchbar-wrapper {
+        flex: 1;
+        display: flex;
+        padding: 5px 8px 0 14px;
+        }
 
-    .input:focus::placeholder,
-    .input:not(:placeholder-shown)::placeholder {
-    color: rgb(131, 128, 128);
-    }
+        .searchbar-left {
+        font-size: 14px;
+        font-family: arial, sans-serif;
+        color: #202124;
+        display: flex;
+        align-items: center;
+        padding-right: 13px;
+        margin-top: -5px;
+        }
 
-    .input:focus,
-    .input:not(:placeholder-shown) {
-    background-color: #fff;
-    border:none;
-    width: 290px;
-    cursor: text;
-    padding: 18px 16px 18px 45px;
-    }
+        .search-icon-wrapper {
+        margin: auto;
+        }
 
-    .icon {
-    position: absolute;
-    left: 0;
-    height: 45px;
-    width: 45px;
-    background-color: #fff;
-    border-radius: 99px;
-    z-index: -1;
-    fill: rgb(91, 107, 255);
-    border: 1px solid rgb(91, 107, 255);
-    pointer-events: none;
-    }
+        .search-icon {
+        margin-top: 3px;
+        color: #9aa0a6;
+        height: 20px;
+        line-height: 20px;
+        width: 20px;
+        }
 
-    .input:focus + .icon,
-    .input:not(:placeholder-shown) + .icon {
-    z-index: 0;
-    background-color: transparent;
-    border: none;
-    }
+        .searchbar-icon {
+        display: inline-block;
+        fill: currentColor;
+        height: 24px;
+        line-height: 24px;
+        position: relative;
+        width: 24px;
+        }
+
+        .searchbar-center {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        }
+
+        .searchbar-input-spacer {
+        color: transparent;
+        flex: 100%;
+        white-space: pre;
+        height: 34px;
+        font-size: 16px;
+        }
+
+        .searchbar-input {
+        background-color: transparent;
+        border: none;
+        margin: 0;
+        padding: 0;
+        color: rgba(0, 0, 0, .87);
+        word-wrap: break-word;
+        outline: none;
+        display: flex;
+        flex: 100%;
+        margin-top: -37px;
+        height: 34px;
+        font-size: 16px;
+        max-width: 100%;
+        width: 100%;
+        }
+
+        .searchbar-right {
+        display: flex;
+        flex: 0 0 auto;
+        margin-top: -5px;
+        align-items: stretch;
+        flex-direction: row;
+        }
+
+        .searchbar-clear-icon {
+        margin-right: 12px;
+        }
+
+        .voice-search {
+        flex: 1 0 auto;
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        border: 0;
+        background: transparent;
+        outline: none;
+        padding: 0 8px;
+        width: 2.8em;
+        }
+
 
         /* loader */
           .ui-loader {
@@ -174,7 +233,7 @@
                 </div>
                 <div class="px-6 py-2 border-t border-gray-100">
                     <div class="flex items-center text-sm">
-                        <a href="#" class="text-gray-500 hover:text-primary">Student List</a>
+                        <a href="#" class="text-gray-500 hover:text-primary">Employee List</a>
                         <div class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
                             <i class="ri-arrow-right-s-line"></i>
                         </div>
@@ -188,21 +247,44 @@
                       
                     </div>
              <div class="relative">
-                <div class="input-container">
-                <input
-                    type="text"
-                    id="search-employee-id"
-                    name="search-employee-id"
-                    class="input"
-                    placeholder="Search employee ID"
-                    autocomplete="off"
-                />
-                <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" class="icon">
-                    <rect fill="white" height="24" width="24"></rect>
-                    <path fill="" d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM9 11.5C9 10.1193 10.1193 9 11.5 9C12.8807 9 14 10.1193 14 11.5C14 12.8807 12.8807 14 11.5 14C10.1193 14 9 12.8807 9 11.5ZM11.5 7C9.01472 7 7 9.01472 7 11.5C7 13.9853 9.01472 16 11.5 16C12.3805 16 13.202 15.7471 13.8957 15.31L15.2929 16.7071C15.6834 17.0976 16.3166 17.0976 16.7071 16.7071C17.0976 16.3166 17.0976 15.6834 16.7071 15.2929L15.31 13.8957C15.7471 13.202 16 12.3805 16 11.5C16 9.01472 13.9853 7 11.5 7Z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                </svg>
-                </div>
+                <div class="searchbar">
+                    <div class="searchbar-wrapper">
+                        <div class="searchbar-left">
+                            <div class="search-icon-wrapper">
+                                <span class="search-icon searchbar-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
 
+                        <div class="searchbar-center">
+                            <div class="searchbar-input-spacer"></div>
+
+                            <input
+                                type="text"
+                                id="search-employee-id"
+                                name="search-student-id"
+                                class="searchbar-input"
+                                maxlength="2048"
+                                autocapitalize="off"
+                                autocomplete="off"
+                                title="Search"
+                                role="combobox"
+                                placeholder="Search Employee">
+                        </div>
+                        <div class="searchbar-right">
+                            <svg class="voice-search" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path fill="#4285f4" d="m12 15c1.66 0 3-1.31 3-2.97v-7.02c0-1.66-1.34-3.01-3-3.01s-3 1.34-3 3.01v7.02c0 1.66 1.34 2.97 3 2.97z"></path>
+                                <path fill="#34a853" d="m11 18.08h2v3.92h-2z"></path>
+                                <path fill="#fbbc05" d="m7.05 16.87c-1.27-1.33-2.05-2.83-2.05-4.87h2c0 1.45 0.56 2.42 1.47 3.38v0.32l-1.15 1.18z"></path>
+                                <path fill="#ea4335" d="m12 16.93a4.97 5.25 0 0 1 -3.54 -1.55l-1.41 1.49c1.26 1.34 3.02 2.13 4.95 2.13 3.87 0 6.99-2.92 6.99-7h-1.99c0 2.92-2.24 4.93-5 4.93z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
              </div>
          </div>
 
@@ -215,13 +297,15 @@
                             <th class="py-2 px-4 text-left">Employee ID</th>
                             <th class="py-2 px-4 text-left">Full Name</th>
                             <th class="py-2 px-4 text-left">Position</th>
+                            <th class="py-2 px-4 text-left">Status</th>
+                            <th class="py-2 px-4 text-left">Reason</th>
                         </tr>
                     </thead>
-                   <tbody id="employee-table-body" class="text-gray-600 text-sm font-light">
+                    <tbody id="employee-table-body" class="text-gray-600 text-sm font-light">
                         <tr id="pageLoader">
-                            <td colspan="4" class="text-center py-10">
+                            <td colspan="6" class="text-center py-10">
                                 <div class="ui-loader loader-blk mx-auto">
-                                    <svg viewBox="22 22 44 44" class="multiColor-loader w-12 h-12">
+                                    <svg viewBox="22 22 44 44" class="multiColor-loader w-12 h-12 mx-auto">
                                         <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"
                                             class="loader-circle loader-circle-animation"></circle>
                                     </svg>
@@ -399,61 +483,117 @@ const notyf = new Notyf({
    
 
 
-   document.addEventListener("DOMContentLoaded", () => {
-        const tableBody = document.getElementById("employee-table-body");
-        const searchInput = document.getElementById("search-employee-id");
-        const token = localStorage.getItem("auth_token");
+ document.addEventListener("DOMContentLoaded", () => {
+    const tableBody = document.getElementById("employee-table-body");
+    const searchInput = document.getElementById("search-employee-id");
+    const token = localStorage.getItem("auth_token");
 
-        let employees = [];
-        fetch("http://127.0.0.1:8000/api/employeecomplete", {
-            headers: {
-                "Accept": "application/json",
-                "Authorization": "Bearer " + token
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to fetch data");
-            }
-            return response.json();
-        })
-        .then(data => {
-            employees = data; 
-            renderTable(employees);
-        })
-        .catch(error => {
-            console.error("Error loading employee data:", error);
-            tableBody.innerHTML = `<tr><td colspan="4" class="py-4 px-4 text-red-500">Failed to load data.</td></tr>`;
-        });
-        function renderTable(data) {
-            tableBody.innerHTML = "";
+    let employees = [];
 
-            data.forEach(employee => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td class="py-2 px-4">
-                        <i class="ri-eye-line text-blue-500 hover:text-blue-700 cursor-pointer text-lg view-icon"></i>
-                    </td>
-                    <td class="py-2 px-4">${employee.employee_id}</td>
-                    <td class="py-2 px-4">${employee.full_name}</td>
-                    <td class="py-2 px-4">${employee.position}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-
-            if (data.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="4" class="py-4 px-4 text-gray-500 text-center">No employees found.</td></tr>`;
-            }
+    fetch("http://127.0.0.1:8000/api/employeecomplete", {
+        headers: {
+            "Accept": "application/json",
+            "Authorization": "Bearer " + token
         }
-
-        searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const filtered = employees.filter(emp =>
-                emp.employee_id.toLowerCase().includes(searchTerm)
-            );
-            renderTable(filtered);
-        });
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
+        return response.json();
+    })
+    .then(data => {
+        employees = data;
+        renderTable(employees);
+    })
+    .catch(error => {
+        console.error("Error loading employee data:", error);
+        tableBody.innerHTML = `<tr><td colspan="4" class="py-4 px-4 text-red-500">Failed to load data.</td></tr>`;
     });
+
+    function renderTable(data) {
+        tableBody.innerHTML = "";
+
+        data.forEach(employee => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td class="py-2 px-4">
+                    <a href="viewemployee.php?id=${employee.id}" title="View employee">
+                        <i class="ri-eye-line text-blue-500 hover:text-blue-700 cursor-pointer text-lg view-icon"></i>
+                    </a>
+                    <a href="updateemployee.php?id=${employee.id}" title="Edit employee">
+                        <i class="ri-edit-line text-green-500 hover:text-green-700 cursor-pointer text-lg edit-icon"></i>
+                    </a>
+                </td>
+                <td class="py-2 px-4">${employee.employee_id}</td>
+                <td class="py-2 px-4">${employee.full_name}</td>
+                <td class="py-2 px-4">${employee.position}</td>
+                <td class="py-2 px-4">${formatStatus(employee.status)}</td>
+                <td class="py-2 px-4">${formatReason(employee.reason)}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+            function formatStatus(status) {
+                if (status === 'first_print') {
+                    return `<span style="
+                        background-color: #3498db;
+                        color: white;
+                        padding: 3px 8px;
+                        border-radius: 12px;
+                        font-size: 12px;
+                        display: inline-block;
+                    ">First Print</span>`;
+                }
+                if (status === 're_print') {
+                    return `<span style="
+                        background-color: #e67e22;
+                        color: white;
+                        padding: 3px 8px;
+                        border-radius: 12px;
+                        font-size: 12px;
+                        display: inline-block;
+                    ">Reprint</span>`;
+                }
+                return `<span style="
+                    background-color: #7f8c8d;
+                    color: white;
+                    padding: 3px 8px;
+                    border-radius: 12px;
+                    font-size: 12px;
+                    display: inline-block;
+                ">${status}</span>`;
+            }
+            function formatReason(reason) {
+                if (!reason || reason.trim() === '') {
+                    return `<span style="color: #7f8c8d;">------------</span>`;
+                }
+                return `<span style="background-color: #2ecc71; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px;">${reason}</span>`;
+            }
+
+        if (data.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="4" class="py-4 px-4 text-gray-500 text-center">No employees found.</td></tr>`;
+        }
+    }
+
+    searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+
+        const filtered = employees.filter(emp => {
+            const fullName = `${emp.firstname || ''} ${emp.middlename || ''} ${emp.lastname || ''}`.toLowerCase();
+
+            return (
+                emp.employee_id?.toLowerCase().includes(searchTerm) ||
+                emp.full_name?.toLowerCase().includes(searchTerm) ||
+                emp.firstname?.toLowerCase().includes(searchTerm) ||
+                emp.middlename?.toLowerCase().includes(searchTerm) ||
+                emp.lastname?.toLowerCase().includes(searchTerm) ||
+                fullName.includes(searchTerm)
+            );
+        });
+
+        renderTable(filtered);
+    });
+});
    //modal
         const modal = document.getElementById("profileModal");
         const modalContent = document.getElementById("profileModalContent");
