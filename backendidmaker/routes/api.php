@@ -9,6 +9,9 @@ use App\Http\Controllers\CompletedController;
 use App\Http\Controllers\PendingController;
 use App\Http\Controllers\EmployeeCompleteController;
 use App\Http\Controllers\EmployeePendingController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\IdPrintLogController;
+use App\Http\Controllers\SignatureController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -40,11 +43,29 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/showcompleteid/{id}', [CompletedController::class, 'showcompleteid']);
     Route::post('/completed/{id}', [CompletedController::class, 'update']);
     Route::get('/completeid/{id}', [CompletedController::class, 'completeid']);
+
+    Route::get('/school-year', [SettingsController::class, 'getSchoolYear']);
+    Route::post('/school-year', [SettingsController::class, 'updateSchoolYear']);
+
+    Route::get('/id-print-logs', [IdPrintLogController::class, 'index']);
+    Route::post('/id-print-logs', [IdPrintLogController::class, 'store']);
+
+
+Route::post('/completed/update-by-student-id/{student_id}', [CompletedController::class, 'updateByStudentId']);
+Route::get('/completed/{student_id}', [CompletedController::class, 'showStudent']);
+
+
+
+// Route::post('/save-signature', [SignatureController::class, 'store']);
+
+    Route::get('/signature/{student_id}', [PendingController::class, 'getSignature']);
 });
 
 
 
+
 Route::get('/student-list', [AuthController::class, 'list']);
+
 
 
 

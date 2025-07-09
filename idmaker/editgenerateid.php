@@ -905,6 +905,12 @@
         <button id="printBtn" class="switch-btn">Print</button>
       </div>
 
+      <div style="margin-bottom:10px;">
+  <label for="schoolYearInput" style="font-weight:bold;">School Year:</label>
+  <input type="text" id="schoolYearInput" style="width:100px;" placeholder="e.g. 2024-2025">
+  <button id="saveSchoolYearBtn" class="switch-btn" style="padding:3px 12px;">Save School Year</button>
+</div>
+
     <div id="fontSizeControls" style="display:none; margin-bottom:10px;">
       <label for="nameFontSize" style="font-weight:bold;">Name Font Size:</label>
       <input type="range" id="nameFontSize" min="16" max="48" value="24" style="vertical-align:middle;">
@@ -971,40 +977,40 @@
     <div class="id back" id="idBack" style="display: none;">
         <div class="id-card-back back-top">
             <div class="left-content">
-                <div class="left-bar year-strip">
-                    <table>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2024-2025</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2023-2024</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
-                        <td class="year-cell"><div class="rotated-text">2022-2023</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="year-cell"><div class="rotated-text">2021-2022</div></td>
-                        <td class="empty-cell"></td>
-                        <td class="empty-cell"></td>
-                        </tr>
-                        <tr>
-                        <td class="word-school-year"></td>
-                        <td class="semester-cell"><div class="rotated-text">Semester</div></td>
-                        <td class="first-cell"><div class="rotated-text">First</div></td>
-                        <td class="second-cell"><div class="rotated-text">Second</div></td>
-                        </tr>
-                    </table>
-                </div>
+<div class="left-bar year-strip">
+    <table>
+        <tr>
+            <td class="word-school-year"></td>
+            <td class="year-cell"><div class="rotated-text"></div></td>
+            <td class="empty-cell"></td>
+            <td class="empty-cell"></td>
+        </tr>
+        <tr>
+            <td class="word-school-year"></td>
+            <td class="year-cell"><div class="rotated-text"></div></td>
+            <td class="empty-cell"></td>
+            <td class="empty-cell"></td>
+        </tr>
+        <tr>
+            <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
+            <td class="year-cell"><div class="rotated-text"></div></td>
+            <td class="empty-cell"></td>
+            <td class="empty-cell"></td>
+        </tr>
+        <tr>
+            <td class="word-school-year"></td>
+            <td class="year-cell"><div class="rotated-text"></div></td>
+            <td class="empty-cell"></td>
+            <td class="empty-cell"></td>
+        </tr>
+        <tr>
+            <td class="word-school-year"></td>
+            <td class="semester-cell"><div class="rotated-text">Semester</div></td>
+            <td class="first-cell"><div class="rotated-text">First</div></td>
+            <td class="second-cell"><div class="rotated-text">Second</div></td>
+        </tr>
+    </table>
+</div>
             </div>
 
             <div class="right-content">
@@ -1016,7 +1022,7 @@
                 </div>
                 <div class="back-signature">
                       <div class="signature-img-wrap">
-                          <img src="assets/img/yan.png" alt="signature" class="back-signature-img">
+                          <img src="assets/img/yan.png" alt="signature" class="back-signature">
                       </div>
                       <div class="signature-name">MARY LILIBETH O. YAN, DEV. ED. D.</div>
                       <div class="director">School Director</div>
@@ -1312,7 +1318,7 @@ makeDraggableResizable(
       const urlParams = new URLSearchParams(window.location.search);
       const studentId = urlParams.get("student_id");
 
-      const pendingRes = await fetch(`http://127.0.0.1:8000/api/pending/${studentId}`, {
+      const pendingRes = await fetch(`https://backendidmaker.test/api/pending/${studentId}`, {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -1391,16 +1397,19 @@ makeDraggableResizable(
     formData.append('image', newPhotoFile);
   }
 
-  // ✅ Handle signature file or URL
-  if (typeof newSignatureFile === 'string' && newSignatureFile.startsWith('http')) {
-    const file = await urlToFile(newSignatureFile, 'signature.jpg');
-    formData.append('signature', file);
-  } else if (newSignatureFile instanceof File) {
-    formData.append('signature', newSignatureFile);
-  }
+// ✅ Handle signature file or URL
+if (typeof newSignatureFile === 'string' && newSignatureFile.startsWith('http')) {
+  const file = await urlToFile(newSignatureFile, 'signature.jpg');
+  formData.append('signature', file);
+} else if (newSignatureFile instanceof File) {
+  formData.append('signature', newSignatureFile);
+} else if (data.signature) {
+  // I-add mo ito para ma-copy yung signature from pending to completed
+  formData.append('signature_path', data.signature);
+}
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/completed', {
+    const response = await fetch('https://backendidmaker.test/api/completed', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
@@ -1469,7 +1478,7 @@ makeDraggableResizable(
                         return;
                     }
 
-                    fetch("http://127.0.0.1:8000/api/logout", {
+                    fetch("https://backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1507,7 +1516,7 @@ makeDraggableResizable(
 
         if (!token) return;
 
-        fetch("http://127.0.0.1:8000/api/profile", {
+        fetch("https://backendidmaker.test/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -1537,7 +1546,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/pending/${studentId}`, {
+        const response = await fetch(`https://backendidmaker.test/api/pending/${studentId}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -1633,6 +1642,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             escLogoDiv.style.display = "none";
         }
 
+         // Display signature kung meron
+              if (data.signature) {
+                  const signatureImg = document.getElementById('signatureImg');
+                  const backSignatureImg = document.querySelector('.back-signature-img');
+                  
+                  // Direct URL sa storage
+                  const signatureUrl = `https://backendidmaker.test/storage/${data.signature}`;
+                  signatureImg.src = signatureUrl;
+                  if (backSignatureImg) backSignatureImg.src = signatureUrl;
+                  
+                  console.log('Signature loaded:', signatureUrl);
+              }
+
         // Font color control
         if (isHighSchool) {
             document.querySelector('.name').style.color = '#000';
@@ -1650,6 +1672,56 @@ document.addEventListener("DOMContentLoaded", async () => {
             } catch (error) {
                 console.error("Error fetching student data:", error);
             }
+
+           
+
+        // DYNAMIC SCHOOL YEAR PATCH
+
+        // SCHOOL YEAR PATCH: PRIORITIZE PER-STUDENT, FALLBACK TO GLOBAL
+try {
+  const urlParams = new URLSearchParams(window.location.search);
+  const studentId = urlParams.get("student_id");
+  let usedStudentYears = false;
+
+  // 1. Try per-student school years
+  if (studentId) {
+    const res = await fetch(`https://backendidmaker.test/api/completed/${studentId}`, {
+      headers: { "Authorization": "Bearer " + localStorage.getItem("auth_token") }
+    });
+    const data = await res.json();
+    if (data.school_years && data.school_years.length) {
+      const years = data.school_years;
+      document.getElementById('schoolYearInput').value = years[0].split('-')[0];
+      const yearCells = document.querySelectorAll('.year-cell .rotated-text');
+      // Assign years from bottom to top (para 2025-2026 nasa pinakababa)
+      for (let i = 0; i < years.length; i++) {
+        const cellIdx = yearCells.length - 1 - i;
+        if (yearCells[cellIdx]) yearCells[cellIdx].textContent = years[i];
+      }
+      usedStudentYears = true;
+    }
+  }
+
+  // 2. If no per-student years, fallback to global
+  if (!usedStudentYears) {
+    const res = await fetch('https://backendidmaker.test/api/school-year', {
+      headers: { "Authorization": "Bearer " + localStorage.getItem("auth_token") }
+    });
+    const data = await res.json();
+    let startYear = parseInt(data.school_year_start || new Date().getFullYear());
+    const years = [];
+    for (let i = 0; i < 4; i++) {
+      years.push(`${startYear + i}-${startYear + i + 1}`);
+    }
+    const yearCells = document.querySelectorAll('.year-cell .rotated-text');  
+    for (let i = 0; i < years.length; i++) {
+      const cellIdx = yearCells.length - 1 - i;
+      if (yearCells[cellIdx]) yearCells[cellIdx].textContent = years[i];
+    }
+  }
+} catch (err) {
+  console.error("Failed to fetch school year:", err);
+}
         });
 
 
@@ -1679,6 +1751,40 @@ document.addEventListener("DOMContentLoaded", async () => {
           document.getElementById('fontSizeValue').textContent = size;
         });
       }
+
+     document.getElementById('saveSchoolYearBtn').onclick = async function() {
+  const schoolYearStart = parseInt(document.getElementById('schoolYearInput').value.trim(), 10);
+  if (isNaN(schoolYearStart)) {
+    Swal.fire('Error', 'Please enter a valid year (e.g. 2027)', 'error');
+    return;
+  }
+  const urlParams = new URLSearchParams(window.location.search);
+  const studentId = urlParams.get("student_id");
+  const resp = await fetch(`https://backendidmaker.test/api/completed/update-by-student-id/${studentId}`, {
+    method: 'POST',
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("auth_token"),
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ school_year_start: schoolYearStart })
+  });
+  if (resp.ok) {
+    const result = await resp.json();
+    Swal.fire('Saved!', 'School years updated for this ID.', 'success');
+    // Update year display (bottom to top)
+    const yearCells = document.querySelectorAll('.year-cell .rotated-text');
+    if (result.years && yearCells.length) {
+      for (let i = 0; i < result.years.length; i++) {
+        const cellIdx = yearCells.length - 1 - i;
+        if (yearCells[cellIdx]) yearCells[cellIdx].textContent = result.years[i];
+      }
+    }
+  } else {
+    Swal.fire('Error', 'Failed to update school year.', 'error');
+  }
+};
+
+    
 
 
    

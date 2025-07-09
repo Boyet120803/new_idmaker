@@ -985,7 +985,7 @@ saveBtn.onclick = async function () {
 const id = urlParams.get("id"); 
 console.log("ID from URL:", id); 
   try {
-    const completeRes = await fetch(`http://127.0.0.1:8000/api/completeid/${id}`, {
+    const completeRes = await fetch(`https://backendidmaker.test/api/completeid/${id}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -1029,7 +1029,7 @@ console.log("ID from URL:", id);
       if (newPhotoFile) formData.append('image', newPhotoFile);
       if (newSignatureFile) formData.append('signature', newSignatureFile);
 
-      response = await fetch(`http://127.0.0.1:8000/api/completed/${id}`, {
+      response = await fetch(`https://backendidmaker.test/api/completed/${id}`, {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
@@ -1052,7 +1052,7 @@ console.log("ID from URL:", id);
         signature_position: signaturePosition
       };
 
-      response = await fetch(`http://127.0.0.1:8000/api/completed/${id}`, {
+      response = await fetch(`https://backendidmaker.test/api/completed/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1122,7 +1122,7 @@ console.log("ID from URL:", id);
                         return;
                     }
 
-                    fetch("http://127.0.0.1:8000/api/logout", {
+                    fetch("https://backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1161,7 +1161,7 @@ console.log("ID from URL:", id);
 
         if (!token) return;
 
-        fetch("http://127.0.0.1:8000/api/profile", {
+        fetch("https://backendidmaker.test/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -1193,7 +1193,7 @@ console.log("ID from URL:", id);
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/showcompleteid/${completeId}`, {
+    const response = await fetch(`https://backendidmaker.test/api/showcompleteid/${completeId}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -1305,13 +1305,13 @@ console.log("ID from URL:", id);
     }
     const studentImg = document.getElementById("studentImg");
     if (studentImg && data.image) {
-      studentImg.src = `http://127.0.0.1:8000/storage/${data.image}`;
+      studentImg.src = `https://backendidmaker.test/storage/${data.image}`;
       studentImg.style.position = "absolute";
       studentImg.style.objectFit = "cover";
     }
     const signatureImg = document.getElementById("signatureImg");
     if (signatureImg && data.signature) {
-      signatureImg.src = `http://127.0.0.1:8000/storage/${data.signature}`;
+      signatureImg.src = `https://backendidmaker.test/storage/${data.signature}`;
       signatureImg.style.position = "absolute";
       signatureImg.style.objectFit = "contain";
     }

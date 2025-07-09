@@ -1,64 +1,67 @@
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <style>      
-       .input-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-        }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-        .input {
-        width: 40px;
-        height: 40px;
-        border-radius: 20px;
-        border: none;
-        outline: none;
-        padding: 18px 16px;
-        background-color: transparent;
-        cursor: pointer;
-        transition: all 0.5s ease-in-out;
-        }
+<style>
+    .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    }
 
-        .input::placeholder {
-        color: transparent;
-        }
+    .input {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 18px 16px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    }
 
-        .input:focus::placeholder,
-        .input:not(:placeholder-shown)::placeholder {
-        color: rgb(131, 128, 128);
-        }
+    .input::placeholder {
+    color: transparent;
+    }
 
-        .input:focus,
-        .input:not(:placeholder-shown) {
-        background-color: #fff;
-        border: black;
-        width: 290px;
-        padding: 18px 16px 18px 45px;
-        cursor: text;
-        }
+    .input:focus::placeholder,
+    .input:not(:placeholder-shown)::placeholder {
+    color: rgb(131, 128, 128);
+    }
 
-        .icon {
-        position: absolute;
-        left: 0;
-        height: 45px;
-        width: 45px;
-        background-color: #fff;
-        border-radius: 99px;
-        z-index: -1;
-        fill: rgb(80, 80, 255);
-        border: 1px solid rgb(32, 32, 255);
-        pointer-events: none;
-        }
+    .input:focus,
+    .input:not(:placeholder-shown) {
+    background-color: #fff;
+    border: black;
+    width: 290px;
+    padding: 18px 16px 18px 45px;
+    cursor: text;
+    }
 
-        .input:focus + .icon,
-        .input:not(:placeholder-shown) + .icon {
-        z-index: 0;
-        background-color: transparent;
-        border: none;
-        }
-        /* loader */
-          .ui-loader {
+    .icon {
+    position: absolute;
+    left: 0;
+    height: 45px;
+    width: 45px;
+    background-color: #fff;
+    border-radius: 99px;
+    z-index: -1;
+    fill: rgb(80, 80, 255);
+    border: 1px solid rgb(32, 32, 255);
+    pointer-events: none;
+    }
+
+    .input:focus + .icon,
+    .input:not(:placeholder-shown) + .icon {
+    z-index: 0;
+    background-color: transparent;
+    border: none;
+    }
+
+
+     .ui-loader {
       display: inline-block;
       width: 50px;
       height: 50px;
@@ -126,126 +129,87 @@
         color: #34a853;
       }
     }
-    </style>
-    <main class="flex-1 ml-64">
-        <header class="bg-white shadow-sm">
-            <div class="flex items-center justify-between px-6 py-4">
-                  <div class="flex items-center">
+</style>
+       <main class="flex-1 ml-64">
+            <header class="bg-white shadow-sm">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center">
                         <button id="toggle-sidebar" class="mr-4 text-gray-500 hover:text-gray-700">
                             <div class="w-6 h-6 flex items-center justify-center">
                                 <i class="ri-menu-line"></i>
                             </div>
-                        </button>                      
-                   </div>
-                   <div class="flex items-center space-x-4">
+                        </button>                    
+                    </div>
+                    <div class="flex items-center space-x-4">
                         <button class="relative text-gray-500 hover:text-gray-700">
                             <div class="w-6 h-6 flex items-center justify-center">
                                 <i class="ri-notification-3-line"></i>
                             </div>           
                         </button>
                         <div class="h-6 border-r border-gray-200"></div>
-                       <div class="relative flex items-center space-x-2" id="user-dropdown-wrapper">
-                            <span class="text-sm font-medium" id="fullName">Loading...</span>
-                            <button id="user-dropdown-btn"
-                                class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center focus:outline-none transition duration-200 hover:bg-gray-300">
-                                <i class="ri-user-line text-gray-500 text-lg transition duration-200 group-hover:text-gray-700"></i>
-                            </button>
-                            <div id="user-dropdown-menu"
-                                  class="absolute right-0 mt-12 w-40 bg-white rounded-md shadow-lg border border-gray-200 hidden z-10 overflow-hidden transition-all duration-300 ease-in-out">
-                                  <a href="" id="openProfileModal"
-                                    class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200">
-                                    <i class="ri-user-line mr-2 text-base"></i>
-                                    Profile
-                                  </a>
-                                  <a href="#"
-                                    id="logout-btn"
-                                    class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200">
-                                        <i class="ri-logout-box-r-line mr-2 text-base"></i>
-                                        Logout
-                                 </a>
-                            </div>
-                        </div>
+                   <div class="relative flex items-center space-x-2" id="user-dropdown-wrapper">
+                  <span class="text-sm font-medium" id="fullName">Loading...</span>
+                    <button id="user-dropdown-btn"
+                        class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center focus:outline-none transition duration-200 hover:bg-gray-300">
+                        <i class="ri-user-line text-gray-500 text-lg transition duration-200 group-hover:text-gray-700"></i>
+                    </button>
+                    <div id="user-dropdown-menu"
+                        class="absolute right-0 mt-12 w-40 bg-white rounded-md shadow-lg border border-gray-200 hidden z-10 overflow-hidden transition-all duration-300 ease-in-out">
+                     <a href="" id="openProfileModal"
+                        class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200">
+                        <i class="ri-user-line mr-2 text-base"></i>
+                        Profile
+                     </a>
+                       <a href="#"
+                        id="logout-btn"
+                        class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200">
+                            <i class="ri-logout-box-r-line mr-2 text-base"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
                     </div>
                 </div>
                 <div class="px-6 py-2 border-t border-gray-100">
                     <div class="flex items-center text-sm">
-                        <a href="#" class="text-gray-500 hover:text-primary">Senior High</a>
+                        <a href="#" class="text-gray-500 hover:text-primary">Settings</a>
                         <div class="w-4 h-4 flex items-center justify-center text-gray-400 mx-1">
                             <i class="ri-arrow-right-s-line"></i>
                         </div>
-                        <span class="text-gray-700">List</span>
+                        <span class="text-gray-700">Page</span>
                     </div>
                 </div>
-        </header>
-           <div class="p-6 -mt-2">
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center space-x-4">
-                    </div>
-                    <!-- Right-->
-                    <div class="input-container">
-                        <input type="text" name="text" class="input" placeholder="Search Student ID...">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" class="icon">
-                            <g><rect fill="white" height="15" width="24"></rect></g>
-                            <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM9 11.5C9 10.1193 10.1193 9 11.5 9C12.8807 9 14 10.1193 14 11.5C14 12.8807 12.8807 14 11.5 14C10.1193 14 9 12.8807 9 11.5ZM11.5 7C9.01472 7 7 9.01472 7 11.5C7 13.9853 9.01472 16 11.5 16C12.3805 16 13.202 15.7471 13.8957 15.31L15.2929 16.7071C15.6834 17.0976 16.3166 17.0976 16.7071 16.7071C17.0976 16.3166 17.0976 15.6834 16.7071 15.2929L15.31 13.8957C15.7471 13.202 16 12.3805 16 11.5C16 9.01472 13.9853 7 11.5 7Z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                        </svg>
-                    </div>
+            </header>
+            <div class="p-4">
+
+            <div style="margin-bottom:20px; background:#fff; padding:30px 40px; border-radius:12px; box-shadow:0 2px 12px #0001; min-width:320px;">
+                <h2 style="text-align:center; margin-bottom:18px; font-size:20px; font-weight:700;">
+                Set School Year
+                </h2>
+                <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+                <label for="schoolYearStart" style="font-weight:600;">School Year Start:</label>
+                <input type="number" id="schoolYearStart" min="2000" max="2100" style="width:90px; padding:5px 8px; border-radius:6px; border:1px solid #ccc;">
+                <button id="saveSchoolYearBtn" style="padding:6px 18px; border-radius:6px; background:#5420B5; color:#fff; border:none; font-weight:600; cursor:pointer;">
+                    Save
+                </button>   
                 </div>
             </div>
-           
-            <!-- table -->
-          <div class="px-6 pb-6 -mt-9">
-            <div class="overflow-x-auto bg-white rounded-lg shadow">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grade Level</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Strand</th>
-                        </tr>
-                    </thead>
-                  <tbody class="bg-white divide-y divide-gray-200 text-sm">
-                    <tr id="pageLoader">
-                        <td colspan="5" class="text-center py-10">
-                            <div class="ui-loader loader-blk mx-auto">
-                                <svg viewBox="22 22 44 44" class="multiColor-loader w-12 h-12">
-                                    <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6" class="loader-circle loader-circle-animation"></circle>
-                                </svg>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="dataRow" class="hidden">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <a href="#" class="text-blue-600 hover:underline mr-3">View</a>
-                            <a href="#" class="text-green-600 hover:underline mr-3">Edit</a>
-                            <a href="#" class="text-red-600 hover:underline">Delete</a>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">24-003738</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Juan Dela Cruz</td>
-                        <td class="px-6 py-4 whitespace-nowrap">Grade 12</td>
-                        <td class="px-6 py-4 whitespace-nowrap">STEM</td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-        </div>
-                  <!-- modal -->
+              <!-- modal -->
         <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden opacity-0 transition-opacity duration-300">
-                <div id="profileModalContent" class="relative bg-white w-[500px] max-h-[90vh] overflow-y-auto p-8 rounded shadow-lg transform scale-95 transition-transform duration-300">
-                    <div id="modalLoadingBar"
-                        class="absolute top-0 left-0 h-1 bg-blue-600 transition-all duration-700 ease-out rounded-r"
-                        style="width: 0;">
-                    </div>
-                    <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
-                    <form id="updateProfileForm">
+            <div id="profileModalContent" class="relative bg-white w-[500px] max-h-[90vh] overflow-y-auto p-8 rounded shadow-lg transform scale-95 transition-transform duration-300">
+             <div id="modalLoadingBar"
+                class="absolute top-0 left-0 h-1 bg-blue-600 transition-all duration-700 ease-out rounded-r"
+                style="width: 0;">
+            </div>
+                <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
+                <form id="updateProfileForm">
                     <div class="space-y-4">
                         <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md border:1px solid;">
                             <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
                             <path d="M5 13l4 4L19 7" />
                             </svg>
                             <input type="text" id="first_name" name="first_name" class="flex-1 focus:outline-none" placeholder="First Name" />
-                        </div>
+                            </div>
                         <div class="shadow-lg flex gap-2 items-center bg-white p-2 hover:shadow-xl duration-300 hover:border-2 border-gray-400 group delay-200 rounded-md">
                             <svg class="group-hover:rotate-[360deg] duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" height="1em" width="1em">
                             <path d="M5 13l4 4L19 7" />
@@ -265,35 +229,37 @@
                             </svg>
                             <input type="email" id="email" name="email" class="flex-1 focus:outline-none" placeholder="Email" />
                         </div>
+                  </div>
+                    <div class="text-right mt-3">
+                        <button type="button" id="changePasswordBtn" class="text-sm text-blue-600 hover:underline">Change Password</button>
                     </div>
-                <div class="text-right mt-3">
-                    <button type="button" id="changePasswordBtn" class="text-sm text-blue-600 hover:underline">Change Password</button>
-                </div>
-
-                <div class="text-right mt-5 space-x-2">
+                    <div class="text-right mt-5 space-x-2">
                     <button type="button" id="closeProfileModal" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</button>
                     <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Update</button>
                 </div>
-             </form>
-           </div>
+            </form>
         </div>
-    </main>
-<script>
-        document.addEventListener("DOMContentLoaded", function () 
-    {
-        const dropdownBtn = document.getElementById("user-dropdown-btn");
-        const dropdownMenu = document.getElementById("user-dropdown-menu");
+        </div>
+        </main>
+    </div>
 
-        dropdownBtn.addEventListener("click", function (e) {
-            e.stopPropagation(); 
-            dropdownMenu.classList.toggle("hidden");
-        });
-        document.addEventListener("click", function (e) {
-            const dropdownWrapper = document.getElementById("user-dropdown-wrapper");
-            if (!dropdownWrapper.contains(e.target)) {
-                dropdownMenu.classList.add("hidden");
-            }
-        });
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () 
+    {
+            const dropdownBtn = document.getElementById("user-dropdown-btn");
+            const dropdownMenu = document.getElementById("user-dropdown-menu");
+
+            dropdownBtn.addEventListener("click", function (e) {
+                e.stopPropagation(); 
+                dropdownMenu.classList.toggle("hidden");
+            });
+            document.addEventListener("click", function (e) {
+                const dropdownWrapper = document.getElementById("user-dropdown-wrapper");
+                if (!dropdownWrapper.contains(e.target)) {
+                    dropdownMenu.classList.add("hidden");
+                }
+            });
     });
 
       document.addEventListener("DOMContentLoaded", function () 
@@ -351,7 +317,8 @@
         });
     });
 
-        document.addEventListener("DOMContentLoaded", () => 
+
+    document.addEventListener("DOMContentLoaded", () => 
     {
         const token = localStorage.getItem("auth_token");
 
@@ -375,8 +342,10 @@
             console.error("Error fetching profile:", error);
         });
     });
- 
-     // modal
+
+
+   
+    //modal
         const modal = document.getElementById("profileModal");
         const modalContent = document.getElementById("profileModalContent");
 
@@ -488,14 +457,48 @@
     });
 </script>
 
-
-  <script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         const loader = document.getElementById("pageLoader");
-        const dataRow = document.getElementById("dataRow");
         setTimeout(() => {
-            loader.remove(); 
-            dataRow.classList.remove("hidden");
-        }, 1500);
+            if (loader) loader.remove();
+        }, 1500); 
     });
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const input = document.getElementById('schoolYearStart');
+  const btn = document.getElementById('saveSchoolYearBtn');
+  // Fetch current value
+  try {
+    const res = await fetch('https://backendidmaker.test/api/school-year', {
+      headers: { "Authorization": "Bearer " + localStorage.getItem("auth_token") }
+    });
+    const data = await res.json();
+    input.value = data.school_year_start || new Date().getFullYear();
+  } catch (e) {
+    input.value = new Date().getFullYear();
+  }
+
+  btn.onclick = async function() {
+    const year = parseInt(input.value);
+    if (!year || year < 2000 || year > 2100) return alert("Invalid year");
+    const resp = await fetch('https://backendidmaker.test/api/school-year', {
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("auth_token"),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ school_year_start: year })
+    });
+    if (resp.ok) {
+      alert("School year updated!");
+      location.reload();
+    } else {
+      alert("Failed to update.");
+    }
+  };
+});
 </script>

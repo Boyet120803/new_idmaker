@@ -4,6 +4,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
 <style>
     .input {
     line-height: 28px;
@@ -135,6 +137,30 @@
                 </form>
             </div>
             </div>
+            <!-- Signature Modal -->
+                <div class="modal fade" id="signatureModal" tabindex="-1" aria-labelledby="signatureModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signatureModalLabel">Draw Your Signature</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <!-- canvas -->
+                    <div class="modal-body d-flex flex-column align-items-center">
+                        <canvas id="signature-pad" width="700" height="220" style="border: 1px solid #ccc;"></canvas>
+                        <div class="mt-3">
+                        <button id="clear" type="button" class="btn btn-secondary">Clear</button>
+                        <select id="strokeSize" class="form-select d-inline-block w-auto">
+                            <option value="2">Normal</option>
+                            <option value="4">Bold</option>
+                            <option value="6">Super Bold</option>
+                        </select>
+                        <button id="saveSignature" type="button" class="btn btn-success">Save Signature</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
             </header>
       <!-- Filters and Search -->
         <div class="p-4 mt-1">
@@ -180,8 +206,16 @@
                 <p class="text-sm text-gray-700">
                 <span class="font-medium">ID:</span> <span id="template_id"></span>
                 </p>
+                
                 <img id="qr_image" src="" alt="QR Code" class="w-24 h-24 rounded border shadow-sm mb-2" />
+            
+                <!-- Signature Preview -->
+            <div class="mt-2 text-center">
+            <img id="signaturePreview" src="" alt="Signature" style="max-width:200px; max-height:60px; display:block; margin:auto;">
             </div>
+
+            </div>
+
 
             <div class="flex-1 text-gray-700 text-sm">
                 <p><span class="font-medium">Address:</span> <span id="template_address"></span></p>
@@ -214,12 +248,17 @@
                         class="w-full border border-gray-300 rounded px-3 py-2"
                         placeholder="Enter LRN" />
                 </div>
+
+                
                 
                   <!-- Save Button -->
                 <div class="mt-6 text-center">
+                    <button type="button" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow" data-bs-toggle="modal" data-bs-target="#signatureModal">
+                Fill Signature
+                </button>
                     <button id="save_button"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow">
-                        Edit
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow mt-3">
+                        Generate Id
                     </button>
                 </div>
             </div>
@@ -271,7 +310,7 @@
                         return;
                     }
 
-                    fetch("http://127.0.0.1:8000/api/logout", {
+                    fetch("https://backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -310,7 +349,7 @@
 
         if (!token) return;
 
-        fetch("http://127.0.0.1:8000/api/profile", {
+        fetch("https://backendidmaker.test/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -363,7 +402,7 @@
     });
 
      const token = localStorage.getItem("auth_token");
-        fetch(`http://127.0.0.1:8000/api/profile-show`, 
+        fetch(`https://backendidmaker.test/api/profile-show`, 
     {
             method: "GET",
             headers: {
@@ -417,7 +456,7 @@
             email: document.getElementById("email").value,
         };
 
-        fetch(`http://127.0.0.1:8000/api/profile-edit/${userId}`, {
+        fetch(`https://backendidmaker.test/api/profile-edit/${userId}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -644,92 +683,177 @@ searchInput.addEventListener("input", () => {
         }
         });
 
-        document.getElementById("save_button").addEventListener("click", async () => {
-        const studentIdText = document.getElementById("template_id").textContent.trim();
-        const escValue = escInput.value.trim();
-        const lrnValue = lrnInput.value.trim();
-        const studentId = studentIdText;
 
-        const selectedStudent = allStudents.find(s =>
-            s.student_identification_number?.some(idObj => idObj.student_id === studentId)
-        );
-
-        if (!selectedStudent) {
-            notyf.error("Student not found.");
-            return;
-        }
-
-        const level = levelInput.value;
-        const emergency = selectedStudent.emergency_contact || {};
-
-        let barangay = selectedStudent.address?.barangay || "—";
-        let municipality = selectedStudent.address?.municipality || "—";
-
-        // 🧹 Clean up address
-        barangay = barangay.replace(/\bLeyte\b/i, "").trim();
-
-        let address = "";
-        if (barangay.toLowerCase().includes(municipality.toLowerCase())) {
-            address = barangay;
-        } else {
-            address = `${barangay}, ${municipality}`;
-        }
-
-        let course = "N/A";
-
-        if (level === "college") {
-            course = selectedStudent.course?.description || "N/A";
-        } else if (level === "jhs") {
-            if (!lrnValue || !/^\d+$/.test(lrnValue)) {
-            notyf.error("Please enter a valid numeric LRN.");
-            return;
-            }
-            course = `LRN: ${lrnValue}`;
-        } else if (level === "shs") {
-            course = courseInput.value.trim() || selectedStudent.course?.description || "SHS";
-        }
-
-        const payload = {
-            first_name: selectedStudent.first_name,
-            last_name: selectedStudent.last_name,
-            middle_name: selectedStudent.middle_name,
-            address: address,
-            course: course,
-            student_id: studentId,
-            contact: selectedStudent.contact_number || "—",
-            emergency_contact_name: emergency.name || "N/A",
-            emergency_contact_number: emergency.number || "N/A",
-            birth_date: selectedStudent.birthdate || "2000-01-01",
-            signature: null,
-            image: null,
-            qr_code: selectedStudent.qr_code || "",
-            esc: escValue
-        };
-
-        try {
-            const response = await fetch("http://127.0.0.1:8000/api/store", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("auth_token")
-            },
-            body: JSON.stringify(payload)
-            });
-
-            if (response.ok || response.status === 409) {
-            window.location.href = `editgenerateid.php?student_id=${studentId}`;
-            } else {
-            const error = await response.json();
-            console.error("Save failed:", error);
-            notyf.error("Saving failed. Check console.");
-            }
-        } catch (error) {
-            console.error("Server error:", error);
-            notyf.error("Server error. Please try again.");
-        }
-        });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+<script>
+
+let signaturePad, signatureDataUrl = "";
+// Signature Pad Init
+document.addEventListener("DOMContentLoaded", function () {
+  const canvas = document.getElementById('signature-pad');
+  signaturePad = new SignaturePad(canvas);
+
+  document.getElementById('strokeSize').addEventListener('change', function () {
+    const size = parseFloat(this.value);
+    signaturePad.minWidth = size;
+    signaturePad.maxWidth = size + 1;
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    signaturePad.clear();
+  });
+
+  document.getElementById('saveSignature').addEventListener('click', function () {
+    if (signaturePad.isEmpty()) {
+      alert("Walang pirma! 😅");
+      return;
+    }
+    signatureDataUrl = signaturePad.toDataURL("image/png");
+    document.getElementById('signaturePreview').src = signatureDataUrl;
+      console.log("SignatureDataURL:", signatureDataUrl);
+    const modal = bootstrap.Modal.getInstance(document.getElementById('signatureModal'));
+    modal.hide();
+  });
+});
+
+// Save Button Logic
+document.getElementById("save_button").addEventListener("click", async () => {
+const studentIdText = document.getElementById("template_id").textContent.trim();
+    const escValue = escInput.value.trim();
+    const lrnValue = lrnInput.value.trim();
+    const level = levelInput.value;
+    const studentId = studentIdText;
+
+    const selectedStudent = allStudents.find(s =>
+        s.student_identification_number?.some(idObj => idObj.student_id === studentId)
+    );
+  if (!selectedStudent) {
+    notyf.error("Student not found.");
+    return;
+  }
+
+  // Address formatting
+  const emergency = selectedStudent.emergency_contact || {};
+  let barangay = selectedStudent.address?.barangay || "—";
+  let municipality = selectedStudent.address?.municipality || "—";
+  barangay = barangay.replace(/\bLeyte\b/i, "").trim();
+  const address = barangay.toLowerCase().includes(municipality.toLowerCase())
+    ? barangay
+    : `${barangay}, ${municipality}`;
+
+  // Course logic
+  let course = "N/A";
+  if (level === "college") {
+    course = selectedStudent.course?.description || "N/A";
+  } else if (level === "jhs") {
+    if (!lrnValue || !/^\d+$/.test(lrnValue)) {
+      notyf.error("Please enter a valid numeric LRN.");
+      return;
+    }
+    course = `LRN: ${lrnValue}`;
+  } else if (level === "shs") {
+    course = courseInput.value.trim() || selectedStudent.course?.description || "SHS";
+  }
+
+  // 🔥 Final Payload
+  const payload = {
+    first_name: selectedStudent.first_name,
+    last_name: selectedStudent.last_name,
+    middle_name: selectedStudent.middle_name,
+    address: address,
+    course: course,
+    student_id: studentId,
+    contact: selectedStudent.contact_number || "—",
+    emergency_contact_name: emergency.name || "N/A",
+    emergency_contact_number: emergency.number || "N/A",
+    birth_date: selectedStudent.birthdate || "2000-01-01",
+    esc: escValue,
+    qr_code: selectedStudent.qr_code || ""
+  };
+
+  console.log("Payload before sending:", payload);
+
+let signatureFile = null;
+if (signatureDataUrl) {
+  const arr = signatureDataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  for (let i = 0; i < n; i++) u8arr[i] = bstr.charCodeAt(i);
+  signatureFile = new File([u8arr], `${studentId}_signature.png`, { type: mime });
+
+  console.log("Signature file created ✅", signatureFile);
+} else {
+  console.warn("No signature data available.");
+}
+
+
+  // ⏫ Send via FormData
+  const formData = new FormData();
+  for (const key in payload) {
+    formData.append(key, payload[key]);
+  }
+  if (signatureFile) {
+    formData.append("signature", signatureFile);
+  }
+
+  try {
+    const response = await fetch("https://backendidmaker.test/api/store", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("auth_token")
+      },
+      body: formData
+    });
+
+    if (response.ok || response.status === 409) {
+      notyf.success("Saved successfully!");
+      window.location.href = `editgenerateid.php?student_id=${studentId}`;
+    } else {
+      const error = await response.json();
+      console.error("Save failed:", error);
+      notyf.error("Saving failed. Check console.");
+    }
+  } catch (error) {
+    console.error("Server error:", error);
+    notyf.error("Server error. Please try again.");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", async function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const studentId = urlParams.get("student_id");
+    
+    if (studentId) {
+        try {
+            // Fetch student data
+            const response = await fetch(`https://backendidmaker.test/api/pending/${studentId}`, {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("auth_token")
+                }
+            });
+            
+            const data = await response.json();
+            
+            // Display signature kung meron
+            if (data.signature) {
+                const signatureImg = document.getElementById('signatureImg');
+                const backSignatureImg = document.querySelector('.back-signature-img');
+                
+                // Direct URL sa storage
+                const signatureUrl = `https://backendidmaker.test/storage/${data.signature}`;
+                signatureImg.src = signatureUrl;
+                if (backSignatureImg) backSignatureImg.src = signatureUrl;
+            }
+
+            
+        } catch (error) {
+            console.error('Error fetching student data:', error);
+        }
+    }
+});
+</script>
+
 
 
 

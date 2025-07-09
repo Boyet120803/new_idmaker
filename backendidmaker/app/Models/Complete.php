@@ -25,6 +25,7 @@ class Complete extends Model
         'signature_position',
         'firstname_fontsize',
         'lastname_fontsize',
+        'school_year',
         'esc',
     ];
 }

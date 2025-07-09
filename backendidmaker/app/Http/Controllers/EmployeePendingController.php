@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\EmployeePending;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EmployeePendingController extends Controller
 {
@@ -51,7 +52,7 @@ class EmployeePendingController extends Controller
 
             return response()->json($employee, 201);
         } catch (\Exception $e) {
-            \Log::error('Employee store error: ' . $e->getMessage());
+            Log::error('Employee store error: ' . $e->getMessage());
             return response()->json([
                 'message' => 'Server Error',
                 'error' => $e->getMessage(),

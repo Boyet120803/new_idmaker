@@ -769,25 +769,25 @@
                             <table>
                                 <tr>
                                 <td class="word-school-year"></td>
-                                <td class="year-cell"><div class="rotated-text">2028-2029</div></td>
+                                <td class="year-cell"><div class="rotated-text"></div></td>
                                 <td class="empty-cell"></td>
                                 <td class="empty-cell"></td>
                                 </tr>
                                 <tr>
                                 <td class="word-school-year"></td>
-                                <td class="year-cell"><div class="rotated-text">2027-2028</div></td>
+                                <td class="year-cell"><div class="rotated-text"></div></td>
                                 <td class="empty-cell"></td>
                                 <td class="empty-cell"></td>
                                 </tr>
                                 <tr>
                                 <td class="word-school-year"><div class="rotated-text">SCHOOL YEAR</div></td>
-                                <td class="year-cell"><div class="rotated-text">2026-2027</div></td>
+                                <td class="year-cell"><div class="rotated-text"></div></td>
                                 <td class="empty-cell"></td>
                                 <td class="empty-cell"></td>
                                 </tr>
                                 <tr>
                                 <td class="word-school-year"></td>
-                                <td class="year-cell"><div class="rotated-text">2025-2026</div></td>
+                                <td class="year-cell"><div class="rotated-text"></div></td>
                                 <td class="empty-cell"></td>
                                 <td class="empty-cell"></td>
                                 </tr>
@@ -896,7 +896,7 @@
                         return;
                     }
 
-                    fetch("http://127.0.0.1:8000/api/logout", {
+                    fetch("https://backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -934,7 +934,7 @@
 
         if (!token) return;
 
-        fetch("http://127.0.0.1:8000/api/profile", {
+        fetch("https://backendidmaker.test/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -965,7 +965,7 @@
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/showcompleteid/${completeId}`, {
+    const response = await fetch(`https://backendidmaker.test/api/showcompleteid/${completeId}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -1077,13 +1077,13 @@
     }
     const studentImg = document.getElementById("studentImg");
     if (studentImg && data.image) {
-      studentImg.src = `http://127.0.0.1:8000/storage/${data.image}`;
+      studentImg.src = `https://backendidmaker.test/storage/${data.image}`;
       studentImg.style.position = "absolute";
       studentImg.style.objectFit = "cover";
     }
     const signatureImg = document.getElementById("signatureImg");
     if (signatureImg && data.signature) {
-      signatureImg.src = `http://127.0.0.1:8000/storage/${data.signature}`;
+      signatureImg.src = `https://backendidmaker.test/storage/${data.signature}`;
       signatureImg.style.position = "absolute";
       signatureImg.style.objectFit = "contain";
     }
@@ -1111,6 +1111,53 @@
   } catch (error) {
     console.error("Error fetching student data:", error);
   }
+
+
+    // SCHOOL YEAR PATCH: PRIORITIZE PER-STUDENT, FALLBACK TO GLOBAL
+try {
+  const urlParams = new URLSearchParams(window.location.search);
+  const studentId = urlParams.get("student_id");
+  let usedStudentYears = false;
+
+  // 1. Try per-student school years
+  if (studentId) {
+    const res = await fetch(`https://backendidmaker.test/api/completed/${studentId}`, {
+      headers: { "Authorization": "Bearer " + localStorage.getItem("auth_token") }
+    });
+    const data = await res.json();
+    if (data.school_years && data.school_years.length) {
+      const years = data.school_years;
+      document.getElementById('schoolYearInput').value = years[0].split('-')[0];
+      const yearCells = document.querySelectorAll('.year-cell .rotated-text');
+      // Assign years from bottom to top (para 2025-2026 nasa pinakababa)
+      for (let i = 0; i < years.length; i++) {
+        const cellIdx = yearCells.length - 1 - i;
+        if (yearCells[cellIdx]) yearCells[cellIdx].textContent = years[i];
+      }
+      usedStudentYears = true;
+    }
+  }
+
+  // 2. If no per-student years, fallback to global
+  if (!usedStudentYears) {
+    const res = await fetch('https://backendidmaker.test/api/school-year', {
+      headers: { "Authorization": "Bearer " + localStorage.getItem("auth_token") }
+    });
+    const data = await res.json();
+    let startYear = parseInt(data.school_year_start || new Date().getFullYear());
+    const years = [];
+    for (let i = 0; i < 4; i++) {
+      years.push(`${startYear + i}-${startYear + i + 1}`);
+    }
+    const yearCells = document.querySelectorAll('.year-cell .rotated-text');  
+    for (let i = 0; i < years.length; i++) {
+      const cellIdx = yearCells.length - 1 - i;
+      if (yearCells[cellIdx]) yearCells[cellIdx].textContent = years[i];
+    }
+  }
+} catch (err) {
+  console.error("Failed to fetch school year:", err);
+}
 });
   </script>
 
@@ -1123,6 +1170,8 @@
               if (loader) loader.remove(); 
               if (idWrapper) idWrapper.classList.remove("hidden");
           }, 1000);
+
+          
       });
   </script>
 

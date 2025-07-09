@@ -270,7 +270,7 @@
                         return;
                     }
 
-                    fetch("http://127.0.0.1:8000/api/logout", {
+                    fetch("https://backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -308,7 +308,7 @@
 
         if (!token) return;
 
-        fetch("http://127.0.0.1:8000/api/profile", {
+        fetch("https://backendidmaker.test/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -430,7 +430,7 @@
         hdmf_no: document.getElementById("hdmf").value.trim()
     };
     try {
-        const response = await fetch("http://127.0.0.1:8000/api/employee-store", {
+        const response = await fetch("https://backendidmaker.test/api/employee-store", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

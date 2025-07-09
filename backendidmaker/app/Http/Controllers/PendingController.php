@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Pending;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PendingController extends Controller
 {
@@ -32,6 +33,20 @@ class PendingController extends Controller
                             'student' => $existing
                         ], 409);
                     }
+$signaturePath = null;
+
+if ($request->hasFile('signature')) {
+    Log::info('✅ Signature file received', [
+        'mime' => $request->file('signature')->getClientMimeType(),
+        'original' => $request->file('signature')->getClientOriginalName()
+    ]);
+    // Gamitin yung public disk para ma-access via URL
+    $signaturePath = $request->file('signature')->store('signatures', 'public');
+} else {
+    Log::warning('❌ Signature file NOT received');
+}
+
+
 
                 $student = Pending::create([
                     'first_name' => $request->first_name,
@@ -44,7 +59,7 @@ class PendingController extends Controller
                     'emergency_contact_name' => $request->emergency_contact_name,
                     'emergency_contact_number' => $request->emergency_contact_number,
                     'birth_date' => $request->birth_date,
-                    'signature' => $request->file('signature') ? $request->file('signature')->store('signatures') : null,
+                    'signature' => $signaturePath,
                     'esc' => $request->esc,
                     'image' => $request->file('image') ? $request->file('image')->store('images') : null,
                     'qr_code' => $request->qr_code,
@@ -88,6 +103,7 @@ class PendingController extends Controller
                     'birth_date' => $pending->birth_date,
                     'esc' => $pending->esc,
                     'qr_code' => $pending->qr_code,
+                    'signature' => $pending->signature,
                 ]);
             }
             public function saveIdLayout(Request $request)
@@ -107,6 +123,26 @@ class PendingController extends Controller
                 $pending->save();
                 return response()->json(['message' => 'ID layout saved successfully']);
             }
+
+               public function getSignature($student_id)
+                {
+                    $pending = Pending::where('student_id', $student_id)->first();
+
+                    if (!$pending || !$pending->signature) {
+                        return response()->json(['message' => 'Signature not found'], 404);
+                    }
+
+                    // Gamitin yung public path
+                    $filePath = storage_path('app/public/' . $pending->signature);
+
+                    if (!file_exists($filePath)) {
+                        return response()->json(['message' => 'Signature file not found'], 404);
+                    }
+
+                    return response()->file($filePath);
+                }
+
+
         }
 
 

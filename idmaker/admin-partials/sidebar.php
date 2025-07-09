@@ -149,7 +149,7 @@
                         </li>
                        <p class="mb-1 px-4" style="font-size: 12px; font-weight:bold; color:rgb(174, 174, 174)">SETTINGS</p>
                         <li>
-                            <a href="#" class="flex items-center px-4 py-3 rounded-md text-gray-700 hover:bg-gray-50 transition-all duration-200">
+                            <a href="settings.php" class="flex items-center px-4 py-3 rounded-md text-gray-700 hover:bg-gray-50 transition-all duration-200">
                                 <div class="w-6 h-6 flex items-center justify-center mr-3">
                                     <i class="ri-settings-3-line text-xl text-gray-600"></i>
                                 </div>

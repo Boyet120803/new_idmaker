@@ -18,7 +18,8 @@ class Student extends Model
         'birth_date',
         'signature',
         'image',
-        'qr_code' 
+        'qr_code',
+        'school_year',
     ];
 
     protected $casts = [

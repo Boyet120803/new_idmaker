@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('signature')->nullable();
             $table->string('image')->nullable();
             $table->string('qr_code')->nullable();
+            $table->string('school_year');
             $table->timestamps();
         });
     }

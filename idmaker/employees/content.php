@@ -334,7 +334,7 @@
                         return;
                     }
 
-                    fetch("http://127.0.0.1:8000/api/logout", {
+                    fetch("https://backendidmaker.test/api/logout", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -372,7 +372,7 @@
 
         if (!token) return;
 
-        fetch("http://127.0.0.1:8000/api/profile", {
+        fetch("https://backendidmaker.test/api/profile", {
             method: "GET",
             headers: {
             "Authorization": `Bearer ${token}`,
@@ -405,7 +405,7 @@ const notyf = new Notyf({
         const token = localStorage.getItem("auth_token");
 
         let employees = [];
-        fetch("http://127.0.0.1:8000/api/employeecomplete", {
+        fetch("https://backendidmaker.test/api/employeecomplete", {
             headers: {
                 "Accept": "application/json",
                 "Authorization": "Bearer " + token
@@ -480,7 +480,7 @@ const notyf = new Notyf({
      });
 
      const token = localStorage.getItem("auth_token");
-        fetch(`http://127.0.0.1:8000/api/profile-show`, 
+        fetch(`https://backendidmaker.test/api/profile-show`, 
     {
             method: "GET",
             headers: {
@@ -535,7 +535,7 @@ const notyf = new Notyf({
             email: document.getElementById("email").value,
         };
 
-        fetch(`http://127.0.0.1:8000/api/profile-edit/${userId}`, {
+        fetch(`https://backendidmaker.test/api/profile-edit/${userId}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,

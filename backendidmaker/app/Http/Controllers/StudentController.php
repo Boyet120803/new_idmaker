@@ -25,13 +25,14 @@ class StudentController extends Controller
                     'signature' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     'qr_code' => 'nullable|string|max:255',
+                    'school_year' => 'nullable|string|max:20',
                 ]);
                     $existing = Student::where('student_id', $request->student_id)->first();
                     if ($existing) {
                         return response()->json([
                             'message' => 'Student already exists.',
                             'student' => $existing
-                        ], 409); 
+                        ], 409);
                     }
 
                 $student = Student::create([
@@ -47,6 +48,7 @@ class StudentController extends Controller
                     'signature' => $request->file('signature') ? $request->file('signature')->store('signatures') : null,
                     'image' => $request->file('image') ? $request->file('image')->store('images') : null,
                     'qr_code' => $request->qr_code,
+                    'school_year' => $request->school_year,
                 ]);
 
                 return response()->json([

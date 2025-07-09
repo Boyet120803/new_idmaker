@@ -34,13 +34,14 @@ class CompletedController extends Controller
                     'emergency_contact_number' => 'required|string|max:15',
                     'birth_date' => 'required|date',
                     'signature' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:10240',
-                    'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:10240',
+                    'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:10000240',
                     'qr_code' => 'nullable|string|max:255',
                     'photo_position' => 'nullable|string',
                     'signature_position' => 'nullable|string',
                     'firstname_fontsize' => 'nullable|string',
                     'lastname_fontsize' => 'nullable|string',
                     'esc' => 'nullable|string|max:255',
+                    'school_year' => 'nullable|string|max:20',
                 ];
 
                 $validated = $request->validate($rules);
@@ -48,12 +49,15 @@ class CompletedController extends Controller
                 $data = $request->only([
                     'first_name', 'last_name', 'middle_name', 'address', 'course',
                     'student_id', 'contact', 'emergency_contact_name', 'emergency_contact_number',
-                    'birth_date', 'qr_code', 'photo_position', 'signature_position', 'firstname_fontsize','lastname_fontsize', 'esc'
+                    'birth_date', 'qr_code', 'photo_position', 'signature_position', 'firstname_fontsize','lastname_fontsize', 'esc', 'signature'
                 ]);
 
-                if ($request->hasFile('signature')) {
-                    $data['signature'] = $request->file('signature')->store('signatures', 'public');
-                }
+
+                    if ($request->has('signature_path')) {
+                        $data['signature'] = $request->signature_path;
+                    }
+
+
 
                 if ($request->hasFile('image')) {
                     $data['image'] = $request->file('image')->store('images', 'public');
@@ -128,6 +132,7 @@ class CompletedController extends Controller
                     'firstname_fontsize' => $complete->firstname_fontsize,
                     'lastname_fontsize' => $complete->lastname_fontsize,
                     'esc' => $complete->esc,
+
                 ]);
             }
 
@@ -149,6 +154,7 @@ class CompletedController extends Controller
                     'qr_code' => 'nullable|string|max:255',
                     'photo_position' => 'nullable|string',
                     'signature_position' => 'nullable|string',
+                    'school_year' => 'nullable|string|max:20',
                 ];
 
                 $validated = $request->validate($rules);
@@ -163,7 +169,7 @@ class CompletedController extends Controller
                 $data = $request->only([
                     'first_name', 'last_name', 'middle_name', 'address', 'course',
                     'contact', 'emergency_contact_name', 'emergency_contact_number',
-                    'birth_date', 'qr_code', 'photo_position', 'signature_position'
+                    'birth_date', 'qr_code', 'photo_position', 'signature_position', 'school_year',
                 ]);
 
                 if ($request->hasFile('signature')) {
@@ -207,5 +213,43 @@ class CompletedController extends Controller
 
             return response()->json($complete);
         }
+
+
+public function updateByStudentId(Request $request, $student_id)
+{
+    $student = Complete::where('student_id', $student_id)->first();
+    if (!$student) {
+        return response()->json(['message' => 'Student not found'], 404);
+    }
+
+    // Validate input
+    $request->validate([
+        'school_year_start' => 'required|integer|min:2000|max:2100',
+    ]);
+
+    // Calculate 4 years
+    $start = (int)$request->school_year_start;
+    $years = [];
+    for ($i = 0; $i < 4; $i++) {
+        $years[] = ($start + $i) . '-' . ($start + $i + 1);
+    }
+    // Save as JSON string
+    $student->school_years = json_encode($years);
+    $student->save();
+
+    return response()->json(['message' => 'School years updated', 'years' => $years], 200);
+}
+
+
+public function showStudent($student_id)
+{
+    $student = Complete::where('student_id', $student_id)->first();
+    if (!$student) {
+        return response()->json(['message' => 'Student not found'], 404);
+    }
+    $data = $student->toArray();
+    $data['school_years'] = $student->school_years ? json_decode($student->school_years) : null;
+    return response()->json($data);
+}
 
 }

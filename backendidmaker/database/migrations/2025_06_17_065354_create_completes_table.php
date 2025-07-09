@@ -30,6 +30,7 @@ return new class extends Migration
             $table->text('signature_position')->nullable();
             $table->text('firstname_fontsize')->nullable();
             $table->text('lastname_fontsize')->nullable();
+            $table->string('school_years')->nullable();
             $table->string('esc')->nullable();
             $table->timestamps();
         });
