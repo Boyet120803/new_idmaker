@@ -1,0 +1,454 @@
+<script>
+    // for employee
+
+    let employeeData = [];
+    document.addEventListener("DOMContentLoaded", async function () 
+    {
+        const apiKey = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOnsiZG9tYWluIjoiaWRtYWtlci50ZXN0IiwiaXAiOiIxNTguNjIuNTIuMTMxIiwic2VydmljZSI6dHJ1ZSwidWlkIjoiMTNiNmJiNWEtZGI1OS00ZGYzLTgwZDEtY2I0Y2ZjYjQ4N2EzIn0sImlhdCI6MTc1MzEwMjY0MSwibmJmIjpudWxsfQ.9QliWueGlxb9M2cz0usG_Z7Lw_DWrGjYQnrHYuf1ZzI";
+        const headers = {
+            "x-api-key": apiKey,
+            "Origin": "https://idmaker.test",
+            "Content-Type": "application/json"
+        };
+        let currentPage = 1;
+        let lastPage = 1;
+        while (currentPage <= lastPage) {
+            const url = `https://api-portal.mlgcl.edu.ph/api/external/employee-list?page=${currentPage}`;
+            try {
+                    const response = await fetch(url, { method: "GET", headers });
+                    const result = await response.json();
+                    const data = result.data || [];
+                    employeeData.push(...data);
+                console.log("Total employees fetched:", employeeData.length);
+                    lastPage = result.meta?.last_page || 1;
+                    currentPage++;
+                } catch (error) {
+                    console.error("Fetch error:", error);
+                    break;
+                }
+            }
+        });
+        const input = document.getElementById("employee_name");
+        const dropdown = document.getElementById("employee_dropdown");
+        input.addEventListener("input", function () {
+            const value = input.value.trim().toLowerCase();
+            dropdown.innerHTML = "";
+            dropdown.classList.add("hidden");
+        if (value.length < 2) return;
+        const matches = employeeData.filter(emp => {
+            const fullName = `${emp.first_name} ${emp.middle_name || ''} ${emp.last_name}`.toLowerCase();
+            return fullName.includes(value);
+        });
+        if (matches.length > 0) {
+            matches.slice(0, 10).forEach(emp => {
+                const li = document.createElement("li");
+                const fullName = `${emp.first_name} ${emp.middle_name || ''} ${emp.last_name}`;
+                li.textContent = fullName;
+                li.className = "px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm";
+                li.addEventListener("click", () => {
+                    input.value = fullName;
+                    dropdown.innerHTML = "";
+                    dropdown.classList.add("hidden");
+                    document.getElementById("id_template").classList.remove("hidden");
+                    document.getElementById("template_name").textContent = fullName;
+                    document.getElementById("template_address").textContent = `Address: ${emp.full_address || '—'}`;
+                    document.getElementById("template_birthdate").textContent = `Birthdate: ${emp.birthdate || '—'}`;
+                    document.getElementById("template_contact").textContent = `Contact #: ${emp.contact_number || '—'}`;
+                    document.getElementById("qr_image").src = emp.qr_code || '';
+                    input.dataset.selectedEmployee = JSON.stringify(emp);
+                });
+                dropdown.appendChild(li);
+            });
+            dropdown.classList.remove("hidden");
+        }
+    });
+    document.addEventListener("click", function (e) {
+        if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.classList.add("hidden");
+        }
+    });
+    const notyf = new Notyf({
+    duration: 3000,
+    position: { x: 'right', y: 'top' }
+    });
+   document.getElementById("save_button").addEventListener("click", async () => {
+    const input = document.getElementById("employee_name"); 
+    const dataStr = input.dataset.selectedEmployee;
+    const employeeIdInput = document.getElementById("employee_id").value.trim();
+    const positionInput = document.getElementById("position").value.trim();
+
+    if (!employeeIdInput || !positionInput) {
+        notyf.error("All fields are required.");
+        return;
+    }
+    if (!dataStr) return;
+    const emp = JSON.parse(dataStr);
+    const payload = {
+        first_name: emp.first_name,
+        middle_name: emp.middle_name || '',
+        last_name: emp.last_name,
+        address: [emp.address?.barangay, emp.address?.municipality]
+           .filter(Boolean)
+           .join(", "),
+        contact: emp.contact_number || '—',
+        emergency_contact: {
+            name: emp.emergency_contact?.name || '—',
+            number: emp.emergency_contact?.number || '—',
+        },
+        position: positionInput,
+        employee_id: employeeIdInput,
+        birth_date: emp.birthdate || '2000-01-01',
+        signature: null,
+        image: null,
+        qr: emp.qr_code || '',
+        tin_no: document.getElementById("tin").value.trim(),
+        sss_no: document.getElementById("sss").value.trim(),
+        philhealth_no: document.getElementById("philhealth").value.trim(),
+        hdmf_no: document.getElementById("hdmf").value.trim()
+    };
+    try {
+        const response = await fetch("http://127.0.0.1:8000/api/employee-store", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("auth_token")
+            },
+            body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        if (response.ok) {
+            window.location.href = `employeegenerateedit.php?id=${employeeIdInput}`;
+        } else {
+            console.error("Save failed:");
+            console.error("Status:", response.status);
+            console.error("Status Text:", response.statusText);
+            console.error("Response:", result);
+        }
+
+    } catch (error) {
+        console.error("🔥 Fetch crashed (probably no connection to server):");
+        console.error(error);
+    }
+});
+
+</script>
+
+
+<script>
+     const headers = {
+        "x-api-key":
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5tbGdjbC5lZHUucGgiLCJhdWQiOnsiZG9tYWluIjoiaWRtYWtlci50ZXN0IiwiaXAiOiIxNTguNjIuNTIuMTMxIiwic2VydmljZSI6dHJ1ZSwidWlkIjoiMTNiNmJiNWEtZGI1OS00ZGYzLTgwZDEtY2I0Y2ZjYjQ4N2EzIn0sImlhdCI6MTc1MzEwMjY0MSwibmJmIjpudWxsfQ.9QliWueGlxb9M2cz0usG_Z7Lw_DWrGjYQnrHYuf1ZzI",
+        Origin: "https://idmaker.test",
+        "Content-Type": "application/json",
+        };
+        const schoolYearInput = document.getElementById("school_year");
+        const levelInput      = document.getElementById("level");
+        const searchInput     = document.getElementById("student_id");
+        const dropdown        = document.getElementById("student_dropdown");
+        const idCard          = document.getElementById("id_template");
+        let allStudents = [];
+        (function populateSchoolYears() {
+        const thisYear        = new Date().getFullYear();
+        const firstYearToShow = thisYear - 3;
+        const nextSchoolYear  = thisYear + 1;
+        schoolYearInput.innerHTML =
+            '<option value="">-- Select School Year --</option>';
+        for (let y = nextSchoolYear; y >= firstYearToShow; y--) {
+            const sy  = `${y}-${y + 1}`;
+            const opt = document.createElement("option");
+            opt.value = sy;
+            opt.textContent = sy;
+            schoolYearInput.appendChild(opt);
+        }
+        })();
+        function getLatestIDForLevel(idArray = [], level = "") {
+        if (!idArray.length) return null;
+
+        if (level === "shs") {
+            const shsId = idArray.find(
+            (o) =>
+                (o.id_type && o.id_type.toLowerCase() === "shs") ||
+                o.student_id.toUpperCase().startsWith("SHS")
+            );
+            if (shsId) return shsId;
+        }
+
+        const digits = (s) => parseInt(s.replace(/\D/g, ""), 10) || 0;
+        return idArray
+            .slice()
+            .sort((a, b) => digits(b.student_id) - digits(a.student_id))[0];
+        }
+        async function fetchStudents() {
+        const schoolYear = schoolYearInput.value;
+        const level      = levelInput.value;
+
+        if (!schoolYear || !level) return;
+
+        allStudents = [];
+        dropdown.innerHTML = "";
+
+        let levelsToFetch = [];
+        if (level === "college") levelsToFetch = [1, 2, 3, 4];
+        else if (level === "jhs") levelsToFetch = [7, 8, 9, 10];
+        else if (level === "shs") levelsToFetch = [11, 12];
+
+        try {
+            const fetchPromises = levelsToFetch.map(async (lvl) => {
+            const url = `https://api-portal.mlgcl.edu.ph/api/external/student-list?school_year=${schoolYear}&level=${lvl}&page=1`;
+            const res = await fetch(url, { method: "GET", headers });
+            const data = await res.json();
+            let students = [...(data.data || [])];
+            const totalPages = data.meta?.last_page || 1;
+            if (totalPages > 1) {
+                const morePages = [];
+                for (let p = 2; p <= totalPages; p++) {
+                const pageUrl = `https://api-portal.mlgcl.edu.ph/api/external/student-list?school_year=${schoolYear}&level=${lvl}&page=${p}`;
+                morePages.push(
+                    fetch(pageUrl, { method: "GET", headers }).then((r) => r.json())
+                );
+                }
+                const pages = await Promise.all(morePages);
+                pages.forEach((pg) => students.push(...(pg.data || [])));
+            }
+
+            return students;
+            });
+
+            const results = await Promise.all(fetchPromises);
+            allStudents   = results.flat();
+            searchStudent(); 
+        } catch (e) {
+            console.error("Fetch error:", e);
+        }
+        }
+
+        function searchStudent() {
+        const query         = searchInput.value.trim().toLowerCase();
+        const selectedLevel = levelInput.value;
+        const results       = [];
+        const seenKeys      = new Set();      
+
+        if (!query) {
+            dropdown.classList.add("hidden");
+            return;
+        }
+</script>
+
+
+
+
+
+  const schoolYearInput = document.getElementById("school_year");
+  const levelInput = document.getElementById("level");
+  const searchInput = document.getElementById("student_id");
+  const dropdown = document.getElementById("student_dropdown");
+  const loader = document.getElementById("student_input_loader");
+
+  let allStudents = [];
+  let currentPage = 1;
+  let lastPage = 1;
+  let debounceTimer = null;
+
+  (function populateSchoolYears() {
+    const thisYear = new Date().getFullYear();
+    const firstYearToShow = thisYear - 3;
+    const nextSchoolYear = thisYear + 1;
+    schoolYearInput.innerHTML = '<option value="">-- Select School Year --</option>';
+
+    for (let y = nextSchoolYear; y >= firstYearToShow; y--) {
+      const sy = `${y}-${y + 1}`;
+      const opt = document.createElement("option");
+      opt.value = sy;
+      opt.textContent = sy;
+      schoolYearInput.appendChild(opt);
+    }
+  })();
+
+  function getLatestIDForLevel(idArray = [], level = "") {
+    if (!idArray.length) return null;
+    if (level === "shs") {
+      const shsId = idArray.find(
+        (o) =>
+          (o.id_type && o.id_type.toLowerCase() === "shs") ||
+          o.student_id.toUpperCase().startsWith("SHS")
+      );
+      if (shsId) return shsId;
+    }
+    const digits = (s) => parseInt(s.replace(/\D/g, ""), 10) || 0;
+    return idArray
+      .slice()
+      .sort((a, b) => digits(b.student_id) - digits(a.student_id))[0];
+  }
+
+  async function fetchStudents(page = 1) {
+    const schoolYear = schoolYearInput.value;
+    const level = levelInput.value;
+    if (!schoolYear || !level) return;
+    if (page === 1) {
+      allStudents = [];
+      dropdown.innerHTML = "";
+    }
+
+    const token = localStorage.getItem("auth_token");
+    if (!token) {
+      console.error("No auth token found");
+      return;
+    }
+
+    loader.classList.remove("hidden");
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/mlgcl-students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          school_year: schoolYear,
+          level: level,
+          page: page,
+        }),
+      });
+
+      if (!res.ok) {
+        console.error("API fetch failed:", res.statusText);
+        return;
+      }
+
+      const result = await res.json();
+
+      if (level === "college") {
+        currentPage = result.page || 1;
+        lastPage = result.last_page || 1;
+        allStudents = [...allStudents, ...result.data];
+
+        if (currentPage < lastPage) {
+          return fetchStudents(currentPage + 1); // fetch next page
+        }
+      } else {
+        allStudents = Array.isArray(result.data) ? result.data : result;
+      }
+
+    } catch (e) {
+      console.error("Fetch error:", e);
+    } finally {
+      loader.classList.add("hidden");
+    }
+  }
+
+  function searchStudent() {
+    const query = searchInput.value.trim().toLowerCase();
+    const selectedLevel = levelInput.value;
+    const results = [];
+    const seenKeys = new Set();
+
+    if (!query) {
+      dropdown.classList.add("hidden");
+      return;
+    }
+
+    allStudents.forEach((student) => {
+      const rawName = `${student.first_name} ${student.middle_name || ""} ${student.last_name}`;
+      const fullName = rawName.replace(/\s+/g, " ").trim();
+      const nameKey = fullName.toLowerCase();
+
+      const nameMatch = nameKey.includes(query);
+      const newestObj = getLatestIDForLevel(student.student_identification_number || [], selectedLevel);
+      const newestID = newestObj ? newestObj.student_id : "N/A";
+
+      const idMatches = (student.student_identification_number || []).some((idObj) => {
+        const idLower = idObj.student_id.toLowerCase();
+        const idType = idObj.id_type?.toLowerCase() || "";
+        const isHS = ["jhs", "shs"].includes(selectedLevel);
+
+        return (
+          idLower.includes(query) ||
+          (isHS &&
+            (query.includes("shs") || query.includes("jhs") || query.includes("-")) &&
+            (
+              idLower.includes(query) ||
+              (idType === "shs" && query.includes("shs")) ||
+              (idType === "jhs" && query.includes("jhs"))
+            ))
+        );
+      });
+
+      if ((nameMatch || idMatches) && !seenKeys.has(nameKey)) {
+        seenKeys.add(nameKey);
+        results.push({ name: fullName, id: newestID });
+      }
+    });
+
+    renderDropdown(results, query);
+  }
+
+
+
+
+  public function fetch(Request $request)
+{
+    $validated = $request->validate([
+        'school_year' => 'required|regex:/^\d{4}-\d{4}$/',
+        'level'       => 'required|string|in:college,jhs,shs',
+    ]);
+
+    $schoolYear = $validated['school_year'];
+    $levelInput = $validated['level'];
+
+    $levelMap = [
+        'college' => [1, 2, 3, 4],
+        'jhs'     => [7, 8, 9, 10],
+        'shs'     => [11, 12],
+    ];
+
+    $levels   = $levelMap[$levelInput] ?? [];
+    $apiKey   = config('services.mlgcl_api.key');
+    $baseUrl  = 'https://api-portal.mlgcl.edu.ph/api/external/student-list';
+    $allStudents = [];
+
+    foreach ($levels as $lvl) {
+        $cacheKey = "mlgcl:{$schoolYear}|{$lvl}|all";
+
+        if (Cache::has($cacheKey)) {
+            $students = Cache::get($cacheKey);
+            $allStudents = array_merge($allStudents, $students);
+            continue;
+        }
+
+        $students = [];
+        $page = 1;
+
+        do {
+            $response = Http::timeout(10)->withHeaders([
+                'x-api-key' => $apiKey,
+                'Origin'    => 'https://idmaker.test',
+            ])->get($baseUrl, [
+                'school_year' => $schoolYear,
+                'level'       => $lvl,
+                'page'        => $page,
+            ]);
+
+            if ($response->failed()) {
+                Log::error("MLGCL API failed on level {$lvl}, page {$page}", [
+                    'status' => $response->status(),
+                    'body'   => $response->body(),
+                ]);
+                break;
+            }
+
+            $json = $response->json();
+            $students = array_merge($students, $json['data'] ?? []);
+            $lastPage = $json['meta']['last_page'] ?? 1;
+            $page++;
+
+        } while ($page <= $lastPage);
+
+        Cache::put($cacheKey, $students, now()->addHour());
+        $allStudents = array_merge($allStudents, $students);
+    }
+
+    return response()->json([
+        'data' => $allStudents,
+    ]);
+}
